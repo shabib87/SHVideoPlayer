@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'SHVideoPlayer_Example' do
+  pod 'SHVideoPlayer', :path => '../'
+
+  target 'SHVideoPlayer_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
