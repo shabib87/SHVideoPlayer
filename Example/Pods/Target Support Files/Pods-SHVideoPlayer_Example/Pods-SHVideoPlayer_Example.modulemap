@@ -1,0 +1,6 @@
+framework module Pods_SHVideoPlayer_Example {
+  umbrella header "Pods-SHVideoPlayer_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

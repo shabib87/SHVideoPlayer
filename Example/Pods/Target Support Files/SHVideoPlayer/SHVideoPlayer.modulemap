@@ -1,0 +1,6 @@
+framework module SHVideoPlayer {
+  umbrella header "SHVideoPlayer-umbrella.h"
+
+  export *
+  module * { export * }
+}
