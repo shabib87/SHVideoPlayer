@@ -35,7 +35,7 @@
 		6F22EA951AAE6692E0BB80B365F8BDB4 /* PodAsset.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A16908884F3D84E4A044910AB9681D0 /* PodAsset.framework */; };
 		78B17B617EEA5F1BA115C980732095C0 /* ConstraintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14C251E295A67770057078E6363FBBB /* ConstraintView.swift */; };
 		A16D695478B27543383470A9B8034FCC /* ConstraintRelatableTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34C1CAD56F8727161E1A8A9BCDC5BFC /* ConstraintRelatableTarget.swift */; };
-		A2E484F9EA4637675BA2824E05821B2D /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AACD239151E4A24AB8310C1009AF705 /* ReplaceMe.swift */; };
+		A2E484F9EA4637675BA2824E05821B2D /* SHVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AACD239151E4A24AB8310C1009AF705 /* SHVideoPlayerView.swift */; };
 		A5B0A45BAEA4EFB7BD5E373E12EC03ED /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47C5FCDCA9AA22360A4D0A1A21F5CA86 /* Foundation.framework */; };
 		A82C703982FEF14F296DBA58852ECAA6 /* ConstraintInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AF9F212829DB5059CD422B771C9599 /* ConstraintInsets.swift */; };
 		B4FFC69A1274BA004112A6E125FAF497 /* LayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82654CFF7A7607D5642C247A0895FA61 /* LayoutConstraint.swift */; };
@@ -56,6 +56,8 @@
 		DA364ADC52024C3BBBD004BF950C8DD3 /* ConstraintLayoutSupportDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = F519019031889085FF8AF353A8CF4480 /* ConstraintLayoutSupportDSL.swift */; };
 		DDA5E09D51FE1BE91263F80E85E1E10F /* ConstraintAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E276B4840106437F6C747FA8797DAC /* ConstraintAttributes.swift */; };
 		EA7CD3B6E89657454912A855854B145D /* ConstraintLayoutGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = B967EFFA678659075F84A5EE6E41813D /* ConstraintLayoutGuide.swift */; };
+		F055A2871DD82F9700A888DB /* SHVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F055A2861DD82F9700A888DB /* SHVideoPlayer.swift */; };
+		F055A2891DD82FD000A888DB /* SHVideoPlayerViewProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F055A2881DD82FD000A888DB /* SHVideoPlayerViewProtocols.swift */; };
 		F34D70DA9CD0499703B7EFE3ED24B982 /* UILayoutSupport+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D76A5F6267D33EBB69CAD3E5AE6C739 /* UILayoutSupport+Extensions.swift */; };
 		F7837B25FB3969243BAF3C358E735E91 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47C5FCDCA9AA22360A4D0A1A21F5CA86 /* Foundation.framework */; };
 		F868A930C6A2E02C3AFAB79F602B3068 /* Pods-SHVideoPlayer_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 393C224CB0E0B6A68B62E25E29F611C0 /* Pods-SHVideoPlayer_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -145,7 +147,7 @@
 		666381FDDD3E4AEEF0D8FB3DFCD40EEF /* ConstraintMakerEditable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerEditable.swift; path = Source/ConstraintMakerEditable.swift; sourceTree = "<group>"; };
 		6B7FE99B0066B347CED135281F69AD4C /* ConstraintLayoutGuideDSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintLayoutGuideDSL.swift; path = Source/ConstraintLayoutGuideDSL.swift; sourceTree = "<group>"; };
 		70CA8D24EE5EA9217FC313F3521CBEB9 /* SnapKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SnapKit.modulemap; sourceTree = "<group>"; };
-		7AACD239151E4A24AB8310C1009AF705 /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReplaceMe.swift; sourceTree = "<group>"; };
+		7AACD239151E4A24AB8310C1009AF705 /* SHVideoPlayerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SHVideoPlayerView.swift; sourceTree = "<group>"; };
 		7F8A8A56E607A24ECD3D8CC8102A33FF /* ConstraintMakerRelatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerRelatable.swift; path = Source/ConstraintMakerRelatable.swift; sourceTree = "<group>"; };
 		82654CFF7A7607D5642C247A0895FA61 /* LayoutConstraint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutConstraint.swift; path = Source/LayoutConstraint.swift; sourceTree = "<group>"; };
 		86424DF248A38148C65F98A0F70DBCD5 /* SnapKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SnapKit.xcconfig; sourceTree = "<group>"; };
@@ -184,6 +186,8 @@
 		E40C5276776E52FDBF714B20E0A1965C /* PodAsset.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PodAsset.h; path = Pod/Classes/PodAsset.h; sourceTree = "<group>"; };
 		ED1625A20FE3C76F5ED82BD633192312 /* UILayoutGuide+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UILayoutGuide+Extensions.swift"; path = "Source/UILayoutGuide+Extensions.swift"; sourceTree = "<group>"; };
 		ED794E6977194808910E2EE94589BB51 /* ConstraintView+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ConstraintView+Extensions.swift"; path = "Source/ConstraintView+Extensions.swift"; sourceTree = "<group>"; };
+		F055A2861DD82F9700A888DB /* SHVideoPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHVideoPlayer.swift; sourceTree = "<group>"; };
+		F055A2881DD82FD000A888DB /* SHVideoPlayerViewProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHVideoPlayerViewProtocols.swift; sourceTree = "<group>"; };
 		F1758B30F40925847DFE818A46EA8061 /* ConstraintMakerFinalizable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerFinalizable.swift; path = Source/ConstraintMakerFinalizable.swift; sourceTree = "<group>"; };
 		F3B475D0B69DFC46C59543DE0A89C04E /* Pods-SHVideoPlayer_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SHVideoPlayer_Example.modulemap"; sourceTree = "<group>"; };
 		F519019031889085FF8AF353A8CF4480 /* ConstraintLayoutSupportDSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintLayoutSupportDSL.swift; path = Source/ConstraintLayoutSupportDSL.swift; sourceTree = "<group>"; };
@@ -251,7 +255,9 @@
 		2549F5055404DA2B2003D82DFA5527A6 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				7AACD239151E4A24AB8310C1009AF705 /* ReplaceMe.swift */,
+				7AACD239151E4A24AB8310C1009AF705 /* SHVideoPlayerView.swift */,
+				F055A2861DD82F9700A888DB /* SHVideoPlayer.swift */,
+				F055A2881DD82FD000A888DB /* SHVideoPlayerViewProtocols.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -737,7 +743,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2E484F9EA4637675BA2824E05821B2D /* ReplaceMe.swift in Sources */,
+				F055A2891DD82FD000A888DB /* SHVideoPlayerViewProtocols.swift in Sources */,
+				A2E484F9EA4637675BA2824E05821B2D /* SHVideoPlayerView.swift in Sources */,
+				F055A2871DD82F9700A888DB /* SHVideoPlayer.swift in Sources */,
 				6EB38585D14A7B54229075BD51E9D736 /* SHVideoPlayer-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
