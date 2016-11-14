@@ -20,11 +20,6 @@
     "ios": "8.0"
   },
   "source_files": "SHVideoPlayer/Classes/**/*",
-  "resource_bundles": {
-    "SHVideoPlayer": [
-      "SHVideoPlayer/Assets/*.png"
-    ]
-  },
   "frameworks": [
     "UIKit",
     "Foundation"

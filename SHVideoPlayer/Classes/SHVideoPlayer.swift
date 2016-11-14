@@ -8,3 +8,8 @@
 
 import Foundation
 import SnapKit
+
+open class SHVideoPlayer: UIView {
+    
+    open var tapGesture: UITapGestureRecognizer!
+}
