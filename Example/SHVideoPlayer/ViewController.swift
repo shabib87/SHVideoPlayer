@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  SHVideoPlayer
 //
-//  Created by shabib87 on 11/12/2016.
+//  Created by shabib hossain on 11/13/16.
 //  Copyright (c) 2016 shabib87. All rights reserved.
 //
 

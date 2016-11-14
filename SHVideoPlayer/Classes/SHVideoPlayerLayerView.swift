@@ -1,6 +1,6 @@
 //
 //  SHVideoPlayerLayer.swift
-//  Pods
+//  SHVideoPlayer
 //
 //  Created by Shabib Hossain on 11/14/16.
 //

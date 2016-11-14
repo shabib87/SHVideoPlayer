@@ -1,7 +1,5 @@
 PODS:
-  - PodAsset (0.12.0)
   - SHVideoPlayer (0.1.0):
-    - PodAsset
     - SnapKit (~> 3.0)
   - SnapKit (3.0.2)
 
@@ -13,8 +11,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  PodAsset: d6e724524e63725ef0c579354819ccc2dcbcf920
-  SHVideoPlayer: 66c5037c7ce277f4fcb4f2f1b2d660ab7db9d37e
+  SHVideoPlayer: 9987d8bf03f34403952cac8fd661734e0e22733c
   SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
 
 PODFILE CHECKSUM: a2f71ff0b77f31955595bf9eada4e4ab7bebf5b5

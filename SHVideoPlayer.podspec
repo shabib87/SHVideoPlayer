@@ -17,11 +17,10 @@ A wrapper library around AVPlayer to customize AVPlayerLayer with custom control
 
   s.source_files = 'SHVideoPlayer/Classes/**/*'
 
-#s.resource_bundles = {
-#   'SHVideoPlayer' => ['SHVideoPlayer/Assets/*.png']
-# }
+  s.resource_bundles = {
+    'SHVideoPlayer' => ['SHVideoPlayer/Assets/*.png']
+  }
 
   s.frameworks = 'UIKit', 'Foundation'
-  s.dependency 'PodAsset'
   s.dependency 'SnapKit', '~> 3.0'
 end
