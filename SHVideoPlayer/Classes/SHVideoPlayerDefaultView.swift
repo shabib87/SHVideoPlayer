@@ -9,7 +9,9 @@
 import UIKit
 import SnapKit
 
-class SHVideoPlayerWithDefaultControlsView: UIView {
+class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControlsCustomizationProtocol {
+    
+    weak var delegate: SHVideoPlayerDefaultControlsCustomizationDelegate?
     
     var titleLabel = UILabel()
     var currentTimeLabel = UILabel()
@@ -60,8 +62,17 @@ class SHVideoPlayerWithDefaultControlsView: UIView {
         topContainerView.backgroundColor = UIColor (red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
         bottomContainerView.backgroundColor = UIColor (red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
         
-        playButton.setImage(SHImageResourcePath("SHVideoPlayer_play"), for: UIControlState())
-        playButton.setImage(SHImageResourcePath("SHVideoPlayer_pause"), for: UIControlState.selected)
+        if delegate != nil {
+            playButton.setImage(delegate?.playButtonNormalStateImage(), for: UIControlState())
+        } else {
+            playButton.setImage(SHImageResourcePath("SHVideoPlayer_play"), for: UIControlState())
+        }
+        
+        if delegate != nil {
+            playButton.setImage(delegate?.playButtonSelectedStateImage(), for: UIControlState())
+        } else {
+            playButton.setImage(SHImageResourcePath("SHVideoPlayer_pause"), for: UIControlState.selected)
+        }
         
         titleLabel.textColor = UIColor.white
         titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
@@ -86,7 +97,12 @@ class SHVideoPlayerWithDefaultControlsView: UIView {
         progressView.trackTintColor = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.3 )
         
         loadingIndector.hidesWhenStopped = true
-        fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: UIControlState())
+        
+        if delegate != nil {
+            fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
+        } else {
+            fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: UIControlState())
+        }
     }
     
     fileprivate func addConstraintsToComponents() {
@@ -186,9 +202,17 @@ extension SHVideoPlayerWithDefaultControlsView: SHVideoPlayerControlView {
     func updateUI(_ isForFullScreen: Bool) {
         isFullScreen = isForFullScreen
         if isForFullScreen {
-            fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: UIControlState())
+            if delegate != nil {
+                fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
+            } else {
+                fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: UIControlState())
+            }
         } else {
-            fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: UIControlState())
+            if delegate != nil {
+                fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
+            } else {
+                fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_smallscreen"), for: UIControlState())
+            }
         }
     }
     

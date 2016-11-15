@@ -8,6 +8,23 @@
 
 import UIKit
 
+public protocol SHVideoPlayerDefaultControlsCustomizationDelegate: class {
+    
+    func playButtonNormalStateImage()-> UIImage
+    func playButtonSelectedStateImage()-> UIImage
+    
+    func pauseButtonNormalStateImage()-> UIImage
+    func pauseButtonSelectedStateImage()-> UIImage
+    
+    func fullScreenButtonImage()-> UIImage
+    func smallScreenButtonImage()-> UIImage
+}
+
+public protocol SHVideoPlayerDefaultControlsCustomizationProtocol {
+    
+    weak var delegate: SHVideoPlayerDefaultControlsCustomizationDelegate? { get set }
+}
+
 public protocol SHVideoPlayerControlView  {
     
     var playerTitleLabel: UILabel?  { get }
