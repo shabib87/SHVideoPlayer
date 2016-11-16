@@ -25,7 +25,7 @@ public protocol SHVideoPlayerDefaultControlsCustomizationProtocol {
     weak var delegate: SHVideoPlayerDefaultControlsCustomizationDelegate? { get set }
 }
 
-public protocol SHVideoPlayerControlView  {
+public protocol SHVideoPlayerControlable  {
     
     var playerTitleLabel: UILabel?  { get }
     var playerCurrentTimeLabel: UILabel?  { get }

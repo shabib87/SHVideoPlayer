@@ -199,7 +199,7 @@ class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControls
     }
 }
 
-extension SHVideoPlayerWithDefaultControlsView: SHVideoPlayerControlView {
+extension SHVideoPlayerWithDefaultControlsView: SHVideoPlayerControlable {
     
     var playerTitleLabel: UILabel?  { get { return  titleLabel } }
     var playerCurrentTimeLabel: UILabel?  { get { return  currentTimeLabel } }
