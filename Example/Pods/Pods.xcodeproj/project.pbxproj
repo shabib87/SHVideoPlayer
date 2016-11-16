@@ -63,6 +63,7 @@
 		E24A0FCE2FC56683AF1A56BA3C49123D /* UILayoutGuide+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4759EEB4180EAF3DA189AAE28199AC /* UILayoutGuide+Extensions.swift */; };
 		E7BFC0FF0EF328DF931810AC53663445 /* Debugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737B1700C2C19AD11C2872C1C46EC8D4 /* Debugging.swift */; };
 		EA85748E43ED245279D438CACED7D80C /* ConstraintConstantTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9319AF949935BC0602093E0830E8B10 /* ConstraintConstantTarget.swift */; };
+		F0530A6B1DDC552A00699DB7 /* SHVideoPlayerScrubber.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0530A6A1DDC552A00699DB7 /* SHVideoPlayerScrubber.swift */; };
 		F0530BE30D617C0F96F2B749A02C16A4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5466486B6900B61A6934317B0C1B9F82 /* Foundation.framework */; };
 		F2273B213B70D49B56EC1059FCCBE162 /* ConstraintRelatableTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813C2A5263E149C889A2DF40FFDD89BA /* ConstraintRelatableTarget.swift */; };
 		F5AE3974F5A1950928FEDC4456C2CF13 /* ConstraintAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C7DFD4E40027278BABCCCD69743B2 /* ConstraintAttributes.swift */; };
@@ -189,6 +190,7 @@
 		E855200DC6085FF07EBD87301AD370C9 /* ConstraintInsets.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintInsets.swift; path = Source/ConstraintInsets.swift; sourceTree = "<group>"; };
 		E885DC7A2C93B352F3CCBAF6C4F30F7F /* SnapKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SnapKit.xcconfig; sourceTree = "<group>"; };
 		EBCF77FFA89397B4F19B5CD8A7BDB0A3 /* ConstraintView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintView.swift; path = Source/ConstraintView.swift; sourceTree = "<group>"; };
+		F0530A6A1DDC552A00699DB7 /* SHVideoPlayerScrubber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHVideoPlayerScrubber.swift; sourceTree = "<group>"; };
 		F16A820AC64D80B3F11893402D57655C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		F3B475D0B69DFC46C59543DE0A89C04E /* Pods-SHVideoPlayer_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SHVideoPlayer_Example.modulemap"; sourceTree = "<group>"; };
 		F9319AF949935BC0602093E0830E8B10 /* ConstraintConstantTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintConstantTarget.swift; path = Source/ConstraintConstantTarget.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				79FE26B41F9C12323DB181CBDD522D95 /* SHVideoPlayerConstants.swift */,
 				520FD9B3E8AF9394356B7F6807C4228D /* SHVideoPlayerDefaultView.swift */,
 				E5B2E9CE933C13286B3F53D1322451C1 /* SHVideoPlayerLayerView.swift */,
+				F0530A6A1DDC552A00699DB7 /* SHVideoPlayerScrubber.swift */,
 				5D0EBDC18D35E4922B1422B2F019855B /* SHVideoPlayerProtocols.swift */,
 			);
 			path = Classes;
@@ -734,6 +737,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE54F16D3C378A4B836BD5AE0C67CEED /* SHVideoPlayer-dummy.m in Sources */,
+				F0530A6B1DDC552A00699DB7 /* SHVideoPlayerScrubber.swift in Sources */,
 				96ED3227688723B707538D1A5E0E740D /* SHVideoPlayer.swift in Sources */,
 				8EB5EE156286C18671A747C57499C892 /* SHVideoPlayerConstants.swift in Sources */,
 				BE3C481D85D4CE88F1D28C0706609CDD /* SHVideoPlayerDefaultView.swift in Sources */,

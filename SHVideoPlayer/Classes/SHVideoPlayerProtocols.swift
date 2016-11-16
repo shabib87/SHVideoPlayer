@@ -29,6 +29,7 @@ public protocol SHVideoPlayerControlView  {
     
     var playerTitleLabel: UILabel?  { get }
     var playerCurrentTimeLabel: UILabel?  { get }
+    var playerRemainingTimeLabel: UILabel?  { get }
     var playerTotalTimeLabel: UILabel?  { get }
     
     var playerPlayButton: UIButton? { get }

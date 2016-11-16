@@ -16,6 +16,8 @@ class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControls
     var titleLabel = UILabel()
     var currentTimeLabel = UILabel()
     var totalTimeLabel = UILabel()
+    var remainingTimeLabel = UILabel()
+    
     
     var playButton = UIButton(type: .custom)
     var fullScreenButton = UIButton(type: .custom)
@@ -54,6 +56,7 @@ class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControls
         topContainerView.addSubview(fullScreenButton)
         
         bottomContainerView.addSubview(currentTimeLabel)
+        bottomContainerView.addSubview(remainingTimeLabel)
         bottomContainerView.addSubview(totalTimeLabel)
         bottomContainerView.addSubview(progressView)
         bottomContainerView.addSubview(timeSlider)
@@ -82,10 +85,15 @@ class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControls
         currentTimeLabel.text = "00:00"
         currentTimeLabel.textAlignment = .center
         
+        remainingTimeLabel.textColor = UIColor.white
+        remainingTimeLabel.font = UIFont.systemFont(ofSize: 12)
+        remainingTimeLabel.text = "00:00"
+        remainingTimeLabel.textAlignment = .right
+        
         totalTimeLabel.textColor = UIColor.white
         totalTimeLabel.font = UIFont.systemFont(ofSize: 12)
-        totalTimeLabel.text = "00:00"
-        totalTimeLabel.textAlignment = .center
+        totalTimeLabel.text = "/00:00"
+        totalTimeLabel.textAlignment = .left
         
         timeSlider.maximumValue = 1.0
         timeSlider.minimumValue = 0.0
@@ -156,9 +164,15 @@ class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControls
             make.height.equalTo(2)
         }
         
-        totalTimeLabel.snp.makeConstraints { (make) in
+        remainingTimeLabel.snp.makeConstraints { (make) in
             make.centerY.equalTo(currentTimeLabel)
             make.left.equalTo(timeSlider.snp.right).offset(10)
+            make.width.equalTo(40)
+        }
+        
+        totalTimeLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(currentTimeLabel)
+            make.left.equalTo(remainingTimeLabel.snp.right).offset(0)
             make.width.equalTo(40)
             make.right.equalTo(bottomContainerView.snp.right).offset(-10)
         }
@@ -190,6 +204,7 @@ extension SHVideoPlayerWithDefaultControlsView: SHVideoPlayerControlView {
     var playerTitleLabel: UILabel?  { get { return  titleLabel } }
     var playerCurrentTimeLabel: UILabel?  { get { return  currentTimeLabel } }
     var playerTotalTimeLabel: UILabel?  { get { return  totalTimeLabel } }
+    var playerRemainingTimeLabel: UILabel? { get { return remainingTimeLabel} }
     
     var playerPlayButton: UIButton? { get { return  playButton } }
     var playerFullScreenButton: UIButton? { get { return  fullScreenButton } }
