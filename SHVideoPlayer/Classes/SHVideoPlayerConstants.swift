@@ -10,5 +10,7 @@ struct SHVideoPlayerConstants {
     struct NotificationKey {
         static let Welcome = "kWelcomeNotif"
     }
+    struct ObserverKey {
+        static let duration = "kDurationKey"
+    }
 }
-// Then you can just use for instance K.Path.Tmp

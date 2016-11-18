@@ -31,7 +31,7 @@ class SHVideoPlayerScrubber: NSObject {
             updateCurrentTimeLabelWithTime(time: 0)
             var duration = self.player.currentItem?.duration
             if !CMTIME_IS_VALID(duration!) || CMTIME_IS_INDEFINITE(duration!) {
-                self.player.currentItem?.addObserver(self, forKeyPath: "duration", options: .new, context: nil)
+                self.player.currentItem?.addObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration, options: .new, context: nil)
             }
         }
     }
@@ -142,7 +142,23 @@ class SHVideoPlayerScrubber: NSObject {
     }
     
     @objc fileprivate func sliderTapAction(gesture: UITapGestureRecognizer) {
-        
+        if (self.slider?.isHighlighted)! { return }
+        var isPlaying = self.player.rate > 0
+        var trackRect = self.slider?.trackRect(forBounds: (self.slider?.bounds)!)
+        var thumbRect = self.slider?.thumbRect(forBounds: (self.slider?.bounds)!, trackRect: trackRect!, value: 0)
+        var thumbWidth = thumbRect?.size.width
+        var point = gesture.location(in: self.slider)
+        var ratio = 0.0
+        if point.x > thumbWidth! / 2 { ratio = 0.0 }
+        else if point.x > ((self.slider?.bounds.size.width)! - thumbWidth! / 2) {
+            ratio  = 1.0
+        } else {
+            ratio = Double(Float((point.x - thumbWidth! / 2) / (self.slider?.bounds.size.width)! - thumbWidth!))
+        }
+        var del = ratio * Double((self.slider?.maximumValue)! - (self.slider?.minimumValue)!)
+        var value = (self.slider?.maximumValue)! + Float(del);
+        self.slider?.setValue(value, animated: true)
+        updatePlayer(playIfNeeded: isPlaying)
     }
     
     @objc fileprivate func sliderValueChangeAction(slider: UISlider, event: UIEvent) {
@@ -152,5 +168,12 @@ class SHVideoPlayerScrubber: NSObject {
             self.player.pause()
         }
         updatePlayer(playIfNeeded: touch?.phase == .ended)
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if CMTIME_IS_VALID((self.player.currentItem?.duration)!) && !CMTIME_IS_INDEFINITE((self.player.currentItem?.duration)!) {
+            self.player.currentItem?.removeObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration)
+            playerTimeChanged()
+        }
     }
 }
