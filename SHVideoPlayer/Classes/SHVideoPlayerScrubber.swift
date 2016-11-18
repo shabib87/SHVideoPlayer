@@ -11,43 +11,59 @@ import AVFoundation
 
 class SHVideoPlayerScrubber: NSObject {
     
-    var slider: UISlider? { get {
-            return slider
-        } set {
-            setSliderTapAction()
-            setSliderValueChangeAction()
-        }
-    }
-    var currentTimeLabel: UILabel?
-    var durationLabel: UILabel?
-    var remainingTimeLabel: UILabel?
+    fileprivate var player: AVPlayer
+    fileprivate var slider: UISlider
     
-    var player: AVPlayer! { get { return player }
-        set {
-            self.player.pause()
-            removeTimeObserver()
-            self.framesPerSecond = nominalFrameRateForPlayer()
-            setupTimeObserver()
-            updateCurrentTimeLabelWithTime(time: 0)
-            var duration = self.player.currentItem?.duration
-            if !CMTIME_IS_VALID(duration!) || CMTIME_IS_INDEFINITE(duration!) {
-                self.player.currentItem?.addObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration, options: .new, context: nil)
-            }
-        }
-    }
+    fileprivate var currentTimeLabel: UILabel
+    fileprivate var durationLabel: UILabel
+    fileprivate var remainingTimeLabel: UILabel
+    fileprivate var playPauseButton: UIButton
+    
+    fileprivate var timeObserver: Any?
     
     fileprivate var playAfterDrag: Bool = true
-    fileprivate var timeObserver: Any?
     fileprivate var framesPerSecond: Float = 0.0
+    
+    init(with player:AVPlayer, slider: UISlider, currentTimeLabel: UILabel, durationLabel: UILabel, remainingTimeLabel: UILabel, playPauseButton: UIButton) {
+        self.player = player
+        self.slider = slider
+        self.currentTimeLabel = currentTimeLabel
+        self.durationLabel = durationLabel
+        self.remainingTimeLabel = remainingTimeLabel
+        self.playPauseButton = playPauseButton
+    }
+    
+    open func initComponents() {
+        self.setUpPlayer()
+        self.setSliderTapAction()
+        self.setSliderValueChangeAction()
+        self.setPlayPauseButtonAction()
+    }
+    
+    fileprivate func setUpPlayer() {
+        self.player.pause()
+        removeTimeObserver()
+        self.framesPerSecond = nominalFrameRateForPlayer()
+        setupTimeObserver()
+        updateCurrentTimeLabelWithTime(time: 0)
+        var duration = self.player.currentItem?.duration
+        if !CMTIME_IS_VALID(duration!) || CMTIME_IS_INDEFINITE(duration!) {
+            self.player.currentItem?.addObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration, options: .new, context: nil)
+        }
+    }
     
     fileprivate func setSliderTapAction() {
         if self.slider == nil { return }
         let gesture = UITapGestureRecognizer(target: self, action: #selector(sliderTapAction))
-        slider?.addGestureRecognizer(gesture)
+        slider.addGestureRecognizer(gesture)
     }
     
     fileprivate func setSliderValueChangeAction() {
-        slider?.addTarget(self, action: #selector(sliderValueChangeAction), for: .valueChanged)
+        slider.addTarget(self, action: #selector(sliderValueChangeAction), for: .valueChanged)
+    }
+    
+    fileprivate func setPlayPauseButtonAction() {
+        playPauseButton.addTarget(self, action: #selector(playPauseButtonAction), for: .touchUpInside)
     }
     
     fileprivate func setupTimeObserver() {
@@ -80,17 +96,17 @@ class SHVideoPlayerScrubber: NSObject {
     
     fileprivate func updateCurrentTimeLabelWithTime(time: TimeInterval) {
         if self.currentTimeLabel == nil { return }
-        self.currentTimeLabel?.text = timecodeForTimeInterval(time: time)
+        self.currentTimeLabel.text = timecodeForTimeInterval(time: time)
     }
     
     fileprivate func updateDurationLabelWithTime(time: TimeInterval) {
         if self.durationLabel == nil { return }
-        self.durationLabel?.text = timecodeForTimeInterval(time: time)
+        self.durationLabel.text = timecodeForTimeInterval(time: time)
     }
     
     fileprivate func updateRemainingTimeLabelWithTime(time: TimeInterval) {
         if self.remainingTimeLabel == nil { return }
-        self.remainingTimeLabel?.text = timecodeForTimeInterval(time: time)
+        self.remainingTimeLabel.text = timecodeForTimeInterval(time: time)
     }
     
     fileprivate func timecodeForTimeInterval(time: TimeInterval) -> String {
@@ -121,19 +137,17 @@ class SHVideoPlayerScrubber: NSObject {
             ratio = secondsElapsed / duratoinInSeconds
             updateDurationLabelWithTime(time: duratoinInSeconds)
         }
-        self.slider?.value = Float(ratio)
+        self.slider.value = Float(ratio)
         updateCurrentTimeLabelWithTime(time: secondsElapsed)
         updateRemainingTimeLabelWithTime(time: duratoinInSeconds - secondsElapsed)
-        
-        //TODO: playerScrubbingDidUpdateTime delegate// may be not needed
     }
     
     fileprivate func updatePlayer(playIfNeeded: Bool) {
         let duratoinInSeconds = CMTimeGetSeconds((self.player.currentItem?.duration)!)
-        let seconds = Float64(duratoinInSeconds) * Float64((self.slider?.value)!)
+        let seconds = Float64(duratoinInSeconds) * Float64((self.slider.value))
         let time = CMTimeMakeWithSeconds(seconds, Int32(NSEC_PER_SEC))
         self.player.seek(to: time, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (done: Bool) -> Void in
-            if playIfNeeded && Float((self.slider?.value)!) < Float((self.slider?.maximumValue)!) {
+            if playIfNeeded && Float(self.slider.value) < Float(self.slider.maximumValue) {
                 if self.playAfterDrag {
                     self.player.play()
                 }
@@ -141,23 +155,25 @@ class SHVideoPlayerScrubber: NSObject {
         })
     }
     
+    //MARK: actions 
+    
     @objc fileprivate func sliderTapAction(gesture: UITapGestureRecognizer) {
-        if (self.slider?.isHighlighted)! { return }
+        if self.slider.isHighlighted { return }
         var isPlaying = self.player.rate > 0
-        var trackRect = self.slider?.trackRect(forBounds: (self.slider?.bounds)!)
-        var thumbRect = self.slider?.thumbRect(forBounds: (self.slider?.bounds)!, trackRect: trackRect!, value: 0)
-        var thumbWidth = thumbRect?.size.width
+        var trackRect = self.slider.trackRect(forBounds: self.slider.bounds)
+        var thumbRect = self.slider.thumbRect(forBounds: self.slider.bounds, trackRect: trackRect, value: 0)
+        var thumbWidth = thumbRect.size.width
         var point = gesture.location(in: self.slider)
-        var ratio = 0.0
-        if point.x > thumbWidth! / 2 { ratio = 0.0 }
-        else if point.x > ((self.slider?.bounds.size.width)! - thumbWidth! / 2) {
+        var ratio: Float = 0.0
+        if point.x > thumbWidth / 2 { ratio = 0.0 }
+        else if point.x > (self.slider.bounds.size.width - thumbWidth / 2) {
             ratio  = 1.0
         } else {
-            ratio = Double(Float((point.x - thumbWidth! / 2) / (self.slider?.bounds.size.width)! - thumbWidth!))
+            ratio = Float((point.x - thumbWidth / 2) / (self.slider.bounds.size.width - thumbWidth))
         }
-        var del = ratio * Double((self.slider?.maximumValue)! - (self.slider?.minimumValue)!)
-        var value = (self.slider?.maximumValue)! + Float(del);
-        self.slider?.setValue(value, animated: true)
+        var del = ratio * (self.slider.maximumValue - self.slider.minimumValue)
+        var value = self.slider.maximumValue + del;
+        self.slider.setValue(value, animated: true)
         updatePlayer(playIfNeeded: isPlaying)
     }
     
@@ -169,6 +185,26 @@ class SHVideoPlayerScrubber: NSObject {
         }
         updatePlayer(playIfNeeded: touch?.phase == .ended)
     }
+    
+    @objc fileprivate func playPauseButtonAction(button: UIButton) {
+        if self.player.rate == 0 {
+            // possible to not work
+            // CMTIME_COMPARE_INLINE not supported in swift
+            if self.player.currentTime() == self.player.currentItem?.duration {
+                // if the video has ended, seeking to initial time and playing it again
+                // in one word, replay!
+                self.player.seek(to: kCMTimeZero, completionHandler: { (done: Bool) in
+                    self.player.play()
+                })
+            } else {
+                self.player.play()
+            }
+        } else {
+            self.player.pause()
+        }
+    }
+    
+    //MARK: observer kvo
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if CMTIME_IS_VALID((self.player.currentItem?.duration)!) && !CMTIME_IS_INDEFINITE((self.player.currentItem?.duration)!) {
