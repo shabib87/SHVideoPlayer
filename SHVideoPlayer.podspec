@@ -2,9 +2,9 @@
 Pod::Spec.new do |s|
   s.name             = 'SHVideoPlayer'
   s.version          = '0.1.0'
-  s.summary          = 'A wrapper library around AVPlayer to customize AVPlayerLayer with custom controls.'
+  s.summary          = 'A wrapper around AVPlayer to customize AVPlayerLayer. Compatible with iOS 8.0 or later.'
   s.description      = <<-DESC
-A wrapper library around AVPlayer to customize AVPlayerLayer with custom controls using protocol to create your own customized layer.
+A wrapper library around AVPlayer to customize AVPlayerLayer with custom controls using protocol to create your own customized layer. Supports scrubbing by default.  Compatible with iOS 8.0 or later.
                        DESC
 
   s.homepage         = 'https://github.com/shabib87/SHVideoPlayer.git'
