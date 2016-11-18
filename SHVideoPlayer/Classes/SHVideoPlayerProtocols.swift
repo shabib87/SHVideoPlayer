@@ -48,16 +48,6 @@ public protocol SHVideoPlayerControlable  {
     func updateUI(_ isForFullScreen: Bool)
     
     /**
-     call when buffering
-     */
-    func showLoader()
-    
-    /**
-     call when buffer finished
-     */
-    func hideLoader()
-    
-    /**
      call when user tapped on player to show player Ui components
      */
     func showPlayerUIComponents()

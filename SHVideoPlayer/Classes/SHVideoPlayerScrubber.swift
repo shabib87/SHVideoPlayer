@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class SHVideoPlayerScrubber: NSObject {
+open class SHVideoPlayerScrubber: NSObject {
     
     fileprivate var player: AVPlayer
     fileprivate var slider: UISlider
@@ -206,7 +206,7 @@ class SHVideoPlayerScrubber: NSObject {
     
     //MARK: observer kvo
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if CMTIME_IS_VALID((self.player.currentItem?.duration)!) && !CMTIME_IS_INDEFINITE((self.player.currentItem?.duration)!) {
             self.player.currentItem?.removeObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration)
             playerTimeChanged()

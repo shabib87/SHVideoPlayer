@@ -29,8 +29,6 @@ class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControls
     var topContainerView = UIView()
     var bottomContainerView = UIView()
     
-    var loadingIndector = UIActivityIndicatorView(activityIndicatorStyle: .white)
-    
     var isFullScreen = false
     
     override init(frame: CGRect) {
@@ -49,7 +47,6 @@ class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControls
         self.addSubview(bgContainerView)
         bgContainerView.addSubview(topContainerView)
         bgContainerView.addSubview(bottomContainerView)
-        bgContainerView.addSubview(loadingIndector)
         bgContainerView.addSubview(playButton)
         
         topContainerView.addSubview(titleLabel)
@@ -103,8 +100,6 @@ class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControls
         
         progressView.tintColor = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.6 )
         progressView.trackTintColor = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.3 )
-        
-        loadingIndector.hidesWhenStopped = true
         
         if delegate != nil {
             fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
@@ -176,11 +171,6 @@ class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControls
             make.width.equalTo(40)
             make.right.equalTo(bottomContainerView.snp.right).offset(-10)
         }
-        
-        loadingIndector.snp.makeConstraints { (make) in
-            make.centerX.equalTo(bgContainerView.snp.centerX).offset(0)
-            make.centerY.equalTo(bgContainerView.snp.centerY).offset(0)
-        }
     }
     
     fileprivate func SHImageResourcePath(_ fileName: String) -> UIImage? {
@@ -229,15 +219,6 @@ extension SHVideoPlayerWithDefaultControlsView: SHVideoPlayerControlable {
                 fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_smallscreen"), for: UIControlState())
             }
         }
-    }
-    
-    func showLoader() {
-        loadingIndector.isHidden = false
-        loadingIndector.startAnimating()
-    }
-    
-    func hideLoader() {
-        loadingIndector.isHidden = true
     }
     
     func showPlayerUIComponents() {
