@@ -43,25 +43,32 @@ class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControls
         addConstraintsToComponents()
     }
     
-    fileprivate func initUIComponents() {
-        self.addSubview(bgContainerView)
+    fileprivate func configureBGContainerView() {
         bgContainerView.addSubview(topContainerView)
         bgContainerView.addSubview(bottomContainerView)
         bgContainerView.addSubview(playButton)
-        
+    }
+    
+    fileprivate func configureTopContainerView() {
         topContainerView.addSubview(titleLabel)
         topContainerView.addSubview(fullScreenButton)
-        
+    }
+    
+    fileprivate func configureBottomContainerView() {
         bottomContainerView.addSubview(currentTimeLabel)
         bottomContainerView.addSubview(remainingTimeLabel)
         bottomContainerView.addSubview(totalTimeLabel)
         bottomContainerView.addSubview(progressView)
         bottomContainerView.addSubview(timeSlider)
-        
+    }
+    
+    fileprivate func configureBGColors() {
         bgContainerView.backgroundColor = UIColor (red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
         topContainerView.backgroundColor = UIColor (red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
         bottomContainerView.backgroundColor = UIColor (red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
-        
+    }
+    
+    fileprivate func configureDelegation() {
         if delegate != nil {
             playButton.setImage(delegate?.playButtonNormalStateImage(), for: UIControlState())
         } else {
@@ -74,6 +81,14 @@ class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControls
             playButton.setImage(SHImageResourcePath("SHVideoPlayer_pause"), for: UIControlState.selected)
         }
         
+        if delegate != nil {
+            fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
+        } else {
+            fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: UIControlState())
+        }
+    }
+    
+    fileprivate func configureLabels() {
         titleLabel.textColor = UIColor.white
         titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
         
@@ -91,21 +106,30 @@ class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControls
         totalTimeLabel.font = UIFont.systemFont(ofSize: 12)
         totalTimeLabel.text = "/00:00"
         totalTimeLabel.textAlignment = .left
-        
+    }
+    
+    fileprivate func configureTimeSliders() {
         timeSlider.maximumValue = 1.0
         timeSlider.minimumValue = 0.0
         timeSlider.value = 0.0
         timeSlider.maximumTrackTintColor = .clear
         timeSlider.minimumTrackTintColor = .white
-        
+    }
+    
+    fileprivate func configureProgressView() {
         progressView.tintColor = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.6 )
         progressView.trackTintColor = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.3 )
-        
-        if delegate != nil {
-            fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
-        } else {
-            fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: UIControlState())
-        }
+    }
+    
+    fileprivate func initUIComponents() {
+        self.addSubview(bgContainerView)
+        configureBGContainerView()
+        configureTopContainerView()
+        configureBottomContainerView()
+        configureBGColors()
+        configureLabels()
+        configureTimeSliders()
+        configureDelegation()
     }
     
     fileprivate func addConstraintsToComponents() {

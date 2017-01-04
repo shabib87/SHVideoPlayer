@@ -17,10 +17,12 @@ open class SHVideoPlayer: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.playerControllerView = SHVideoPlayerWithDefaultControlsView()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.playerControllerView = SHVideoPlayerWithDefaultControlsView()
     }
     
     public convenience init (customControllView: SHVideoPlayerControlable?) {
