@@ -19,7 +19,7 @@ open class SHVideoPlayer: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.playerControllerView = SHVideoPlayerWithDefaultControlsView()
-        self.playerScrubber = SHVideoPlayerScrubber(with: playerLayer.player!, slider: playerControllerView.playerTimeSlider!, currentTimeLabel: playerControllerView.playerCurrentTimeLabel!, durationLabel: playerControllerView.playerTotalTimeLabel!, remainingTimeLabel: playerControllerView.playerRemainingTimeLabel!, playPauseButton: playerControllerView.playerPlayButton!)
+        self.playerScrubber = SHVideoPlayerScrubber(with: playerLayer.player!, slider: playerControllerView.timeSlider!, currentTimeLabel: playerControllerView.currentTimeLabel!, durationLabel: playerControllerView.durationLabel!, remainingTimeLabel: playerControllerView.remainingTimeLabel!, playPauseButton: playerControllerView.playButton!)
     }
     
     required public init?(coder aDecoder: NSCoder) {

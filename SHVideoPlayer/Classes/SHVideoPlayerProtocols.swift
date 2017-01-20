@@ -27,16 +27,16 @@ public protocol SHVideoPlayerDefaultControlsCustomizationProtocol {
 
 public protocol SHVideoPlayerControlable  {
     
-    var playerTitleLabel: UILabel?  { get }
-    var playerCurrentTimeLabel: UILabel?  { get }
-    var playerRemainingTimeLabel: UILabel?  { get }
-    var playerTotalTimeLabel: UILabel?  { get }
+    var titleLabel: UILabel?  { get }
+    var currentTimeLabel: UILabel?  { get }
+    var remainingTimeLabel: UILabel?  { get }
+    var durationLabel: UILabel?  { get }
     
-    var playerPlayButton: UIButton? { get }
-    var playerFullScreenButton: UIButton? { get }
+    var playButton: UIButton? { get }
+    var fullScreenButton: UIButton? { get }
     
-    var playerTimeSlider: UISlider? { get }
-    var playerProgressView: UIProgressView? { get }
+    var timeSlider: UISlider? { get }
+    var progressView: UIProgressView? { get }
     
     var playerControlView: UIView { get }
     

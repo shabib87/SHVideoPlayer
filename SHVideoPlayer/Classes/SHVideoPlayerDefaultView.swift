@@ -13,17 +13,17 @@ class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControls
     
     weak var delegate: SHVideoPlayerDefaultControlsCustomizationDelegate?
     
-    var titleLabel = UILabel()
-    var currentTimeLabel = UILabel()
-    var totalTimeLabel = UILabel()
-    var remainingTimeLabel = UILabel()
+    var _titleLabel = UILabel()
+    var _currentTimeLabel = UILabel()
+    var _durationLabel = UILabel()
+    var _remainingTimeLabel = UILabel()
     
     
-    var playButton = UIButton(type: .custom)
-    var fullScreenButton = UIButton(type: .custom)
+    var _playButton = UIButton(type: .custom)
+    var _fullScreenButton = UIButton(type: .custom)
     
-    var timeSlider = UISlider()
-    var progressView = UIProgressView()
+    var _timeSlider = UISlider()
+    var _progressView = UIProgressView()
     
     var bgContainerView = UIView()
     var topContainerView = UIView()
@@ -46,20 +46,20 @@ class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControls
     fileprivate func configureBGContainerView() {
         bgContainerView.addSubview(topContainerView)
         bgContainerView.addSubview(bottomContainerView)
-        bgContainerView.addSubview(playButton)
+        bgContainerView.addSubview(_playButton)
     }
     
     fileprivate func configureTopContainerView() {
-        topContainerView.addSubview(titleLabel)
-        topContainerView.addSubview(fullScreenButton)
+        topContainerView.addSubview(_titleLabel)
+        topContainerView.addSubview(_fullScreenButton)
     }
     
     fileprivate func configureBottomContainerView() {
-        bottomContainerView.addSubview(currentTimeLabel)
-        bottomContainerView.addSubview(remainingTimeLabel)
-        bottomContainerView.addSubview(totalTimeLabel)
-        bottomContainerView.addSubview(progressView)
-        bottomContainerView.addSubview(timeSlider)
+        bottomContainerView.addSubview(_currentTimeLabel)
+        bottomContainerView.addSubview(_remainingTimeLabel)
+        bottomContainerView.addSubview(_durationLabel)
+        bottomContainerView.addSubview(_progressView)
+        bottomContainerView.addSubview(_timeSlider)
     }
     
     fileprivate func configureBGColors() {
@@ -70,55 +70,55 @@ class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControls
     
     fileprivate func configureDelegation() {
         if delegate != nil {
-            playButton.setImage(delegate?.playButtonNormalStateImage(), for: UIControlState())
+            _playButton.setImage(delegate?.playButtonNormalStateImage(), for: UIControlState())
         } else {
-            playButton.setImage(SHImageResourcePath("SHVideoPlayer_play"), for: UIControlState())
+            _playButton.setImage(SHImageResourcePath("SHVideoPlayer_play"), for: UIControlState())
         }
         
         if delegate != nil {
-            playButton.setImage(delegate?.playButtonSelectedStateImage(), for: UIControlState())
+            _playButton.setImage(delegate?.playButtonSelectedStateImage(), for: UIControlState())
         } else {
-            playButton.setImage(SHImageResourcePath("SHVideoPlayer_pause"), for: UIControlState.selected)
+            _playButton.setImage(SHImageResourcePath("SHVideoPlayer_pause"), for: UIControlState.selected)
         }
         
         if delegate != nil {
-            fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
+            _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
         } else {
-            fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: UIControlState())
+            _fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: UIControlState())
         }
     }
     
     fileprivate func configureLabels() {
-        titleLabel.textColor = UIColor.white
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        _titleLabel.textColor = UIColor.white
+        _titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
         
-        currentTimeLabel.textColor = UIColor.white
-        currentTimeLabel.font = UIFont.systemFont(ofSize: 12)
-        currentTimeLabel.text = "00:00"
-        currentTimeLabel.textAlignment = .center
+        _currentTimeLabel.textColor = UIColor.white
+        _currentTimeLabel.font = UIFont.systemFont(ofSize: 12)
+        _currentTimeLabel.text = "00:00"
+        _currentTimeLabel.textAlignment = .center
         
-        remainingTimeLabel.textColor = UIColor.white
-        remainingTimeLabel.font = UIFont.systemFont(ofSize: 12)
-        remainingTimeLabel.text = "00:00"
-        remainingTimeLabel.textAlignment = .right
+        _remainingTimeLabel.textColor = UIColor.white
+        _remainingTimeLabel.font = UIFont.systemFont(ofSize: 12)
+        _remainingTimeLabel.text = "00:00"
+        _remainingTimeLabel.textAlignment = .right
         
-        totalTimeLabel.textColor = UIColor.white
-        totalTimeLabel.font = UIFont.systemFont(ofSize: 12)
-        totalTimeLabel.text = "/00:00"
-        totalTimeLabel.textAlignment = .left
+        _durationLabel.textColor = UIColor.white
+        _durationLabel.font = UIFont.systemFont(ofSize: 12)
+        _durationLabel.text = "/00:00"
+        _durationLabel.textAlignment = .left
     }
     
     fileprivate func configureTimeSliders() {
-        timeSlider.maximumValue = 1.0
-        timeSlider.minimumValue = 0.0
-        timeSlider.value = 0.0
-        timeSlider.maximumTrackTintColor = .clear
-        timeSlider.minimumTrackTintColor = .white
+        _timeSlider.maximumValue = 1.0
+        _timeSlider.minimumValue = 0.0
+        _timeSlider.value = 0.0
+        _timeSlider.maximumTrackTintColor = .clear
+        _timeSlider.minimumTrackTintColor = .white
     }
     
     fileprivate func configureProgressView() {
-        progressView.tintColor = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.6 )
-        progressView.trackTintColor = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.3 )
+        _progressView.tintColor = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.6 )
+        _progressView.trackTintColor = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.3 )
     }
     
     fileprivate func initUIComponents() {
@@ -147,51 +147,51 @@ class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControls
             make.height.equalTo(50)
         }
         
-        titleLabel.snp.makeConstraints { (make) in
+        _titleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(topContainerView.snp.left).offset(10)
             make.centerY.equalTo(topContainerView)
         }
         
-        fullScreenButton.snp.makeConstraints { (make) in
+        _fullScreenButton.snp.makeConstraints { (make) in
             make.width.equalTo(37)
             make.height.equalTo(42)
-            make.centerY.equalTo(titleLabel)
-            make.left.equalTo(titleLabel.snp.right).offset(10)
+            make.centerY.equalTo(_titleLabel)
+            make.left.equalTo(_titleLabel.snp.right).offset(10)
             make.right.equalTo(topContainerView.snp.right).offset(-10)
         }
         
-        playButton.snp.makeConstraints { (make) in
+        _playButton.snp.makeConstraints { (make) in
             make.width.equalTo(42)
             make.height.equalTo(42)
             make.centerX.centerY.equalTo(self)
         }
         
-        currentTimeLabel.snp.makeConstraints { (make) in
+        _currentTimeLabel.snp.makeConstraints { (make) in
             make.left.equalTo(bottomContainerView.snp.left).offset(10)
             make.centerY.equalTo(bottomContainerView)
             make.width.equalTo(40)
         }
         
-        timeSlider.snp.makeConstraints { (make) in
-            make.centerY.equalTo(currentTimeLabel)
-            make.left.equalTo(currentTimeLabel.snp.right).offset(10).priority(750)
+        _timeSlider.snp.makeConstraints { (make) in
+            make.centerY.equalTo(_currentTimeLabel)
+            make.left.equalTo(_currentTimeLabel.snp.right).offset(10).priority(750)
             make.height.equalTo(30)
         }
         
-        progressView.snp.makeConstraints { (make) in
-            make.centerY.left.right.equalTo(timeSlider)
+        _progressView.snp.makeConstraints { (make) in
+            make.centerY.left.right.equalTo(_timeSlider)
             make.height.equalTo(2)
         }
         
-        remainingTimeLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(currentTimeLabel)
-            make.left.equalTo(timeSlider.snp.right).offset(10)
+        _remainingTimeLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(_currentTimeLabel)
+            make.left.equalTo(_timeSlider.snp.right).offset(10)
             make.width.equalTo(40)
         }
         
-        totalTimeLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(currentTimeLabel)
-            make.left.equalTo(remainingTimeLabel.snp.right).offset(0)
+        _durationLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(_currentTimeLabel)
+            make.left.equalTo(_remainingTimeLabel.snp.right).offset(0)
             make.width.equalTo(40)
             make.right.equalTo(bottomContainerView.snp.right).offset(-10)
         }
@@ -215,16 +215,16 @@ class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControls
 
 extension SHVideoPlayerWithDefaultControlsView: SHVideoPlayerControlable {
     
-    var playerTitleLabel: UILabel?  { get { return  titleLabel } }
-    var playerCurrentTimeLabel: UILabel?  { get { return  currentTimeLabel } }
-    var playerTotalTimeLabel: UILabel?  { get { return  totalTimeLabel } }
-    var playerRemainingTimeLabel: UILabel? { get { return remainingTimeLabel} }
+    var titleLabel: UILabel?  { get { return  _titleLabel } }
+    var currentTimeLabel: UILabel?  { get { return  _currentTimeLabel } }
+    var durationLabel: UILabel?  { get { return  _durationLabel } }
+    var remainingTimeLabel: UILabel? { get { return _remainingTimeLabel} }
     
-    var playerPlayButton: UIButton? { get { return  playButton } }
-    var playerFullScreenButton: UIButton? { get { return  fullScreenButton } }
+    var playButton: UIButton? { get { return  _playButton } }
+    var fullScreenButton: UIButton? { get { return  _fullScreenButton } }
     
-    var playerTimeSlider: UISlider? { get { return  timeSlider } }
-    var playerProgressView: UIProgressView? { get { return  progressView } }
+    var timeSlider: UISlider? { get { return  _timeSlider } }
+    var progressView: UIProgressView? { get { return  _progressView } }
     
     var playerControlView: UIView { return self }
     
@@ -232,34 +232,34 @@ extension SHVideoPlayerWithDefaultControlsView: SHVideoPlayerControlable {
         isFullScreen = isForFullScreen
         if isForFullScreen {
             if delegate != nil {
-                fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
+                _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
             } else {
-                fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: UIControlState())
+                _fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: UIControlState())
             }
         } else {
             if delegate != nil {
-                fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
+                _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
             } else {
-                fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_smallscreen"), for: UIControlState())
+                _fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_smallscreen"), for: UIControlState())
             }
         }
     }
     
     func showPlayerUIComponents() {
-        playButton.isHidden = false
+        _playButton.isHidden = false
         topContainerView.alpha    = 1.0
         bottomContainerView.alpha = 1.0
         bgContainerView.backgroundColor = UIColor ( red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
     }
     
     func hidePlayerUIComponents() {
-        playButton.isHidden = true
+        _playButton.isHidden = true
         topContainerView.alpha = 0.0
         bottomContainerView.alpha = 0.0
         bgContainerView.backgroundColor = UIColor ( red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0 )
     }
     
     func showPlayToTheEndView() {
-        playButton.isHidden = false
+        _playButton.isHidden = false
     }
 }
