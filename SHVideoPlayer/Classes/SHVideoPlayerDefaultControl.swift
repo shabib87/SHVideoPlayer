@@ -11,7 +11,7 @@ import SnapKit
 
 class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCustomizationProtocol {
     
-    weak var delegate: SHVideoPlayerDefaultControlsCustomizationDelegate?
+    weak var delegate: SHVideoPlayerDefaultControlCustomizationDelegate?
     
     var _titleLabel = UILabel()
     var _currentTimeLabel = UILabel()
@@ -69,40 +69,63 @@ class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCustomiza
     }
     
     fileprivate func configureDelegation() {
+        configurePlayButtonNormalStateImage()
+        configurePlayButtonSelectedStateImage()
+        configureFullScreenButtonNormalStateImage()
+    }
+    
+    fileprivate func configurePlayButtonNormalStateImage() {
         if delegate != nil {
-            _playButton.setImage(delegate?.playButtonNormalStateImage(), for: UIControlState())
+            _playButton.setImage(delegate?.playButtonNormalStateImage(), for: .normal)
         } else {
-            _playButton.setImage(SHImageResourcePath("SHVideoPlayer_play"), for: UIControlState())
+            _playButton.setImage(SHImageResourcePath("SHVideoPlayer_play"), for: .normal)
         }
-        
+    }
+    
+    fileprivate func configurePlayButtonSelectedStateImage() {
         if delegate != nil {
-            _playButton.setImage(delegate?.playButtonSelectedStateImage(), for: UIControlState())
+            _playButton.setImage(delegate?.playButtonSelectedStateImage(), for: .selected)
         } else {
-            _playButton.setImage(SHImageResourcePath("SHVideoPlayer_pause"), for: UIControlState.selected)
+            _playButton.setImage(SHImageResourcePath("SHVideoPlayer_pause"), for: .selected)
         }
-        
+    }
+    
+    fileprivate func configureFullScreenButtonNormalStateImage() {
         if delegate != nil {
-            _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
+            _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: .normal)
         } else {
-            _fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: UIControlState())
+            _fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: .normal)
         }
     }
     
     fileprivate func configureLabels() {
-        _titleLabel.textColor = UIColor.white
+        configureTitleLabel()
+        configureCurrentTimeLabel()
+        configureRemainingTimeLabel()
+        configureDurationLabel()
+    }
+    
+    fileprivate func configureTitleLabel() {
+        _titleLabel.textColor = .white
         _titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
-        
-        _currentTimeLabel.textColor = UIColor.white
+    }
+    
+    fileprivate func configureCurrentTimeLabel() {
+        _currentTimeLabel.textColor = .white
         _currentTimeLabel.font = UIFont.systemFont(ofSize: 12)
         _currentTimeLabel.text = "00:00"
         _currentTimeLabel.textAlignment = .center
-        
-        _remainingTimeLabel.textColor = UIColor.white
+    }
+    
+    fileprivate func configureRemainingTimeLabel() {
+        _remainingTimeLabel.textColor = .white
         _remainingTimeLabel.font = UIFont.systemFont(ofSize: 12)
         _remainingTimeLabel.text = "00:00"
         _remainingTimeLabel.textAlignment = .right
-        
-        _durationLabel.textColor = UIColor.white
+    }
+    
+    fileprivate func configureDurationLabel() {
+        _durationLabel.textColor = .white
         _durationLabel.font = UIFont.systemFont(ofSize: 12)
         _durationLabel.text = "/00:00"
         _durationLabel.textAlignment = .left
@@ -133,25 +156,47 @@ class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCustomiza
     }
     
     fileprivate func addConstraintsToComponents() {
+        setBGContainerViewConstraints()
+        setTopContainerViewConstraints()
+        setBottomContainerViewConstraints()
+        setTitleLabelConstraints()
+        setFullScreenButtonConstraints()
+        setPlayButtonConstraints()
+        setCurrentLabelConstraints()
+        setTimeSliderConstraints()
+        setProgressViewConstraints()
+        setRemainingLabelConstraints()
+        setDurationLabelContraints()
+    }
+    
+    fileprivate func setBGContainerViewConstraints() {
         bgContainerView.snp.makeConstraints { (make) in
             make.edges.equalTo(self)
         }
-        
+    }
+    
+    fileprivate func setTopContainerViewConstraints() {
         topContainerView.snp.makeConstraints { (make) in
             make.top.left.right.equalTo(bgContainerView)
             make.height.equalTo(65)
         }
-        
+    }
+    
+    fileprivate func setBottomContainerViewConstraints() {
         bottomContainerView.snp.makeConstraints { (make) in
             make.bottom.left.right.equalTo(bgContainerView)
             make.height.equalTo(50)
         }
-        
+    }
+    
+    fileprivate func setTitleLabelConstraints() {
         _titleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(topContainerView.snp.left).offset(10)
             make.centerY.equalTo(topContainerView)
         }
-        
+    }
+    
+    fileprivate func setFullScreenButtonConstraints() {
         _fullScreenButton.snp.makeConstraints { (make) in
             make.width.equalTo(37)
             make.height.equalTo(42)
@@ -159,36 +204,48 @@ class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCustomiza
             make.left.equalTo(_titleLabel.snp.right).offset(10)
             make.right.equalTo(topContainerView.snp.right).offset(-10)
         }
-        
+    }
+    
+    fileprivate func setPlayButtonConstraints() {
         _playButton.snp.makeConstraints { (make) in
             make.width.equalTo(42)
             make.height.equalTo(42)
             make.centerX.centerY.equalTo(self)
         }
-        
+    }
+    
+    fileprivate func setCurrentLabelConstraints() {
         _currentTimeLabel.snp.makeConstraints { (make) in
             make.left.equalTo(bottomContainerView.snp.left).offset(10)
             make.centerY.equalTo(bottomContainerView)
             make.width.equalTo(40)
         }
-        
+    }
+    
+    fileprivate func setTimeSliderConstraints() {
         _timeSlider.snp.makeConstraints { (make) in
             make.centerY.equalTo(_currentTimeLabel)
             make.left.equalTo(_currentTimeLabel.snp.right).offset(10).priority(750)
             make.height.equalTo(30)
         }
-        
+    }
+    
+    fileprivate func setProgressViewConstraints() {
         _progressView.snp.makeConstraints { (make) in
             make.centerY.left.right.equalTo(_timeSlider)
             make.height.equalTo(2)
         }
-        
+    }
+    
+    fileprivate func setRemainingLabelConstraints() {
         _remainingTimeLabel.snp.makeConstraints { (make) in
             make.centerY.equalTo(_currentTimeLabel)
             make.left.equalTo(_timeSlider.snp.right).offset(10)
             make.width.equalTo(40)
         }
-        
+    }
+    
+    fileprivate func setDurationLabelContraints() {
         _durationLabel.snp.makeConstraints { (make) in
             make.centerY.equalTo(_currentTimeLabel)
             make.left.equalTo(_remainingTimeLabel.snp.right).offset(0)
@@ -231,17 +288,25 @@ extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
     func updateUI(_ isForFullScreen: Bool) {
         isFullScreen = isForFullScreen
         if isForFullScreen {
-            if delegate != nil {
-                _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
-            } else {
-                _fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: UIControlState())
-            }
+            updateFullScreenImage()
         } else {
-            if delegate != nil {
-                _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
-            } else {
-                _fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_smallscreen"), for: UIControlState())
-            }
+            updateSmallScreenImage()
+        }
+    }
+    
+    fileprivate func updateFullScreenImage() {
+        if delegate != nil {
+            _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: .normal)
+        } else {
+            _fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: .normal)
+        }
+    }
+    
+    fileprivate func updateSmallScreenImage() {
+        if delegate != nil {
+            _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: .normal)
+        } else {
+            _fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_smallscreen"), for: .normal)
         }
     }
     

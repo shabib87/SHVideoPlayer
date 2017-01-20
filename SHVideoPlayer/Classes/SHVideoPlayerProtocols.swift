@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol SHVideoPlayerDefaultControlsCustomizationDelegate: class {
+public protocol SHVideoPlayerDefaultControlCustomizationDelegate: class {
     
     func playButtonNormalStateImage()-> UIImage
     func playButtonSelectedStateImage()-> UIImage
@@ -22,7 +22,7 @@ public protocol SHVideoPlayerDefaultControlsCustomizationDelegate: class {
 
 public protocol SHVideoPlayerDefaultControlsCustomizationProtocol {
     
-    weak var delegate: SHVideoPlayerDefaultControlsCustomizationDelegate? { get set }
+    weak var delegate: SHVideoPlayerDefaultControlCustomizationDelegate? { get set }
 }
 
 public protocol SHVideoPlayerControl  {
