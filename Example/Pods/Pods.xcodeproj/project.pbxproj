@@ -38,7 +38,7 @@
 		806EBE3717264F26599D96B4872E0485 /* ConstraintMultiplierTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0729DC38B02A17974FD7A7238FCB1836 /* ConstraintMultiplierTarget.swift */; };
 		87DE1F5C714F74F67C5E8CFF909DE9A2 /* SHVideoPlayer_play.png in Resources */ = {isa = PBXBuildFile; fileRef = D2E1CB2260B92D04254A98B692896807 /* SHVideoPlayer_play.png */; };
 		8854E164682896E3655A40D23669C5AD /* Pods-SHVideoPlayer_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D397F2027C48197A873F1F5314A73936 /* Pods-SHVideoPlayer_Example-dummy.m */; };
-		8E01A5E48B17022FCB4F73409D355802 /* SHVideoPlayerLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B2E9CE933C13286B3F53D1322451C1 /* SHVideoPlayerLayerView.swift */; };
+		8E01A5E48B17022FCB4F73409D355802 /* SHVideoPlayerLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B2E9CE933C13286B3F53D1322451C1 /* SHVideoPlayerLayer.swift */; };
 		8EB5EE156286C18671A747C57499C892 /* SHVideoPlayerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FE26B41F9C12323DB181CBDD522D95 /* SHVideoPlayerConstants.swift */; };
 		909ADF6CEC413514067BCB36379CAC83 /* ConstraintLayoutGuideDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C79107F482F7B2D7E4061657DCA44 /* ConstraintLayoutGuideDSL.swift */; };
 		94F94C7FC4FD4E9B92FF3DFC92D18DA8 /* ConstraintRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C807430C3A7B9A82E2DDD844C58759 /* ConstraintRelation.swift */; };
@@ -52,7 +52,7 @@
 		AED519F07F3CD51CF928B763D40FBB7A /* ConstraintMakerEditable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8ECEBD49CA569FC524CB77465180B6 /* ConstraintMakerEditable.swift */; };
 		B7134AC135F3A9EBA6AC333A57A0DED1 /* ConstraintMakerPriortizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261BC3C65CE6EBBED920977848212F6F /* ConstraintMakerPriortizable.swift */; };
 		BB1C723C905AA72F86EE8A272C6A712D /* SHVideoPlayer_fullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = AF089CEDAE89A2D287438EA7CBA4AC4F /* SHVideoPlayer_fullscreen.png */; };
-		BE3C481D85D4CE88F1D28C0706609CDD /* SHVideoPlayerDefaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520FD9B3E8AF9394356B7F6807C4228D /* SHVideoPlayerDefaultView.swift */; };
+		BE3C481D85D4CE88F1D28C0706609CDD /* SHVideoPlayerDefaultControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520FD9B3E8AF9394356B7F6807C4228D /* SHVideoPlayerDefaultControl.swift */; };
 		C433C061B68064468DE063537B7E9843 /* SHVideoPlayer-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 670AA8D007E53E660C6DC248613AFF02 /* SHVideoPlayer-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CC9E90EF8914CCC6D31756A1FDA723E8 /* Pods-SHVideoPlayer_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 393C224CB0E0B6A68B62E25E29F611C0 /* Pods-SHVideoPlayer_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0FCDCE3D6CFA995AFB25C6D3873DCF2 /* SHVideoPlayer_play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6083357ED7FBC373D1093175B7F6E7C5 /* SHVideoPlayer_play@2x.png */; };
@@ -128,7 +128,7 @@
 		47E3017DC86F4E2DAFF266C1E3682867 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4937C983C3C81480A03BF7BB28F95CD3 /* SHVideoPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SHVideoPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50BF4E341DC91F918DC3DD74CA4ADC22 /* SnapKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SnapKit-umbrella.h"; sourceTree = "<group>"; };
-		520FD9B3E8AF9394356B7F6807C4228D /* SHVideoPlayerDefaultView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SHVideoPlayerDefaultView.swift; sourceTree = "<group>"; };
+		520FD9B3E8AF9394356B7F6807C4228D /* SHVideoPlayerDefaultControl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SHVideoPlayerDefaultControl.swift; sourceTree = "<group>"; };
 		5466486B6900B61A6934317B0C1B9F82 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		596942D66E1D1762D65B3DB88C67C90A /* Pods-SHVideoPlayer_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SHVideoPlayer_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		597734A7EDE6E13F6D1939A7C7373CD1 /* ConstraintConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintConfig.swift; path = Source/ConstraintConfig.swift; sourceTree = "<group>"; };
@@ -185,7 +185,7 @@
 		D8AA583273C076DD4A1EBAFDDA0E89A8 /* ConstraintMakerFinalizable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerFinalizable.swift; path = Source/ConstraintMakerFinalizable.swift; sourceTree = "<group>"; };
 		D9436516C34AB3584CE7FEB5086441B3 /* Pods-SHVideoPlayer_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SHVideoPlayer_Tests-resources.sh"; sourceTree = "<group>"; };
 		E11295210FBB75091BE22529081A2720 /* ConstraintView+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ConstraintView+Extensions.swift"; path = "Source/ConstraintView+Extensions.swift"; sourceTree = "<group>"; };
-		E5B2E9CE933C13286B3F53D1322451C1 /* SHVideoPlayerLayerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SHVideoPlayerLayerView.swift; sourceTree = "<group>"; };
+		E5B2E9CE933C13286B3F53D1322451C1 /* SHVideoPlayerLayer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SHVideoPlayerLayer.swift; sourceTree = "<group>"; };
 		E829CF33E924A882AF4ED93EB7FFD323 /* SHVideoPlayer_play@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "SHVideoPlayer_play@3x.png"; sourceTree = "<group>"; };
 		E855200DC6085FF07EBD87301AD370C9 /* ConstraintInsets.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintInsets.swift; path = Source/ConstraintInsets.swift; sourceTree = "<group>"; };
 		E885DC7A2C93B352F3CCBAF6C4F30F7F /* SnapKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SnapKit.xcconfig; sourceTree = "<group>"; };
@@ -306,8 +306,8 @@
 			children = (
 				A1DEA72D71FC426257E0F8D8E38551B4 /* SHVideoPlayer.swift */,
 				79FE26B41F9C12323DB181CBDD522D95 /* SHVideoPlayerConstants.swift */,
-				520FD9B3E8AF9394356B7F6807C4228D /* SHVideoPlayerDefaultView.swift */,
-				E5B2E9CE933C13286B3F53D1322451C1 /* SHVideoPlayerLayerView.swift */,
+				520FD9B3E8AF9394356B7F6807C4228D /* SHVideoPlayerDefaultControl.swift */,
+				E5B2E9CE933C13286B3F53D1322451C1 /* SHVideoPlayerLayer.swift */,
 				F0530A6A1DDC552A00699DB7 /* SHVideoPlayerScrubber.swift */,
 				5D0EBDC18D35E4922B1422B2F019855B /* SHVideoPlayerProtocols.swift */,
 			);
@@ -740,8 +740,8 @@
 				F0530A6B1DDC552A00699DB7 /* SHVideoPlayerScrubber.swift in Sources */,
 				96ED3227688723B707538D1A5E0E740D /* SHVideoPlayer.swift in Sources */,
 				8EB5EE156286C18671A747C57499C892 /* SHVideoPlayerConstants.swift in Sources */,
-				BE3C481D85D4CE88F1D28C0706609CDD /* SHVideoPlayerDefaultView.swift in Sources */,
-				8E01A5E48B17022FCB4F73409D355802 /* SHVideoPlayerLayerView.swift in Sources */,
+				BE3C481D85D4CE88F1D28C0706609CDD /* SHVideoPlayerDefaultControl.swift in Sources */,
+				8E01A5E48B17022FCB4F73409D355802 /* SHVideoPlayerLayer.swift in Sources */,
 				130DC30F6515B3DF5D78275AD785FC2A /* SHVideoPlayerProtocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

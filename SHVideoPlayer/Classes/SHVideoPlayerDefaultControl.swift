@@ -1,5 +1,5 @@
 //
-//  SHVideoPlayerWithDefaultControlsView.swift
+//  SHVideoPlayerDefaultControl.swift
 //  SHVideoPlayer
 //
 //  Created by shabib hossain on 11/13/16.
@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControlsCustomizationProtocol {
+class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCustomizationProtocol {
     
     weak var delegate: SHVideoPlayerDefaultControlsCustomizationDelegate?
     
@@ -213,7 +213,7 @@ class SHVideoPlayerWithDefaultControlsView: UIView, SHVideoPlayerDefaultControls
     }
 }
 
-extension SHVideoPlayerWithDefaultControlsView: SHVideoPlayerControlable {
+extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
     
     var titleLabel: UILabel?  { get { return  _titleLabel } }
     var currentTimeLabel: UILabel?  { get { return  _currentTimeLabel } }
