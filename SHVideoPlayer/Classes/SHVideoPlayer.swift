@@ -14,10 +14,12 @@ open class SHVideoPlayer: UIView {
     open var tapGesture: UITapGestureRecognizer!
     fileprivate var playerControllerView: SHVideoPlayerControlable!
     fileprivate var playerLayer: SHVideoPlayerLayerView!
+    fileprivate var playerScrubber: SHVideoPlayerScrubber!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.playerControllerView = SHVideoPlayerWithDefaultControlsView()
+        self.playerScrubber = SHVideoPlayerScrubber(with: playerLayer.player!, slider: playerControllerView.playerTimeSlider!, currentTimeLabel: playerControllerView.playerCurrentTimeLabel!, durationLabel: playerControllerView.playerTotalTimeLabel!, remainingTimeLabel: playerControllerView.playerRemainingTimeLabel!, playPauseButton: playerControllerView.playerPlayButton!)
     }
     
     required public init?(coder aDecoder: NSCoder) {
