@@ -18,7 +18,6 @@ class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCustomiza
     var _durationLabel = UILabel()
     var _remainingTimeLabel = UILabel()
     
-    
     var _playButton = UIButton(type: .custom)
     var _fullScreenButton = UIButton(type: .custom)
     
@@ -283,7 +282,7 @@ extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
     var timeSlider: UISlider? { get { return  _timeSlider } }
     var progressView: UIProgressView? { get { return  _progressView } }
     
-    var playerControlView: UIView { return self }
+    var controlView: UIView { return self }
     
     func updateUI(_ isForFullScreen: Bool) {
         isFullScreen = isForFullScreen

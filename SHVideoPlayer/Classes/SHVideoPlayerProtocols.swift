@@ -38,7 +38,7 @@ public protocol SHVideoPlayerControl  {
     var timeSlider: UISlider? { get }
     var progressView: UIProgressView? { get }
     
-    var playerControlView: UIView { get }
+    var controlView: UIView { get }
     
     /**
      call when UI needs to update, usually when screen orient did change

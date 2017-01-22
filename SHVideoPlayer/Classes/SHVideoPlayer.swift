@@ -19,6 +19,12 @@ open class SHVideoPlayer: UIView {
         }
     }
     
+    var isFullScreen:Bool {
+        get {
+            return UIApplication.shared.statusBarOrientation.isLandscape
+        }
+    }
+    
     fileprivate var playerControl: SHVideoPlayerControl!
     fileprivate var playerLayer: SHVideoPlayerLayer!
     fileprivate var playerScrubber: SHVideoPlayerScrubber!
@@ -27,40 +33,41 @@ open class SHVideoPlayer: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.playerControl = SHVideoPlayerDefaultControl()
-        self.preparePlayer()
-        self.playerScrubber = SHVideoPlayerScrubber(with: playerLayer.player!, slider: playerControl.timeSlider!, currentTimeLabel: playerControl.currentTimeLabel!, durationLabel: playerControl.durationLabel!, remainingTimeLabel: playerControl.remainingTimeLabel!, playPauseButton: playerControl.playButton!)
+        self.initUI()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.playerControl = SHVideoPlayerDefaultControl()
+        self.initUI()
     }
     
-    public convenience init (customControllView: SHVideoPlayerControl?) {
+    public convenience init (customPlayerControl: SHVideoPlayerControl?) {
         self.init(frame:CGRect.zero)
-        self.playerControl = customControllView
+        self.initUI()
     }
     
     public convenience init() {
-        self.init(customControllView:nil)
+        self.init(customPlayerControl:nil)
+    }
+    
+    fileprivate func initUI() {
+        self.preparePlayerControl()
+        self.preparePlayer()
+        self.preparePlayerScrubber()
     }
     
     fileprivate func preparePlayerControl() {
         self.backgroundColor = UIColor.black
-        if let customView = customControllView {
-            controlView = customView
+        if let customView = customPlayerControl {
+            playerControl = customView
         } else {
-            controlView =  BMPlayerControlView()
+            playerControl =  SHVideoPlayerDefaultControl()
         }
-        
-        addSubview(controlView.getView)
-        controlView.updateUI(isFullScreen)
-        controlView.delegate = self
-        controlView.getView.snp.makeConstraints { (make) in
+        self.addSubview(playerControl.controlView)
+        playerControl.updateUI(isFullScreen)
+        playerControl.controlView.snp.makeConstraints { (make) in
             make.edges.equalTo(self)
         }
-        
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGestureTapped(_:)))
         self.addGestureRecognizer(tapGesture)
     }
@@ -73,6 +80,14 @@ open class SHVideoPlayer: UIView {
             make.edges.equalTo(self)
         }
         self.layoutIfNeeded()
+    }
+    
+    fileprivate func preparePlayerScrubber() {
+        self.playerScrubber = SHVideoPlayerScrubber(with: playerLayer.player!, slider: playerControl.timeSlider!, currentTimeLabel: playerControl.currentTimeLabel!, durationLabel: playerControl.durationLabel!, remainingTimeLabel: playerControl.remainingTimeLabel!, playPauseButton: playerControl.playButton!)
+    }
+    
+    @objc fileprivate func tapGestureTapped(_ sender: UIGestureRecognizer) {
+        // TODO: show and hide control
     }
     
     deinit {
