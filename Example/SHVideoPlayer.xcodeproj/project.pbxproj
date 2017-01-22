@@ -15,6 +15,7 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		7F92F511D4EE1604BEA5F8D4 /* Pods_SHVideoPlayer_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D3ACE9B5759FCC64099BAD0 /* Pods_SHVideoPlayer_Tests.framework */; };
+		F077215A1E34D47400AA9258 /* SHVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07721591E34D47400AA9258 /* SHVideo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		B77CCC0CEFCED4E6ECBD83E1 /* Pods-SHVideoPlayer_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SHVideoPlayer_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SHVideoPlayer_Tests/Pods-SHVideoPlayer_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		B8F153600D4176CF53F4993E /* Pods-SHVideoPlayer_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SHVideoPlayer_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SHVideoPlayer_Example/Pods-SHVideoPlayer_Example.release.xcconfig"; sourceTree = "<group>"; };
 		C89D71DF7E05AD1B58A3F0D9 /* Pods-SHVideoPlayer_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SHVideoPlayer_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SHVideoPlayer_Example/Pods-SHVideoPlayer_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		F07721591E34D47400AA9258 /* SHVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHVideo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
-				607FACD21AFB9204008FA782 /* Example for SHVideoPlayer */,
+				607FACD21AFB9204008FA782 /* SHVideoPlayerExample */,
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				6115C0B346F2F69850C1DBF8 /* Pods */,
@@ -90,17 +92,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		607FACD21AFB9204008FA782 /* Example for SHVideoPlayer */ = {
+		607FACD21AFB9204008FA782 /* SHVideoPlayerExample */ = {
 			isa = PBXGroup;
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				F07721591E34D47400AA9258 /* SHVideo.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
-			name = "Example for SHVideoPlayer";
+			name = SHVideoPlayerExample;
 			path = SHVideoPlayer;
 			sourceTree = "<group>";
 		};
@@ -365,6 +368,7 @@
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				F077215A1E34D47400AA9258 /* SHVideo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
