@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,11 +26,61 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AEV-A4-dNf">
+                                <rect key="frame" x="0.0" y="180" width="320" height="388"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="glX-5e-q0C">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="80"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="glX-5e-q0C" id="MJS-8z-4LH">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XTk-3R-abE">
+                                                    <rect key="frame" x="10" y="10" width="60" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="AMT-Wk-R93"/>
+                                                        <constraint firstAttribute="width" constant="60" id="VFX-MR-egM"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Person Working on an Apple MacBook" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbV-0N-zFO">
+                                                    <rect key="frame" x="75" y="5" width="240" height="33.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="https://videos.pexels.com/videos/person-working-on-an-apple-macbook-599" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EkM-HK-y5A">
+                                                    <rect key="frame" x="75" y="38.5" width="240" height="36"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="dbV-0N-zFO" firstAttribute="leading" secondItem="XTk-3R-abE" secondAttribute="trailing" constant="5" id="0hI-90-ZN8"/>
+                                                <constraint firstItem="EkM-HK-y5A" firstAttribute="leading" secondItem="dbV-0N-zFO" secondAttribute="leading" id="CqH-Qv-XQb"/>
+                                                <constraint firstItem="EkM-HK-y5A" firstAttribute="trailing" secondItem="dbV-0N-zFO" secondAttribute="trailing" id="DAA-AB-8oc"/>
+                                                <constraint firstItem="dbV-0N-zFO" firstAttribute="top" secondItem="MJS-8z-4LH" secondAttribute="top" constant="5" id="RPR-nH-2ib"/>
+                                                <constraint firstItem="XTk-3R-abE" firstAttribute="leading" secondItem="MJS-8z-4LH" secondAttribute="leading" constant="10" id="SBJ-UL-mkD"/>
+                                                <constraint firstItem="EkM-HK-y5A" firstAttribute="top" secondItem="dbV-0N-zFO" secondAttribute="bottom" id="nLD-v9-vuY"/>
+                                                <constraint firstAttribute="bottom" secondItem="EkM-HK-y5A" secondAttribute="bottom" constant="5" id="nVP-qk-Fze"/>
+                                                <constraint firstItem="XTk-3R-abE" firstAttribute="centerY" secondItem="MJS-8z-4LH" secondAttribute="centerY" id="pOX-40-o3Q"/>
+                                                <constraint firstAttribute="trailing" secondItem="dbV-0N-zFO" secondAttribute="trailing" constant="5" id="pan-tg-hbD"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="AEV-A4-dNf" firstAttribute="top" secondItem="VbF-fD-q7a" secondAttribute="bottom" id="81Q-EZ-La3"/>
                             <constraint firstAttribute="trailing" secondItem="VbF-fD-q7a" secondAttribute="trailing" id="Dt2-M5-PcH"/>
                             <constraint firstItem="VbF-fD-q7a" firstAttribute="height" secondItem="kh9-bI-dsS" secondAttribute="width" multiplier="9/16" priority="750" id="EDx-sr-wm6"/>
+                            <constraint firstAttribute="trailing" secondItem="AEV-A4-dNf" secondAttribute="trailing" id="H4m-Ns-xcO"/>
+                            <constraint firstItem="AEV-A4-dNf" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="IYO-6e-LyU"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="AEV-A4-dNf" secondAttribute="bottom" id="e1h-Qh-nC8"/>
                             <constraint firstItem="VbF-fD-q7a" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="rCa-eN-jaS"/>
                             <constraint firstItem="VbF-fD-q7a" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="wKK-jU-BqJ"/>
                         </constraints>

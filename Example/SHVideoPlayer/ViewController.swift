@@ -11,8 +11,33 @@ import SHVideoPlayer
 
 class ViewController: UIViewController {
 
+    @IBOutlet var tableView: UITableView!
+    fileprivate var videos: [SHVideo] = VideoDataSource.getModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 }
 
+extension ViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return videos.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VideoTableViewCellID", for: indexPath) as! VideoTableViewCell
+        let video = videos[indexPath.row]
+        cell.titleLabel.text = video.title
+        cell.sourceURLLabel.text = video.sourceURL
+        cell.thumbImageView.image = video.
+        return cell
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+}

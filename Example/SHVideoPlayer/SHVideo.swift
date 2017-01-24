@@ -7,15 +7,18 @@
 //
 
 import Foundation
+import UIKit
 
 struct SHVideo {
     var title: String?
     var url: String?
     var sourceURL: String?
+    var thumbImage: UIImage?
     
     init(title: String, url: String, sourceURL: String) {
         self.title = title
         self.url = url
         self.sourceURL = url
+        
     }
 }
