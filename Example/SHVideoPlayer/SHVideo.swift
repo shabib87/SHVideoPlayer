@@ -9,5 +9,13 @@
 import Foundation
 
 struct SHVideo {
+    var title: String?
+    var url: String?
+    var sourceURL: String?
     
+    init(title: String, url: String, sourceURL: String) {
+        self.title = title
+        self.url = url
+        self.sourceURL = url
+    }
 }
