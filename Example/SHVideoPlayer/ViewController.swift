@@ -30,7 +30,7 @@ extension ViewController: UITableViewDataSource {
         let video = videos[indexPath.row]
         cell.titleLabel.text = video.title
         cell.sourceURLLabel.text = video.sourceURL
-        cell.thumbImageView.image = video.
+        cell.thumbImageView.image = video.thumbImage
         return cell
     }
 }

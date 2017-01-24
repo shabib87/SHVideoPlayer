@@ -19,6 +19,6 @@ struct SHVideo {
         self.title = title
         self.url = url
         self.sourceURL = url
-        
+        self.thumbImage = UIImage(named: title)
     }
 }
