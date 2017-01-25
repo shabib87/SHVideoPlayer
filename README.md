@@ -31,7 +31,7 @@ pod "SHVideoPlayer"
 
 ## Author
 
-**Created by** Ahmad Shabibul Hossain, [@shabib_hossain](https://twitter.com/shabib_hossain) on 5/15/14.
+**Created by** Ahmad Shabibul Hossain, [@shabib_hossain](https://twitter.com/shabib_hossain) on 11/12/2016.
 
 ## Contact
 
