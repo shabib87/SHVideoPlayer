@@ -31,6 +31,8 @@ open class SHVideoPlayer: UIView {
     
     fileprivate var customPlayerControl: SHVideoPlayerControl?
     
+    fileprivate var playerControlsAreVisible = true
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.initUI()
@@ -57,7 +59,6 @@ open class SHVideoPlayer: UIView {
     }
     
     fileprivate func preparePlayerControl() {
-        self.backgroundColor = UIColor.black
         if let customView = customPlayerControl {
             playerControl = customView
         } else {
@@ -83,11 +84,17 @@ open class SHVideoPlayer: UIView {
     }
     
     fileprivate func preparePlayerScrubber() {
-        self.playerScrubber = SHVideoPlayerScrubber(with: playerLayer.player!, slider: playerControl.timeSlider!, currentTimeLabel: playerControl.currentTimeLabel!, durationLabel: playerControl.durationLabel!, remainingTimeLabel: playerControl.remainingTimeLabel!, playPauseButton: playerControl.playButton!)
+        // TODO: fix crash
+//        self.playerScrubber = SHVideoPlayerScrubber(with: playerLayer.player!, slider: playerControl.timeSlider!, currentTimeLabel: playerControl.currentTimeLabel!, durationLabel: playerControl.durationLabel!, remainingTimeLabel: playerControl.remainingTimeLabel!, playPauseButton: playerControl.playButton!)
     }
     
     @objc fileprivate func tapGestureTapped(_ sender: UIGestureRecognizer) {
-        // TODO: show and hide control
+        if self.playerControlsAreVisible {
+            playerControl.hidePlayerUIComponents()
+        } else {
+            playerControl.showPlayerUIComponents()
+        }
+        self.playerControlsAreVisible = !self.playerControlsAreVisible;
     }
     
     deinit {

@@ -16,6 +16,7 @@ import Foundation
  3. https://player.vimeo.com/external/180185916.hd.mp4?s=333d7b459ceb3c734a343c3bd63ecb29f453cfac&profile_id=174&oauth2_token_id=57447761 (Camping At A Forest, https://videos.pexels.com/videos/camping-at-a-forest-988)
  4. https://player.vimeo.com/external/137630144.hd.mp4?s=70bf7278ed6ea3eddca2449eda8aa8642aa9906f&profile_id=119&oauth2_token_id=57447761 (Planes on Airport, https://videos.pexels.com/videos/planes-on-airport-581)
  5. https://player.vimeo.com/external/123483208.hd.mp4?s=5048f108225289a3daa3f165a407e0b68010e799&profile_id=113&oauth2_token_id=57447761 (Timelapse of Stockholm at Night, https://videos.pexels.com/videos/timelapse-of-stockholm-at-night-539)
+ 
  */
 
 class VideoDataSource {
@@ -25,6 +26,8 @@ class VideoDataSource {
         let model3 = SHVideo(title: "Camping At A Forest", url: "https://player.vimeo.com/external/180185916.hd.mp4?s=333d7b459ceb3c734a343c3bd63ecb29f453cfac&profile_id=174&oauth2_token_id=57447761", sourceURL: "https://videos.pexels.com/videos/camping-at-a-forest-988")
         let model4 = SHVideo(title: "Planes on Airport", url: "https://player.vimeo.com/external/137630144.hd.mp4?s=70bf7278ed6ea3eddca2449eda8aa8642aa9906f&profile_id=119&oauth2_token_id=57447761", sourceURL: "https://videos.pexels.com/videos/planes-on-airport-581")
         let model5 = SHVideo(title: "Timelapse of Stockholm at Night", url: "https://player.vimeo.com/external/123483208.hd.mp4?s=5048f108225289a3daa3f165a407e0b68010e799&profile_id=113&oauth2_token_id=57447761", sourceURL: "https://videos.pexels.com/videos/timelapse-of-stockholm-at-night-539")
-        return [model1, model2, model3, model4, model5]
+        let model6 = SHVideo(title: "Water Dripping From Faucet", url: "https://player.vimeo.com/external/199432637.hd.mp4?s=aca0946ea2cc0d57a91eb4b9b7687528119f4d2c&profile_id=119&oauth2_token_id=57447761", sourceURL: "https://videos.pexels.com/videos/water-dripping-from-faucet-1712")
+        let model7 = SHVideo(title: "Bird Perched", url: "https://player.vimeo.com/external/198432864.hd.mp4?s=8dd8b904724b145a4c78552ec1882875b08d2371&profile_id=119&oauth2_token_id=57447761", sourceURL: "https://videos.pexels.com/videos/bird-perched-1657")
+        return [model1, model2, model3, model4, model5, model6, model7]
     }
 }
