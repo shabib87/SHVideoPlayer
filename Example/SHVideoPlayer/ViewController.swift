@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let video = videos[0]
-        videoPlayer.playWithURL(URL(string: video.url!)!)
+        videoPlayer.playWithURL(URL(string: video.url!)!, title: video.title!)
     }
 }
 

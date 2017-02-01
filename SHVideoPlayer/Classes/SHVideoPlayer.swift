@@ -114,8 +114,4 @@ open class SHVideoPlayer: UIView {
         }
         self.playerControlsAreVisible = !self.playerControlsAreVisible;
     }
-    
-    deinit {
-        
-    }
 }
