@@ -115,6 +115,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="AEV-A4-dNf" id="gcJ-fk-92W"/>
+                        <outlet property="videoPlayer" destination="VbF-fD-q7a" id="Jpp-kz-7Xe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

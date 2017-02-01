@@ -30,8 +30,10 @@ open class SHVideoPlayer: UIView {
     fileprivate var playerScrubber: SHVideoPlayerScrubber!
     
     fileprivate var customPlayerControl: SHVideoPlayerControl?
-    
+    fileprivate var videoItemURL: URL!
     fileprivate var playerControlsAreVisible = true
+    fileprivate var hasURLSet = false
+    fileprivate var isPausedByUser   = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,10 +54,27 @@ open class SHVideoPlayer: UIView {
         self.init(customPlayerControl:nil)
     }
     
+    open func playWithURL(_ url: URL, title: String = "") {
+        playerControl.titleLabel?.text = title
+        videoItemURL = url
+        playerLayer.videoURL = videoItemURL
+        hasURLSet = true
+        self.preparePlayerScrubber()
+        self.play()
+    }
+    
+    fileprivate func play() {
+        if !hasURLSet {
+            playerLayer?.videoURL = videoItemURL
+            hasURLSet = true
+        }
+        playerLayer?.player?.play()
+        isPausedByUser = false
+    }
+    
     fileprivate func initUI() {
         self.preparePlayerControl()
         self.preparePlayer()
-        self.preparePlayerScrubber()
     }
     
     fileprivate func preparePlayerControl() {
@@ -84,8 +103,7 @@ open class SHVideoPlayer: UIView {
     }
     
     fileprivate func preparePlayerScrubber() {
-        // TODO: fix crash
-//        self.playerScrubber = SHVideoPlayerScrubber(with: playerLayer.player!, slider: playerControl.timeSlider!, currentTimeLabel: playerControl.currentTimeLabel!, durationLabel: playerControl.durationLabel!, remainingTimeLabel: playerControl.remainingTimeLabel!, playPauseButton: playerControl.playButton!)
+        self.playerScrubber = SHVideoPlayerScrubber(with: playerLayer.player!, slider: playerControl.timeSlider!, currentTimeLabel: playerControl.currentTimeLabel!, durationLabel: playerControl.durationLabel!, remainingTimeLabel: playerControl.remainingTimeLabel!, playPauseButton: playerControl.playButton!)
     }
     
     @objc fileprivate func tapGestureTapped(_ sender: UIGestureRecognizer) {
