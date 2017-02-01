@@ -7,9 +7,6 @@
 //
 
 struct SHVideoPlayerConstants {
-    struct NotificationKey {
-        static let Welcome = "kWelcomeNotif"
-    }
     struct ObserverKey {
         static let duration = "kDurationKey"
     }
