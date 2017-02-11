@@ -1,15 +1,15 @@
 //
-//  ViewController.swift
+//  CustomPlayerVC.swift
 //  SHVideoPlayer
 //
-//  Created by shabib hossain on 11/13/16.
-//  Copyright (c) 2016 shabib87. All rights reserved.
+//  Created by shabib hossain on 2/12/17.
+//  Copyright © 2017 CocoaPods. All rights reserved.
 //
 
 import UIKit
 import SHVideoPlayer
 
-class ViewController: UIViewController {
+class CustomPlayerVC: UIViewController {
 
     @IBOutlet var tableView: UITableView!
     @IBOutlet var videoPlayer: SHVideoPlayer!
@@ -18,13 +18,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let video = videos[0]
-        let path = Bundle.main.path(forResource: "samplevideo", ofType:"mp4")
-        let url = NSURL(fileURLWithPath: path!)
-        videoPlayer.playWithURL(url as URL, title: video.title!)
+        videoPlayer.playWithURL(URL(string: video.sourceURL!)!, title: video.title!)
     }
 }
 
-extension ViewController: UITableViewDataSource {
+extension CustomPlayerVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return videos.count
@@ -40,7 +38,7 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
-extension ViewController: UITableViewDelegate {
+extension CustomPlayerVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

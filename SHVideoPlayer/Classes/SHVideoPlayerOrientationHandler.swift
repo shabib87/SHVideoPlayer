@@ -11,7 +11,7 @@ import UIKit
 
 public class SHVideoPlayerOrientationHandler {
     
-    public var isFullScreen: Bool {
+    public var isLandscape: Bool {
         get {
             return UIApplication.shared.statusBarOrientation.isLandscape
         }
@@ -31,20 +31,20 @@ public class SHVideoPlayerOrientationHandler {
     
     fileprivate func addPlayerControlFullScreenButtonAction() {
         playerControl.fullScreenButton?.addTarget(self, action: #selector(self.fullScreenAction(_:)), for: UIControlEvents.touchUpInside)
-        playerControl.updateUI(!isFullScreen)
+        playerControl.updateUI(!isLandscape)
     }
     
     fileprivate func addOrientationChangedNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.onOrientationChanged), name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
     }
     
-    @objc fileprivate func onOrientationChanged(_ isFullScreen: Bool) {
-        playerControl.updateUI(isFullScreen)
+    @objc fileprivate func onOrientationChanged() {
+        playerControl.updateUI(!isLandscape)
     }
     
     @objc fileprivate func fullScreenAction(_ button: Any?) {
-        playerControl.updateUI(!isFullScreen)
-        if isFullScreen {
+        playerControl.updateUI(!isLandscape)
+        if isLandscape {
             UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
             UIApplication.shared.isStatusBarHidden = false
             UIApplication.shared.statusBarOrientation = .portrait

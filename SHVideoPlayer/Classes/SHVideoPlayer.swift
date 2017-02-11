@@ -13,6 +13,7 @@ import AVFoundation
 public class SHVideoPlayer: UIView {
     
     public var tapGesture: UITapGestureRecognizer!
+    
     fileprivate var playerControl: SHVideoPlayerControl!
     fileprivate var playerLayer: SHVideoPlayerLayer!
     fileprivate var playerScrubber: SHVideoPlayerScrubber!
@@ -125,7 +126,7 @@ public class SHVideoPlayer: UIView {
     @objc fileprivate func hideControlViewAnimated() {
         UIView.animate(withDuration: AutoFadeOutTimeInterval, animations: {
             self.playerControl.hidePlayerUIComponents()
-            if self.orientationHandler.isFullScreen {
+            if self.orientationHandler.isLandscape {
                 UIApplication.shared.isStatusBarHidden = true
             }
         }, completion: nil)
