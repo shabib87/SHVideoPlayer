@@ -24,6 +24,8 @@ public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCu
     var _timeSlider = UISlider()
     var _progressView = UIProgressView()
     
+    var _shouldShowBackButton = true
+    
     var bgContainerView = UIView()
     var topContainerView = UIView()
     var bottomContainerView = UIView()
@@ -77,7 +79,7 @@ public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCu
         if delegate != nil {
             _playButton.setImage(delegate?.playButtonNormalStateImage(), for: UIControlState())
         } else {
-            _playButton.setImage(SHVideoPlayerUtils.resourceImagePath("SHVideoPlayer_play"), for: UIControlState())
+            _playButton.setImage(SHVideoPlayerUtils.resourceImagePath("play"), for: UIControlState())
         }
     }
     
@@ -85,7 +87,7 @@ public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCu
         if delegate != nil {
             _playButton.setImage(delegate?.playButtonSelectedStateImage(), for: .selected)
         } else {
-            _playButton.setImage(SHVideoPlayerUtils.resourceImagePath("SHVideoPlayer_pause"), for: .selected)
+            _playButton.setImage(SHVideoPlayerUtils.resourceImagePath("pause"), for: .selected)
         }
     }
     
@@ -93,7 +95,7 @@ public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCu
         if delegate != nil {
             _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: .normal)
         } else {
-            _fullScreenButton.setImage(SHVideoPlayerUtils.resourceImagePath("SHVideoPlayer_fullscreen"), for: .normal)
+            _fullScreenButton.setImage(SHVideoPlayerUtils.resourceImagePath("fullscreen"), for: .normal)
         }
     }
     
@@ -268,6 +270,8 @@ extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
     public var timeSlider: UISlider? { get { return  _timeSlider } }
     public var progressView: UIProgressView? { get { return  _progressView } }
     
+    public var shouldShowBackButton: Bool? { get { return _shouldShowBackButton } }
+    
     public var controlView: UIView { return self }
     
     public func updateUI(_ isForFullScreen: Bool) {
@@ -283,7 +287,7 @@ extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
         if delegate != nil {
             _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
         } else {
-            _fullScreenButton.setImage(SHVideoPlayerUtils.resourceImagePath("SHVideoPlayer_fullscreen"), for: UIControlState())
+            _fullScreenButton.setImage(SHVideoPlayerUtils.resourceImagePath("fullscreen"), for: UIControlState())
         }
     }
     
@@ -291,7 +295,7 @@ extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
         if delegate != nil {
             _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
         } else {
-            _fullScreenButton.setImage(SHVideoPlayerUtils.resourceImagePath("SHVideoPlayer_smallscreen"), for: UIControlState())
+            _fullScreenButton.setImage(SHVideoPlayerUtils.resourceImagePath("smallscreen"), for: UIControlState())
         }
     }
     

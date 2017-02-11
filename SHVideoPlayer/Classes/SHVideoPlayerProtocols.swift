@@ -44,6 +44,8 @@ public protocol SHVideoPlayerControl  {
     
     var controlView: UIView { get }
     
+    var shouldShowBackButton: Bool? { get }
+    
     /**
      call when UI needs to update, usually when screen orient did change
      
