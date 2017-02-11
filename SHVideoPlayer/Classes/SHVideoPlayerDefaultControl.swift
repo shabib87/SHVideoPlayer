@@ -19,12 +19,11 @@ public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCu
     var _remainingTimeLabel = UILabel()
     
     var _playButton = UIButton(type: .custom)
+    var _backButton = UIButton(type: .custom)
     var _fullScreenButton = UIButton(type: .custom)
     
     var _timeSlider = UISlider()
     var _progressView = UIProgressView()
-    
-    var _shouldShowBackButton = true
     
     var bgContainerView = UIView()
     var topContainerView = UIView()
@@ -51,6 +50,7 @@ public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCu
     }
     
     fileprivate func configureTopContainerView() {
+        topContainerView.addSubview(_backButton)
         topContainerView.addSubview(_titleLabel)
         topContainerView.addSubview(_fullScreenButton)
     }
@@ -70,6 +70,7 @@ public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCu
     }
     
     fileprivate func configureDelegation() {
+        configureBackButtonImage()
         configurePlayButtonNormalStateImage()
         configurePlayButtonSelectedStateImage()
         configureFullScreenButtonNormalStateImage()
@@ -80,6 +81,14 @@ public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCu
             _playButton.setImage(delegate?.playButtonNormalStateImage(), for: UIControlState())
         } else {
             _playButton.setImage(SHVideoPlayerUtils.resourceImagePath("play"), for: UIControlState())
+        }
+    }
+    
+    fileprivate func configureBackButtonImage() {
+        if delegate != nil {
+            _backButton.setImage(delegate?.backButtonImage(), for: .normal)
+        } else {
+            _backButton.setImage(SHVideoPlayerUtils.resourceImagePath("back"), for: .normal)
         }
     }
     
@@ -161,6 +170,7 @@ public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCu
         setBGContainerViewConstraints()
         setTopContainerViewConstraints()
         setBottomContainerViewConstraints()
+        setBackButtonConstraints()
         setTitleLabelConstraints()
         setFullScreenButtonConstraints()
         setPlayButtonConstraints()
@@ -191,10 +201,17 @@ public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCu
         }
     }
     
+    fileprivate func setBackButtonConstraints() {
+        _backButton.snp.makeConstraints { (make) in
+            make.width.height.equalTo(50)
+            make.left.bottom.equalTo(topContainerView)
+        }
+    }
+    
     fileprivate func setTitleLabelConstraints() {
         _titleLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(topContainerView.snp.left).offset(10)
-            make.centerY.equalTo(topContainerView)
+            make.left.equalTo(_backButton.snp.right)
+            make.centerY.equalTo(_backButton)
         }
     }
     
@@ -265,12 +282,11 @@ extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
     public var remainingTimeLabel: UILabel? { get { return _remainingTimeLabel} }
     
     public var playButton: UIButton? { get { return  _playButton } }
+    public var backButton: UIButton? { get { return  _backButton } }
     public var fullScreenButton: UIButton? { get { return  _fullScreenButton } }
     
     public var timeSlider: UISlider? { get { return  _timeSlider } }
     public var progressView: UIProgressView? { get { return  _progressView } }
-    
-    public var shouldShowBackButton: Bool? { get { return _shouldShowBackButton } }
     
     public var controlView: UIView { return self }
     

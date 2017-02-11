@@ -19,6 +19,9 @@ class CustomPlayerVC: UIViewController {
         super.viewDidLoad()
         let video = videos[0]
         videoPlayer.playWithURL(URL(string: video.sourceURL!)!, title: video.title!)
+        videoPlayer.backActionCompletionHandler = {() in
+            _ = self.navigationController?.popViewController(animated: true)
+        }
     }
 }
 

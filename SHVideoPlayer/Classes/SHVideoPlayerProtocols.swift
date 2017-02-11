@@ -20,6 +20,7 @@ public protocol SHVideoPlayerDefaultControlCustomizationDelegate: class {
     func pauseButtonNormalStateImage()-> UIImage
     func pauseButtonSelectedStateImage()-> UIImage
     
+    func backButtonImage()-> UIImage
     func fullScreenButtonImage()-> UIImage
     func smallScreenButtonImage()-> UIImage
 }
@@ -37,14 +38,13 @@ public protocol SHVideoPlayerControl  {
     var durationLabel: UILabel?  { get }
     
     var playButton: UIButton? { get }
+    var backButton: UIButton? { get }
     var fullScreenButton: UIButton? { get }
     
     var timeSlider: UISlider? { get }
     var progressView: UIProgressView? { get }
     
     var controlView: UIView { get }
-    
-    var shouldShowBackButton: Bool? { get }
     
     /**
      call when UI needs to update, usually when screen orient did change

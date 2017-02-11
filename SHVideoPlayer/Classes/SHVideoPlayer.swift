@@ -12,8 +12,9 @@ import AVFoundation
 
 public class SHVideoPlayer: UIView {
     
-    public var tapGesture: UITapGestureRecognizer!
+    public var backActionCompletionHandler:(() -> Void)?
     
+    fileprivate var tapGesture: UITapGestureRecognizer!
     fileprivate var playerControl: SHVideoPlayerControl!
     fileprivate var playerLayer: SHVideoPlayerLayer!
     fileprivate var playerScrubber: SHVideoPlayerScrubber!
@@ -80,6 +81,7 @@ public class SHVideoPlayer: UIView {
         playerControl.controlView.snp.makeConstraints { (make) in
             make.edges.equalTo(self)
         }
+        playerControl.backButton?.addTarget(self, action: #selector(self.backButtonAction(_:)), for: .touchUpInside)
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGestureTapped(_:)))
         self.addGestureRecognizer(tapGesture)
     }
@@ -109,6 +111,16 @@ public class SHVideoPlayer: UIView {
         self.playerScrubber.delegate = self
     }
     
+    fileprivate func autoFadeOutControlBar() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideControlViewAnimated), object: nil)
+        self.perform(#selector(hideControlViewAnimated), with: nil, afterDelay: AnimationTimeInterval)
+    }
+    
+    @objc fileprivate func backButtonAction(_ button: UIButton) {
+        playerLayer?.startDeinit()
+        backActionCompletionHandler?()
+    }
+    
     @objc fileprivate func tapGestureTapped(_ sender: UIGestureRecognizer) {
         if self.playerControlsAreVisible {
             playerControl.hidePlayerUIComponents()
@@ -116,11 +128,6 @@ public class SHVideoPlayer: UIView {
             playerControl.showPlayerUIComponents()
         }
         self.playerControlsAreVisible = !self.playerControlsAreVisible;
-    }
-    
-    open func autoFadeOutControlBar() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideControlViewAnimated), object: nil)
-        self.perform(#selector(hideControlViewAnimated), with: nil, afterDelay: AnimationTimeInterval)
     }
     
     @objc fileprivate func hideControlViewAnimated() {

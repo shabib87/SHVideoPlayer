@@ -18,5 +18,8 @@ class DefaultPlayerVC: UIViewController {
         let path = Bundle.main.path(forResource: "RougeOneTrailer", ofType:"mp4")
         let url = NSURL(fileURLWithPath: path!)
         videoPlayer.playWithURL(url as URL, title: "Rogue One: A Star Wars Story")
+        videoPlayer.backActionCompletionHandler = {() in
+            _ = self.navigationController?.popViewController(animated: true)
+        }
     }
 }

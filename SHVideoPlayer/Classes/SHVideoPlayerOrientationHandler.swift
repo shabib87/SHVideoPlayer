@@ -30,7 +30,7 @@ public class SHVideoPlayerOrientationHandler {
     }
     
     fileprivate func addPlayerControlFullScreenButtonAction() {
-        playerControl.fullScreenButton?.addTarget(self, action: #selector(self.fullScreenAction(_:)), for: UIControlEvents.touchUpInside)
+        playerControl.fullScreenButton?.addTarget(self, action: #selector(self.fullScreenAction(_:)), for: .touchUpInside)
         playerControl.updateUI(!isLandscape)
     }
     
