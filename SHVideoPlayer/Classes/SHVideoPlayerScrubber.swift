@@ -11,7 +11,7 @@ import AVFoundation
 
 public class SHVideoPlayerScrubber: NSObject {
     
-    fileprivate var player: AVPlayer
+    fileprivate let player: AVPlayer
     fileprivate var slider: UISlider
     
     fileprivate var currentTimeLabel: UILabel
@@ -48,6 +48,11 @@ public class SHVideoPlayerScrubber: NSObject {
         self.framesPerSecond = nominalFrameRateForPlayer()
         setupTimeObserver()
         updateCurrentTimeLabelWithTime(time: 0)
+        self.addPlayerItemPlayDurationObserver()
+        self.addPlayerDidEndPlayingVideoObserver()
+    }
+    
+    fileprivate func addPlayerItemPlayDurationObserver() {
         var duration = self.player.currentItem?.duration
         if !CMTIME_IS_VALID(duration!) || CMTIME_IS_INDEFINITE(duration!) {
             self.player.currentItem?.addObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration, options: .new, context: nil)
@@ -211,19 +216,46 @@ public class SHVideoPlayerScrubber: NSObject {
         }
     }
     
-    fileprivate func pause() {
+    public func pause() {
         self.player.pause()
         if delegate != nil {
             delegate?.playerStateDidChange(isPlaying: false)
         }
     }
     
+    fileprivate func addDidEndVideoObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying),name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.player.currentItem)
+    }
+    
+    fileprivate func removeDidEndVideoObserver() {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.player.currentItem)
+    }
+    
+    fileprivate func addPlayerDidEndPlayingVideoObserver() {
+        self.removeDidEndVideoObserver()
+        self.addDidEndVideoObserver()
+    }
+    
+    @objc fileprivate func playerDidFinishPlaying(notification: NSNotification) {
+        self.removeDidEndVideoObserver()
+        if delegate != nil {
+            delegate?.playerStateDidChange(isPlaying: false)
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.player.currentItem)
+        NotificationCenter.default.removeObserver(self.player.currentItem!, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration, context: nil)
+    }
+    
     //MARK: observer kvo
     
     override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if CMTIME_IS_VALID((self.player.currentItem?.duration)!) && !CMTIME_IS_INDEFINITE((self.player.currentItem?.duration)!) {
-            self.player.currentItem?.removeObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration)
-            playerTimeChanged()
+        if keyPath == SHVideoPlayerConstants.ObserverKey.duration {
+            if CMTIME_IS_VALID((self.player.currentItem?.duration)!) && !CMTIME_IS_INDEFINITE((self.player.currentItem?.duration)!) {
+                self.player.currentItem?.removeObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration)
+                playerTimeChanged()
+            }
         }
     }
 }

@@ -77,7 +77,7 @@ public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCu
         if delegate != nil {
             _playButton.setImage(delegate?.playButtonNormalStateImage(), for: UIControlState())
         } else {
-            _playButton.setImage(SHImageResourcePath("SHVideoPlayer_play"), for: UIControlState())
+            _playButton.setImage(SHVideoPlayerUtils.resourceImagePath("SHVideoPlayer_play"), for: UIControlState())
         }
     }
     
@@ -85,7 +85,7 @@ public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCu
         if delegate != nil {
             _playButton.setImage(delegate?.playButtonSelectedStateImage(), for: .selected)
         } else {
-            _playButton.setImage(SHImageResourcePath("SHVideoPlayer_pause"), for: .selected)
+            _playButton.setImage(SHVideoPlayerUtils.resourceImagePath("SHVideoPlayer_pause"), for: .selected)
         }
     }
     
@@ -93,7 +93,7 @@ public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCu
         if delegate != nil {
             _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: .normal)
         } else {
-            _fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: .normal)
+            _fullScreenButton.setImage(SHVideoPlayerUtils.resourceImagePath("SHVideoPlayer_fullscreen"), for: .normal)
         }
     }
     
@@ -140,8 +140,8 @@ public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCu
     }
     
     fileprivate func configureProgressView() {
-        _progressView.tintColor = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.6 )
-        _progressView.trackTintColor = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.3 )
+        _progressView.tintColor = SHVideoPlayerUtils.progressBarTintColor()
+        _progressView.trackTintColor = SHVideoPlayerUtils.progressTrackTintColor()
     }
     
     fileprivate func initUIComponents() {
@@ -253,21 +253,6 @@ public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCu
             make.right.equalTo(bottomContainerView.snp.right).offset(-10)
         }
     }
-    
-    fileprivate func SHImageResourcePath(_ fileName: String) -> UIImage? {
-        let podBundle = Bundle(for: self.classForCoder)
-        if let bundleURL = podBundle.url(forResource: "SHVideoPlayer", withExtension: "bundle") {
-            if let bundle = Bundle(url: bundleURL) {
-                let image = UIImage(named: fileName, in: bundle, compatibleWith: nil)
-                return image
-            }else {
-                assertionFailure("Could not load the bundle")
-            }
-        }else {
-            assertionFailure("Could not create a path to the bundle")
-        }
-        return nil
-    }
 }
 
 extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
@@ -298,7 +283,7 @@ extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
         if delegate != nil {
             _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
         } else {
-            _fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: UIControlState())
+            _fullScreenButton.setImage(SHVideoPlayerUtils.resourceImagePath("SHVideoPlayer_fullscreen"), for: UIControlState())
         }
     }
     
@@ -306,7 +291,7 @@ extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
         if delegate != nil {
             _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
         } else {
-            _fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_smallscreen"), for: UIControlState())
+            _fullScreenButton.setImage(SHVideoPlayerUtils.resourceImagePath("SHVideoPlayer_smallscreen"), for: UIControlState())
         }
     }
     
@@ -314,14 +299,14 @@ extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
         _playButton.isHidden = false
         topContainerView.alpha    = 1.0
         bottomContainerView.alpha = 1.0
-        bgContainerView.backgroundColor = UIColor ( red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
+        bgContainerView.backgroundColor = SHVideoPlayerUtils.blackShadeColor()
     }
     
     public func hidePlayerUIComponents() {
         _playButton.isHidden = true
         topContainerView.alpha = 0.0
         bottomContainerView.alpha = 0.0
-        bgContainerView.backgroundColor = UIColor ( red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0 )
+        bgContainerView.backgroundColor = SHVideoPlayerUtils.clearShadeColor()
     }
     
     public func showPlayToTheEndView() {

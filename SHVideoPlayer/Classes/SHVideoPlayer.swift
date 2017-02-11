@@ -13,21 +13,10 @@ import AVFoundation
 public class SHVideoPlayer: UIView {
     
     public var tapGesture: UITapGestureRecognizer!
-    public var videoGravity = AVLayerVideoGravityResizeAspect {
-        didSet {
-            self.playerLayer?.videoGravity = videoGravity
-        }
-    }
-    
-    public var isFullScreen:Bool {
-        get {
-            return UIApplication.shared.statusBarOrientation.isLandscape
-        }
-    }
-    
     fileprivate var playerControl: SHVideoPlayerControl!
     fileprivate var playerLayer: SHVideoPlayerLayer!
     fileprivate var playerScrubber: SHVideoPlayerScrubber!
+    fileprivate var orientationHandler: SHVideoPlayerOrientationHandler!
     
     fileprivate var customPlayerControl: SHVideoPlayerControl?
     fileprivate var videoItemURL: URL!
@@ -86,7 +75,7 @@ public class SHVideoPlayer: UIView {
             playerControl =  SHVideoPlayerDefaultControl()
         }
         self.addSubview(playerControl.controlView)
-        playerControl.updateUI(isFullScreen)
+        self.orientationHandler = SHVideoPlayerOrientationHandler(playerControlView: playerControl)
         playerControl.controlView.snp.makeConstraints { (make) in
             make.edges.equalTo(self)
         }
@@ -96,13 +85,22 @@ public class SHVideoPlayer: UIView {
     
     fileprivate func preparePlayer() {
         playerLayer = SHVideoPlayerLayer()
-        playerLayer!.videoGravity = videoGravity
         playerLayer.backgroundColor = .black
         insertSubview(playerLayer!, at: 0)
         playerLayer!.snp.makeConstraints { (make) in
             make.edges.equalTo(self)
         }
+        self.addPlayerObservers()
         self.layoutIfNeeded()
+    }
+    
+    fileprivate func addPlayerObservers() {
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidEnterBackground, object: nil, queue: nil) { notification in
+            self.playerScrubber?.pause()
+        }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: nil) { notification in
+            self.playerScrubber?.play()
+        }
     }
     
     fileprivate func preparePlayerScrubber() {
@@ -127,7 +125,7 @@ public class SHVideoPlayer: UIView {
     @objc fileprivate func hideControlViewAnimated() {
         UIView.animate(withDuration: AutoFadeOutTimeInterval, animations: {
             self.playerControl.hidePlayerUIComponents()
-            if self.isFullScreen {
+            if self.orientationHandler.isFullScreen {
                 UIApplication.shared.isStatusBarHidden = true
             }
         }, completion: nil)
