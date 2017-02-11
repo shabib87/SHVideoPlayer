@@ -272,7 +272,7 @@ extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
     
     public func updateUI(_ isForFullScreen: Bool) {
         isFullScreen = isForFullScreen
-        if isForFullScreen {
+        if isFullScreen {
             updateFullScreenImage()
         } else {
             updateSmallScreenImage()
