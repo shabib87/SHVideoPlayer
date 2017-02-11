@@ -24,7 +24,7 @@ public class SHVideoPlayerScrubber: NSObject {
     fileprivate var playAfterDrag: Bool = true
     fileprivate var framesPerSecond: Float = 0.0
     
-    init(with player:AVPlayer, slider: UISlider, currentTimeLabel: UILabel, durationLabel: UILabel, remainingTimeLabel: UILabel, playPauseButton: UIButton) {
+    public init(with player:AVPlayer, slider: UISlider, currentTimeLabel: UILabel, durationLabel: UILabel, remainingTimeLabel: UILabel, playPauseButton: UIButton) {
         self.player = player
         self.slider = slider
         self.currentTimeLabel = currentTimeLabel
@@ -101,7 +101,7 @@ public class SHVideoPlayerScrubber: NSObject {
     
     fileprivate func updateDurationLabelWithTime(time: TimeInterval) {
         if self.durationLabel == nil { return }
-        self.durationLabel.text = timecodeForTimeInterval(time: time)
+        self.durationLabel.text = "/\(timecodeForTimeInterval(time: time))"
     }
     
     fileprivate func updateRemainingTimeLabelWithTime(time: TimeInterval) {

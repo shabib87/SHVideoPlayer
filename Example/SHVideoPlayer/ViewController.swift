@@ -18,7 +18,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let video = videos[0]
-        videoPlayer.playWithURL(URL(string: video.url!)!, title: video.title!)
+        let path = Bundle.main.path(forResource: "samplevideo", ofType:"mp4")
+        let url = NSURL(fileURLWithPath: path!)
+        videoPlayer.playWithURL(url as URL, title: video.title!)
     }
 }
 

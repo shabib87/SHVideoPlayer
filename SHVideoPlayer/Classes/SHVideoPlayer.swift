@@ -60,6 +60,7 @@ public class SHVideoPlayer: UIView {
         playerLayer.videoURL = videoItemURL
         hasURLSet = true
         self.preparePlayerScrubber()
+        self.playerScrubber.initComponents()
         self.play()
     }
     
@@ -95,6 +96,7 @@ public class SHVideoPlayer: UIView {
     fileprivate func preparePlayer() {
         playerLayer = SHVideoPlayerLayer()
         playerLayer!.videoGravity = videoGravity
+        playerLayer.backgroundColor = .black
         insertSubview(playerLayer!, at: 0)
         playerLayer!.snp.makeConstraints { (make) in
             make.edges.equalTo(self)
