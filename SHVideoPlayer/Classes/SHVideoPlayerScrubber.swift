@@ -24,6 +24,8 @@ public class SHVideoPlayerScrubber: NSObject {
     fileprivate var playAfterDrag: Bool = true
     fileprivate var framesPerSecond: Float = 0.0
     
+    public weak var delegate: SHVideoPlayerScrubberDelegate?
+    
     public init(with player:AVPlayer, slider: UISlider, currentTimeLabel: UILabel, durationLabel: UILabel, remainingTimeLabel: UILabel, playPauseButton: UIButton) {
         self.player = player
         self.slider = slider
@@ -41,7 +43,7 @@ public class SHVideoPlayerScrubber: NSObject {
     }
     
     fileprivate func setUpPlayer() {
-        self.player.pause()
+        self.pause()
         removeTimeObserver()
         self.framesPerSecond = nominalFrameRateForPlayer()
         setupTimeObserver()
@@ -149,7 +151,7 @@ public class SHVideoPlayerScrubber: NSObject {
         self.player.seek(to: time, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (done: Bool) -> Void in
             if playIfNeeded && Float(self.slider.value) < Float(self.slider.maximumValue) {
                 if self.playAfterDrag {
-                    self.player.play()
+                    self.play()
                 }
             }
         })
@@ -182,26 +184,37 @@ public class SHVideoPlayerScrubber: NSObject {
         let touch =  event.allTouches?.first
         if touch?.phase == .began {
             playAfterDrag = self.player.rate > 0
-            self.player.pause()
+            self.pause()
         }
         updatePlayer(playIfNeeded: touch?.phase == .ended)
     }
     
     @objc fileprivate func playPauseButtonAction(button: UIButton) {
         if self.player.rate == 0 {
-            // possible to not work
-            // CMTIME_COMPARE_INLINE not supported in swift
             if self.player.currentTime() == self.player.currentItem?.duration {
-                // if the video has ended, seeking to initial time and playing it again
-                // in one word, replay!
+                // replaying video
                 self.player.seek(to: kCMTimeZero, completionHandler: { (done: Bool) in
-                    self.player.play()
+                    self.play()
                 })
             } else {
-                self.player.play()
+                self.play()
             }
         } else {
-            self.player.pause()
+            self.pause()
+        }
+    }
+    
+    fileprivate func play() {
+        self.player.play()
+        if delegate != nil {
+            delegate?.playerStateDidChange(isPlaying: true)
+        }
+    }
+    
+    fileprivate func pause() {
+        self.player.pause()
+        if delegate != nil {
+            delegate?.playerStateDidChange(isPlaying: false)
         }
     }
     

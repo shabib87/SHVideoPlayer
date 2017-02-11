@@ -33,7 +33,9 @@ public class SHVideoPlayer: UIView {
     fileprivate var videoItemURL: URL!
     fileprivate var playerControlsAreVisible = true
     fileprivate var hasURLSet = false
-    fileprivate var isPausedByUser   = false
+    
+    fileprivate let BMPlayerAnimationTimeInterval:Double                = 4.0
+    fileprivate let BMPlayerControlBarAutoFadeOutTimeInterval:Double    = 0.5
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -70,7 +72,6 @@ public class SHVideoPlayer: UIView {
             hasURLSet = true
         }
         playerLayer?.player?.play()
-        isPausedByUser = false
     }
     
     fileprivate func initUI() {
@@ -106,6 +107,7 @@ public class SHVideoPlayer: UIView {
     
     fileprivate func preparePlayerScrubber() {
         self.playerScrubber = SHVideoPlayerScrubber(with: playerLayer.player!, slider: playerControl.timeSlider!, currentTimeLabel: playerControl.currentTimeLabel!, durationLabel: playerControl.durationLabel!, remainingTimeLabel: playerControl.remainingTimeLabel!, playPauseButton: playerControl.playButton!)
+        self.playerScrubber.delegate = self
     }
     
     @objc fileprivate func tapGestureTapped(_ sender: UIGestureRecognizer) {
@@ -115,5 +117,40 @@ public class SHVideoPlayer: UIView {
             playerControl.showPlayerUIComponents()
         }
         self.playerControlsAreVisible = !self.playerControlsAreVisible;
+    }
+    
+    open func autoFadeOutControlBar() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideControlViewAnimated), object: nil)
+        self.perform(#selector(hideControlViewAnimated), with: nil, afterDelay: BMPlayerAnimationTimeInterval)
+    }
+    
+    @objc fileprivate func hideControlViewAnimated() {
+        UIView.animate(withDuration: BMPlayerControlBarAutoFadeOutTimeInterval, animations: {
+            self.playerControl.hidePlayerUIComponents()
+            if self.isFullScreen {
+                UIApplication.shared.isStatusBarHidden = true
+            }
+        }, completion: nil)
+    }
+    
+    @objc fileprivate func showControlViewAnimated() {
+        UIView.animate(withDuration: BMPlayerControlBarAutoFadeOutTimeInterval, animations: {
+            self.playerControl.showPlayerUIComponents()
+            UIApplication.shared.isStatusBarHidden = false
+        }, completion: { (_) in
+            self.autoFadeOutControlBar()
+        })
+    }
+}
+
+extension SHVideoPlayer: SHVideoPlayerScrubberDelegate {
+    
+    public func playerStateDidChange(isPlaying: Bool) {
+        if isPlaying {
+            autoFadeOutControlBar()
+            playerControl.playButton?.isSelected = true
+        } else {
+            playerControl.playButton?.isSelected = false
+        }
     }
 }

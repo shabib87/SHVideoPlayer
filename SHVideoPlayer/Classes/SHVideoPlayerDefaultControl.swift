@@ -75,9 +75,9 @@ public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCu
     
     fileprivate func configurePlayButtonNormalStateImage() {
         if delegate != nil {
-            _playButton.setImage(delegate?.playButtonNormalStateImage(), for: .normal)
+            _playButton.setImage(delegate?.playButtonNormalStateImage(), for: UIControlState())
         } else {
-            _playButton.setImage(SHImageResourcePath("SHVideoPlayer_play"), for: .normal)
+            _playButton.setImage(SHImageResourcePath("SHVideoPlayer_play"), for: UIControlState())
         }
     }
     
@@ -296,17 +296,17 @@ extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
     
     fileprivate func updateFullScreenImage() {
         if delegate != nil {
-            _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: .normal)
+            _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
         } else {
-            _fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: .normal)
+            _fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_fullscreen"), for: UIControlState())
         }
     }
     
     fileprivate func updateSmallScreenImage() {
         if delegate != nil {
-            _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: .normal)
+            _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
         } else {
-            _fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_smallscreen"), for: .normal)
+            _fullScreenButton.setImage(SHImageResourcePath("SHVideoPlayer_smallscreen"), for: UIControlState())
         }
     }
     

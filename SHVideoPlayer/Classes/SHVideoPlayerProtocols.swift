@@ -8,6 +8,10 @@
 
 import UIKit
 
+public protocol SHVideoPlayerScrubberDelegate: class {
+    func playerStateDidChange(isPlaying: Bool)
+}
+
 public protocol SHVideoPlayerDefaultControlCustomizationDelegate: class {
     
     func playButtonNormalStateImage()-> UIImage

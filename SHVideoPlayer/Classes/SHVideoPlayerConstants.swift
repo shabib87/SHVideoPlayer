@@ -7,6 +7,7 @@
 //
 
 struct SHVideoPlayerConstants {
+    
     struct ObserverKey {
         static let duration = "kDurationKey"
     }
