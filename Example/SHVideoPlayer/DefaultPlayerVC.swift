@@ -15,11 +15,15 @@ class DefaultPlayerVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let path = Bundle.main.path(forResource: "RougeOneTrailer", ofType:"mp4")
-        let url = NSURL(fileURLWithPath: path!)
-        videoPlayer.playWithURL(url as URL, title: "Rogue One: A Star Wars Story")
         videoPlayer.backActionCompletionHandler = {() in
             _ = self.navigationController?.popViewController(animated: true)
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let path = Bundle.main.path(forResource: "RougeOneTrailer", ofType:"mp4")
+        let url = NSURL(fileURLWithPath: path!)
+        videoPlayer.playWithURL(url as URL, title: "Rogue One: A Star Wars Story")
     }
 }

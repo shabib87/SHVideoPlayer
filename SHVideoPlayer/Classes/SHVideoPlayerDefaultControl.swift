@@ -117,7 +117,7 @@ public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCu
     
     fileprivate func configureTitleLabel() {
         _titleLabel.textColor = .white
-        _titleLabel.text = "This is the title"
+        _titleLabel.text = "Loading..."
         _titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
     }
     

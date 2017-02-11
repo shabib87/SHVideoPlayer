@@ -17,11 +17,15 @@ class CustomPlayerVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let video = videos[0]
-        videoPlayer.playWithURL(URL(string: video.sourceURL!)!, title: video.title!)
         videoPlayer.backActionCompletionHandler = {() in
             _ = self.navigationController?.popViewController(animated: true)
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let video = videos[0]
+        videoPlayer.playWithURL(URL(string: video.sourceURL!)!, title: video.title!)
     }
 }
 
@@ -44,6 +48,6 @@ extension CustomPlayerVC: UITableViewDataSource {
 extension CustomPlayerVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        tableView .deselectRow(at: indexPath, animated: true)
     }
 }
