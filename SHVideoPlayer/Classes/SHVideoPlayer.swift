@@ -10,16 +10,16 @@ import Foundation
 import SnapKit
 import AVFoundation
 
-open class SHVideoPlayer: UIView {
+public class SHVideoPlayer: UIView {
     
-    open var tapGesture: UITapGestureRecognizer!
-    open var videoGravity = AVLayerVideoGravityResizeAspect {
+    public var tapGesture: UITapGestureRecognizer!
+    public var videoGravity = AVLayerVideoGravityResizeAspect {
         didSet {
             self.playerLayer?.videoGravity = videoGravity
         }
     }
     
-    var isFullScreen:Bool {
+    public var isFullScreen:Bool {
         get {
             return UIApplication.shared.statusBarOrientation.isLandscape
         }
@@ -54,7 +54,7 @@ open class SHVideoPlayer: UIView {
         self.init(customPlayerControl:nil)
     }
     
-    open func playWithURL(_ url: URL, title: String = "") {
+    public func playWithURL(_ url: URL, title: String = "") {
         playerControl.titleLabel?.text = title
         videoItemURL = url
         playerLayer.videoURL = videoItemURL

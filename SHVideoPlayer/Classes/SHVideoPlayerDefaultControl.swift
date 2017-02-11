@@ -9,9 +9,9 @@
 import UIKit
 import SnapKit
 
-class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCustomizationProtocol {
+public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCustomizationProtocol {
     
-    weak var delegate: SHVideoPlayerDefaultControlCustomizationDelegate?
+    weak public var delegate: SHVideoPlayerDefaultControlCustomizationDelegate?
     
     var _titleLabel = UILabel()
     var _currentTimeLabel = UILabel()
@@ -36,7 +36,7 @@ class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCustomiza
         addConstraintsToComponents()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initUIComponents()
         addConstraintsToComponents()
@@ -272,20 +272,20 @@ class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCustomiza
 
 extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
     
-    var titleLabel: UILabel?  { get { return  _titleLabel } }
-    var currentTimeLabel: UILabel?  { get { return  _currentTimeLabel } }
-    var durationLabel: UILabel?  { get { return  _durationLabel } }
-    var remainingTimeLabel: UILabel? { get { return _remainingTimeLabel} }
+    public var titleLabel: UILabel?  { get { return  _titleLabel } }
+    public var currentTimeLabel: UILabel?  { get { return  _currentTimeLabel } }
+    public var durationLabel: UILabel?  { get { return  _durationLabel } }
+    public var remainingTimeLabel: UILabel? { get { return _remainingTimeLabel} }
     
-    var playButton: UIButton? { get { return  _playButton } }
-    var fullScreenButton: UIButton? { get { return  _fullScreenButton } }
+    public var playButton: UIButton? { get { return  _playButton } }
+    public var fullScreenButton: UIButton? { get { return  _fullScreenButton } }
     
-    var timeSlider: UISlider? { get { return  _timeSlider } }
-    var progressView: UIProgressView? { get { return  _progressView } }
+    public var timeSlider: UISlider? { get { return  _timeSlider } }
+    public var progressView: UIProgressView? { get { return  _progressView } }
     
-    var controlView: UIView { return self }
+    public var controlView: UIView { return self }
     
-    func updateUI(_ isForFullScreen: Bool) {
+    public func updateUI(_ isForFullScreen: Bool) {
         isFullScreen = isForFullScreen
         if isForFullScreen {
             updateFullScreenImage()
@@ -310,21 +310,21 @@ extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
         }
     }
     
-    func showPlayerUIComponents() {
+    public func showPlayerUIComponents() {
         _playButton.isHidden = false
         topContainerView.alpha    = 1.0
         bottomContainerView.alpha = 1.0
         bgContainerView.backgroundColor = UIColor ( red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
     }
     
-    func hidePlayerUIComponents() {
+    public func hidePlayerUIComponents() {
         _playButton.isHidden = true
         topContainerView.alpha = 0.0
         bottomContainerView.alpha = 0.0
         bgContainerView.backgroundColor = UIColor ( red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0 )
     }
     
-    func showPlayToTheEndView() {
+    public func showPlayToTheEndView() {
         _playButton.isHidden = false
     }
 }

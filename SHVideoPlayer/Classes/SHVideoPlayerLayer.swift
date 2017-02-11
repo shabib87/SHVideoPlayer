@@ -9,22 +9,22 @@
 import UIKit
 import AVFoundation
 
-open class SHVideoPlayerLayer: UIView {
+public class SHVideoPlayerLayer: UIView {
     
     fileprivate var playerLayer: AVPlayerLayer?
     fileprivate var lastPlayerItem: AVPlayerItem?
     
-    open var videoURL: URL! {
+    public var videoURL: URL! {
         didSet { onSetVideoURL() }
     }
     
-    open var videoGravity = AVLayerVideoGravityResizeAspect {
+    public var videoGravity = AVLayerVideoGravityResizeAspect {
         didSet {
             self.playerLayer?.videoGravity = videoGravity
         }
     }
     
-    open var playerItem: AVPlayerItem? {
+    public var playerItem: AVPlayerItem? {
         didSet {
             onPlayerItemChange()
         }
@@ -41,19 +41,19 @@ open class SHVideoPlayerLayer: UIView {
         NotificationCenter.default.removeObserver(self)
     }
     
-    override open func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         self.playerLayer?.videoGravity = "AVLayerVideoGravityResizeAspect"
         self.playerLayer?.frame  = self.bounds
     }
     
-    open func resetPlayer() {
+    public func resetPlayer() {
         self.playerLayer?.removeFromSuperlayer()
         self.player?.replaceCurrentItem(with: nil)
         self.player = nil
     }
     
-    open func prepareToDeinit() {
+    public func prepareToDeinit() {
         self.playerItem = nil
         self.resetPlayer()
     }
