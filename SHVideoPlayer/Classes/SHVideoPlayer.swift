@@ -71,7 +71,7 @@ public class SHVideoPlayer: UIView {
             playerLayer?.videoURL = videoItemURL
             hasURLSet = true
         }
-        playerLayer?.player?.play()
+        self.playerScrubber?.play()
     }
     
     fileprivate func initUI() {

@@ -204,7 +204,7 @@ public class SHVideoPlayerScrubber: NSObject {
         }
     }
     
-    fileprivate func play() {
+    public func play() {
         self.player.play()
         if delegate != nil {
             delegate?.playerStateDidChange(isPlaying: true)
