@@ -34,8 +34,8 @@ public class SHVideoPlayer: UIView {
     fileprivate var playerControlsAreVisible = true
     fileprivate var hasURLSet = false
     
-    fileprivate let BMPlayerAnimationTimeInterval:Double                = 4.0
-    fileprivate let BMPlayerControlBarAutoFadeOutTimeInterval:Double    = 0.5
+    fileprivate let AnimationTimeInterval: Double = 4.0
+    fileprivate let AutoFadeOutTimeInterval: Double = 0.5
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -121,11 +121,11 @@ public class SHVideoPlayer: UIView {
     
     open func autoFadeOutControlBar() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideControlViewAnimated), object: nil)
-        self.perform(#selector(hideControlViewAnimated), with: nil, afterDelay: BMPlayerAnimationTimeInterval)
+        self.perform(#selector(hideControlViewAnimated), with: nil, afterDelay: AnimationTimeInterval)
     }
     
     @objc fileprivate func hideControlViewAnimated() {
-        UIView.animate(withDuration: BMPlayerControlBarAutoFadeOutTimeInterval, animations: {
+        UIView.animate(withDuration: AutoFadeOutTimeInterval, animations: {
             self.playerControl.hidePlayerUIComponents()
             if self.isFullScreen {
                 UIApplication.shared.isStatusBarHidden = true
@@ -134,7 +134,7 @@ public class SHVideoPlayer: UIView {
     }
     
     @objc fileprivate func showControlViewAnimated() {
-        UIView.animate(withDuration: BMPlayerControlBarAutoFadeOutTimeInterval, animations: {
+        UIView.animate(withDuration: AutoFadeOutTimeInterval, animations: {
             self.playerControl.showPlayerUIComponents()
             UIApplication.shared.isStatusBarHidden = false
         }, completion: { (_) in
