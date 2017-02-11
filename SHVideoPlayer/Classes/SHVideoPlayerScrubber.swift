@@ -165,7 +165,7 @@ public class SHVideoPlayerScrubber: NSObject {
         var thumbWidth = thumbRect.size.width
         var point = gesture.location(in: self.slider)
         var ratio: Float = 0.0
-        if point.x > thumbWidth / 2 {
+        if point.x < thumbWidth / 2 {
             ratio = 0.0
         } else if point.x > (self.slider.bounds.size.width - thumbWidth / 2) {
             ratio  = 1.0
@@ -173,7 +173,7 @@ public class SHVideoPlayerScrubber: NSObject {
             ratio = Float((point.x - thumbWidth / 2) / (self.slider.bounds.size.width - thumbWidth))
         }
         var del = ratio * (self.slider.maximumValue - self.slider.minimumValue)
-        var value = self.slider.maximumValue + del;
+        var value = self.slider.minimumValue + del;
         self.slider.setValue(value, animated: true)
         updatePlayer(playIfNeeded: isPlaying)
     }
