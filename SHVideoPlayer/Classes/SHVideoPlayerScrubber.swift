@@ -17,7 +17,7 @@ public class SHVideoPlayerScrubber: NSObject {
     fileprivate var currentTimeLabel: UILabel
     fileprivate var durationLabel: UILabel
     fileprivate var remainingTimeLabel: UILabel
-    fileprivate var playPauseButton: UIButton
+    fileprivate var playButton: UIButton
     
     fileprivate var timeObserver: Any?
     
@@ -26,13 +26,13 @@ public class SHVideoPlayerScrubber: NSObject {
     
     public weak var delegate: SHVideoPlayerScrubberDelegate?
     
-    public init(with player:AVPlayer, slider: UISlider, currentTimeLabel: UILabel, durationLabel: UILabel, remainingTimeLabel: UILabel, playPauseButton: UIButton) {
+    public init(with player:AVPlayer, slider: UISlider, currentTimeLabel: UILabel, durationLabel: UILabel, remainingTimeLabel: UILabel, playButton: UIButton) {
         self.player = player
         self.slider = slider
         self.currentTimeLabel = currentTimeLabel
         self.durationLabel = durationLabel
         self.remainingTimeLabel = remainingTimeLabel
-        self.playPauseButton = playPauseButton
+        self.playButton = playButton
     }
     
     public func initComponents() {
@@ -70,7 +70,7 @@ public class SHVideoPlayerScrubber: NSObject {
     }
     
     fileprivate func setPlayPauseButtonAction() {
-        playPauseButton.addTarget(self, action: #selector(playPauseButtonAction), for: .touchUpInside)
+        playButton.addTarget(self, action: #selector(playPauseButtonAction), for: .touchUpInside)
     }
     
     fileprivate func setupTimeObserver() {

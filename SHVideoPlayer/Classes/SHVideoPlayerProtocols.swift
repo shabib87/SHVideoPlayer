@@ -16,18 +16,11 @@ public protocol SHVideoPlayerDefaultControlCustomizationDelegate: class {
     
     func playButtonNormalStateImage()-> UIImage
     func playButtonSelectedStateImage()-> UIImage
-    
     func pauseButtonNormalStateImage()-> UIImage
     func pauseButtonSelectedStateImage()-> UIImage
-    
     func backButtonImage()-> UIImage
     func fullScreenButtonImage()-> UIImage
     func smallScreenButtonImage()-> UIImage
-}
-
-public protocol SHVideoPlayerDefaultControlsCustomizationProtocol {
-    
-    weak var delegate: SHVideoPlayerDefaultControlCustomizationDelegate? { get set }
 }
 
 public protocol SHVideoPlayerControl  {
@@ -62,9 +55,4 @@ public protocol SHVideoPlayerControl  {
      call when user tapped on player to hide player Ui components
      */
     func hidePlayerUIComponents()
-    
-    /**
-     call when video play did end
-     */
-    func showPlayToTheEndView()
 }

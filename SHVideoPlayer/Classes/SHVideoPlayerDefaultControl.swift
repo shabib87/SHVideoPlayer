@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-public class SHVideoPlayerDefaultControl: UIView, SHVideoPlayerDefaultControlsCustomizationProtocol {
+public class SHVideoPlayerDefaultControl: UIView {
     
     weak public var delegate: SHVideoPlayerDefaultControlCustomizationDelegate?
     
@@ -326,10 +326,6 @@ extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
         _playButton.isHidden = true
         topContainerView.alpha = 0.0
         bottomContainerView.alpha = 0.0
-        bgContainerView.backgroundColor = SHVideoPlayerUtils.clearShadeColor()
-    }
-    
-    public func showPlayToTheEndView() {
-        _playButton.isHidden = false
+        bgContainerView.backgroundColor = .clear
     }
 }

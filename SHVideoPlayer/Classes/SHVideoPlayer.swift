@@ -25,8 +25,8 @@ public class SHVideoPlayer: UIView {
     fileprivate var playerControlsAreVisible = true
     fileprivate var hasURLSet = false
     
-    fileprivate let AnimationTimeInterval: Double = 4.0
-    fileprivate let AutoFadeOutTimeInterval: Double = 0.5
+    fileprivate let FadeOutAnimationTimeInterval: Double = 0.5
+    fileprivate let AutoFadeOutTimeInterval: Double = 5.0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -107,13 +107,13 @@ public class SHVideoPlayer: UIView {
     }
     
     fileprivate func preparePlayerScrubber() {
-        self.playerScrubber = SHVideoPlayerScrubber(with: playerLayer.player!, slider: playerControl.timeSlider!, currentTimeLabel: playerControl.currentTimeLabel!, durationLabel: playerControl.durationLabel!, remainingTimeLabel: playerControl.remainingTimeLabel!, playPauseButton: playerControl.playButton!)
+        self.playerScrubber = SHVideoPlayerScrubber(with: playerLayer.player!, slider: playerControl.timeSlider!, currentTimeLabel: playerControl.currentTimeLabel!, durationLabel: playerControl.durationLabel!, remainingTimeLabel: playerControl.remainingTimeLabel!, playButton: playerControl.playButton!)
         self.playerScrubber.delegate = self
     }
     
     fileprivate func autoFadeOutControlBar() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideControlViewAnimated), object: nil)
-        self.perform(#selector(hideControlViewAnimated), with: nil, afterDelay: AnimationTimeInterval)
+        self.perform(#selector(hideControlViewAnimated), with: nil, afterDelay: AutoFadeOutTimeInterval)
     }
     
     @objc fileprivate func backButtonAction(_ button: UIButton) {
@@ -132,7 +132,7 @@ public class SHVideoPlayer: UIView {
     }
     
     @objc fileprivate func hideControlViewAnimated() {
-        UIView.animate(withDuration: AutoFadeOutTimeInterval, animations: {
+        UIView.animate(withDuration: FadeOutAnimationTimeInterval, animations: {
             self.playerControl.hidePlayerUIComponents()
             if self.orientationHandler.isLandscape {
                 UIApplication.shared.isStatusBarHidden = true
@@ -141,7 +141,7 @@ public class SHVideoPlayer: UIView {
     }
     
     @objc fileprivate func showControlViewAnimated() {
-        UIView.animate(withDuration: AutoFadeOutTimeInterval, animations: {
+        UIView.animate(withDuration: FadeOutAnimationTimeInterval, animations: {
             self.playerControl.showPlayerUIComponents()
             UIApplication.shared.isStatusBarHidden = false
         }, completion: { (_) in
