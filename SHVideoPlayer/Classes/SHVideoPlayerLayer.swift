@@ -53,7 +53,7 @@ public class SHVideoPlayerLayer: UIView {
         self.player = nil
     }
     
-    public func startDeinit() {
+    public func startPreparingForDeinit() {
         self.playerItem = nil
         self.resetPlayer()
     }

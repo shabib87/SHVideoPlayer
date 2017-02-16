@@ -117,7 +117,8 @@ public class SHVideoPlayer: UIView {
     }
     
     @objc fileprivate func backButtonAction(_ button: UIButton) {
-        playerLayer?.startDeinit()
+        playerScrubber.startPreparingForDeinit()
+        playerLayer?.startPreparingForDeinit()
         backActionCompletionHandler?()
     }
     

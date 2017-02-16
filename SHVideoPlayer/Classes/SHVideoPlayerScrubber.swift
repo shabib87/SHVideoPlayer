@@ -243,9 +243,18 @@ public class SHVideoPlayerScrubber: NSObject {
         }
     }
     
+    public func startPreparingForDeinit() {
+        self.player.pause()
+        removeCurrentItemObserver()
+    }
+    
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.player.currentItem)
-        NotificationCenter.default.removeObserver(self.player.currentItem!, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration, context: nil)
+        removeCurrentItemObserver()
+        removeDidEndVideoObserver()
+    }
+    
+    private func removeCurrentItemObserver() {
+        self.player.currentItem?.removeObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration)
     }
     
     //MARK: observer kvo
@@ -253,7 +262,7 @@ public class SHVideoPlayerScrubber: NSObject {
     override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == SHVideoPlayerConstants.ObserverKey.duration {
             if CMTIME_IS_VALID((self.player.currentItem?.duration)!) && !CMTIME_IS_INDEFINITE((self.player.currentItem?.duration)!) {
-                self.player.currentItem?.removeObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration)
+                removeCurrentItemObserver()
                 playerTimeChanged()
             }
         }
