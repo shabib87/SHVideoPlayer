@@ -269,7 +269,7 @@
         <!--Navigation Controller-->
         <scene sceneID="aNt-DI-57d">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="AdG-MK-0WY" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="AdG-MK-0WY" customClass="SHNavigationController" customModule="SHVideoPlayer_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Rb7-I8-zSF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
