@@ -107,6 +107,7 @@ public class SHVideoPlayer: UIView {
     }
     
     fileprivate func preparePlayerScrubber() {
+        self.playerScrubber = nil
         self.playerScrubber = SHVideoPlayerScrubber(with: playerLayer.player!, slider: playerControl.timeSlider!, currentTimeLabel: playerControl.currentTimeLabel!, durationLabel: playerControl.durationLabel!, remainingTimeLabel: playerControl.remainingTimeLabel!, playButton: playerControl.playButton!)
         self.playerScrubber.delegate = self
     }

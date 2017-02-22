@@ -24,7 +24,7 @@ class CustomPlayerVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let video = videos[0]
+        let video = videos[1]
         videoPlayer.playWithURL(URL(string: video.sourceURL!)!, title: video.title!)
     }
 }
@@ -49,5 +49,7 @@ extension CustomPlayerVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView .deselectRow(at: indexPath, animated: true)
+        let video = videos[indexPath.row]
+        videoPlayer.playWithURL(URL(string: video.sourceURL!)!, title: video.title!)
     }
 }
