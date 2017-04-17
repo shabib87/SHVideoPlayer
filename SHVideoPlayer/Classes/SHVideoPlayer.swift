@@ -89,8 +89,11 @@ public class SHVideoPlayer: UIView {
     fileprivate func preparePlayer() {
         playerLayer = SHVideoPlayerLayer()
         playerLayer.backgroundColor = .black
-        insertSubview(playerLayer!, at: 0)
-        playerLayer!.snp.makeConstraints { (make) in
+        guard let _playerLayer = playerLayer else {
+            return
+        }
+        insertSubview(_playerLayer, at: 0)
+        _playerLayer.snp.makeConstraints { (make) in
             make.edges.equalTo(self)
         }
         self.addPlayerObservers()
