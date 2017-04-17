@@ -53,14 +53,13 @@ public class SHVideoPlayerScrubber: NSObject {
     }
     
     fileprivate func addPlayerItemPlayDurationObserver() {
-        var duration = self.player.currentItem?.duration
+        let duration = self.player.currentItem?.duration
         if !CMTIME_IS_VALID(duration!) || CMTIME_IS_INDEFINITE(duration!) {
             self.player.currentItem?.addObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration, options: .new, context: nil)
         }
     }
     
     fileprivate func setSliderTapAction() {
-        if self.slider == nil { return }
         let gesture = UITapGestureRecognizer(target: self, action: #selector(sliderTapAction))
         slider.addGestureRecognizer(gesture)
     }
@@ -87,7 +86,7 @@ public class SHVideoPlayerScrubber: NSObject {
     
     fileprivate func removeTimeObserver() {
         if timeObserver != nil {
-            self.player.removeTimeObserver(timeObserver)
+            self.player.removeTimeObserver(timeObserver ?? self)
         }
         timeObserver = nil
     }
@@ -102,27 +101,24 @@ public class SHVideoPlayerScrubber: NSObject {
     }
     
     fileprivate func updateCurrentTimeLabelWithTime(time: TimeInterval) {
-        if self.currentTimeLabel == nil { return }
         self.currentTimeLabel.text = timecodeForTimeInterval(time: time)
     }
     
     fileprivate func updateDurationLabelWithTime(time: TimeInterval) {
-        if self.durationLabel == nil { return }
         self.durationLabel.text = "/\(timecodeForTimeInterval(time: time))"
     }
     
     fileprivate func updateRemainingTimeLabelWithTime(time: TimeInterval) {
-        if self.remainingTimeLabel == nil { return }
         self.remainingTimeLabel.text = timecodeForTimeInterval(time: time)
     }
     
     fileprivate func timecodeForTimeInterval(time: TimeInterval) -> String {
         let sign = time < 0 ? "-" : ""
         var timeCode = ""
-        var absTime = Int(abs(time))
-        var hours = absTime / 60 / 24
-        var minutes = (absTime - hours * 24) / 60
-        var seconds = (absTime - hours * 24) - minutes * 60
+        let absTime = Int(abs(time))
+        let hours = absTime / 60 / 24
+        let minutes = (absTime - hours * 24) / 60
+        let seconds = (absTime - hours * 24) - minutes * 60
         if hours > 0 {
             timeCode = String(format: "\(sign)%02d:%02d:%02d", hours, minutes, seconds)
         } else {
@@ -166,11 +162,11 @@ public class SHVideoPlayerScrubber: NSObject {
     
     @objc fileprivate func sliderTapAction(gesture: UITapGestureRecognizer) {
         if self.slider.isHighlighted { return }
-        var isPlaying = self.player.rate > 0
-        var trackRect = self.slider.trackRect(forBounds: self.slider.bounds)
-        var thumbRect = self.slider.thumbRect(forBounds: self.slider.bounds, trackRect: trackRect, value: 0)
-        var thumbWidth = thumbRect.size.width
-        var point = gesture.location(in: self.slider)
+        let isPlaying = self.player.rate > 0
+        let trackRect = self.slider.trackRect(forBounds: self.slider.bounds)
+        let thumbRect = self.slider.thumbRect(forBounds: self.slider.bounds, trackRect: trackRect, value: 0)
+        let thumbWidth = thumbRect.size.width
+        let point = gesture.location(in: self.slider)
         var ratio: Float = 0.0
         if point.x < thumbWidth / 2 {
             ratio = 0.0
@@ -179,8 +175,8 @@ public class SHVideoPlayerScrubber: NSObject {
         } else {
             ratio = Float((point.x - thumbWidth / 2) / (self.slider.bounds.size.width - thumbWidth))
         }
-        var del = ratio * (self.slider.maximumValue - self.slider.minimumValue)
-        var value = self.slider.minimumValue + del;
+        let del = ratio * (self.slider.maximumValue - self.slider.minimumValue)
+        let value = self.slider.minimumValue + del;
         self.slider.setValue(value, animated: true)
         updatePlayer(playIfNeeded: isPlaying)
     }
