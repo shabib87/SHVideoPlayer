@@ -122,6 +122,7 @@ public class SHVideoPlayer: UIView {
             let remainingTimeLabel = playerControl.remainingTimeLabel,
             let currentTimeLabel = playerControl.currentTimeLabel,
             let playButton = playerControl.playButton else {
+                print("One or some of the scrubber item is nil")
                 return
         }
         self.playerScrubber = SHVideoPlayerScrubber(with: player, slider: timeSlider, currentTimeLabel: currentTimeLabel, durationLabel: durationLabel, remainingTimeLabel: remainingTimeLabel, playButton: playButton)
