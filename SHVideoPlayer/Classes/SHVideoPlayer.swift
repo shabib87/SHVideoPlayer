@@ -120,10 +120,11 @@ public class SHVideoPlayer: UIView {
             let timeSlider = playerControl.timeSlider,
             let durationLabel = playerControl.durationLabel,
             let remainingTimeLabel = playerControl.remainingTimeLabel,
+            let currentTimeLabel = playerControl.currentTimeLabel,
             let playButton = playerControl.playButton else {
                 return
         }
-        self.playerScrubber = SHVideoPlayerScrubber(with: player, slider: timeSlider, currentTimeLabel: playerControl.currentTimeLabel!, durationLabel: durationLabel, remainingTimeLabel: remainingTimeLabel, playButton: playButton)
+        self.playerScrubber = SHVideoPlayerScrubber(with: player, slider: timeSlider, currentTimeLabel: currentTimeLabel, durationLabel: durationLabel, remainingTimeLabel: remainingTimeLabel, playButton: playButton)
     }
     
     fileprivate func autoFadeOutControlBar() {
