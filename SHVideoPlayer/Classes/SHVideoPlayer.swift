@@ -111,8 +111,19 @@ public class SHVideoPlayer: UIView {
     
     fileprivate func preparePlayerScrubber() {
         self.playerScrubber = nil
-        self.playerScrubber = SHVideoPlayerScrubber(with: playerLayer.player!, slider: playerControl.timeSlider!, currentTimeLabel: playerControl.currentTimeLabel!, durationLabel: playerControl.durationLabel!, remainingTimeLabel: playerControl.remainingTimeLabel!, playButton: playerControl.playButton!)
+        self.createPlayerScrubber()
         self.playerScrubber.delegate = self
+    }
+    
+    private func createPlayerScrubber() {
+        guard let player = playerLayer.player,
+            let timeSlider = playerControl.timeSlider,
+            let durationLabel = playerControl.durationLabel,
+            let remainingTimeLabel = playerControl.remainingTimeLabel,
+            let playButton = playerControl.playButton else {
+                return
+        }
+        self.playerScrubber = SHVideoPlayerScrubber(with: player, slider: timeSlider, currentTimeLabel: playerControl.currentTimeLabel!, durationLabel: durationLabel, remainingTimeLabel: remainingTimeLabel, playButton: playButton)
     }
     
     fileprivate func autoFadeOutControlBar() {
