@@ -23,10 +23,10 @@ class SHVideoPlayerUtils: NSObject {
             if let bundle = Bundle(url: bundleURL) {
                 let image = UIImage(named: fileName, in: bundle, compatibleWith: nil)
                 return image
-            }else {
+            } else {
                 assertionFailure("Could not load the bundle")
             }
-        }else {
+        } else {
             assertionFailure("Could not create a path to the bundle")
         }
         return nil
