@@ -53,8 +53,11 @@ public class SHVideoPlayerScrubber: NSObject {
     }
     
     fileprivate func addPlayerItemPlayDurationObserver() {
-        let duration = self.player.currentItem?.duration
-        if !CMTIME_IS_VALID(duration!) || CMTIME_IS_INDEFINITE(duration!) {
+        guard let duration = self.player.currentItem?.duration else {
+            print("duration is nil")
+            return
+        }
+        if !CMTIME_IS_VALID(duration) || CMTIME_IS_INDEFINITE(duration) {
             self.player.currentItem?.addObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration, options: .new, context: nil)
         }
     }
@@ -91,13 +94,14 @@ public class SHVideoPlayerScrubber: NSObject {
         timeObserver = nil
     }
     
-    fileprivate func nominalFrameRateForPlayer() -> Float{
+    fileprivate func nominalFrameRateForPlayer() -> Float {
         var track: AVAssetTrack? = nil
-        let tracks = self.player.currentItem?.asset.tracks(withMediaType: AVMediaTypeVideo)
-        if tracks?.count != 0 {
-            track = tracks?[0]
+        if let tracks = self.player.currentItem?.asset.tracks(withMediaType: AVMediaTypeVideo) {
+            if tracks.count != 0 {
+                track = tracks[0]
+            }
         }
-        return track!.nominalFrameRate
+        return track.nominalFrameRate ?? 0.0
     }
     
     fileprivate func updateCurrentTimeLabelWithTime(time: TimeInterval) {
@@ -128,14 +132,20 @@ public class SHVideoPlayerScrubber: NSObject {
     }
     
     fileprivate func playerTimeChanged() {
-        if self.player.currentItem == nil { return }
-        let secondsElapsed = CMTimeGetSeconds(self.player.currentItem!.currentTime())
+        guard let currentItem = self.player.currentItem else {
+            print("players current item is nil")
+            return
+        }
+        self.updateTimeLabels(currentItem: currentItem)
+    }
+    
+    private func updateTimeLabels(currentItem: AVPlayerItem) {
+        let secondsElapsed = CMTimeGetSeconds(currentItem.currentTime())
         var duratoinInSeconds = 0.0
         var ratio = 0.0
-        if CMTIME_IS_VALID((self.player.currentItem?.duration)!) && !CMTIME_IS_INDEFINITE((self.player.currentItem?.duration)!) {
-           duratoinInSeconds = CMTimeGetSeconds((self.player.currentItem?.duration)!)
+        if CMTIME_IS_VALID(currentItem.duration) && !CMTIME_IS_INDEFINITE(currentItem.duration) {
+            duratoinInSeconds = CMTimeGetSeconds(currentItem.duration)
         }
-        
         if duratoinInSeconds > 0 {
             ratio = secondsElapsed / duratoinInSeconds
             updateDurationLabelWithTime(time: duratoinInSeconds)
@@ -146,7 +156,15 @@ public class SHVideoPlayerScrubber: NSObject {
     }
     
     fileprivate func updatePlayer(playIfNeeded: Bool) {
-        let duratoinInSeconds = CMTimeGetSeconds((self.player.currentItem?.duration)!)
+        guard let currentItem = self.player.currentItem else {
+            print("players current item is nil")
+            return
+        }
+        self.updatePlayerWith(currentItem: currentItem)
+    }
+    
+    private func updatePlayerWith(currentItem: AVPlayerItem) {
+        let duratoinInSeconds = CMTimeGetSeconds(currentItem.duration)
         let seconds = Float64(duratoinInSeconds) * Float64((self.slider.value))
         let time = CMTimeMakeWithSeconds(seconds, Int32(NSEC_PER_SEC))
         self.player.seek(to: time, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (done: Bool) -> Void in
@@ -192,16 +210,20 @@ public class SHVideoPlayerScrubber: NSObject {
     
     @objc fileprivate func playPauseButtonAction(button: UIButton) {
         if self.player.rate == 0 {
-            if self.player.currentTime() == self.player.currentItem?.duration {
-                // replaying video
-                self.player.seek(to: kCMTimeZero, completionHandler: { (done: Bool) in
-                    self.play()
-                })
-            } else {
-                self.play()
-            }
+            self.resumeOrPlayAction()
         } else {
             self.pause()
+        }
+    }
+    
+    private func resumeOrPlayAction() {
+        if self.player.currentTime() == self.player.currentItem?.duration {
+            // replaying video
+            self.player.seek(to: kCMTimeZero, completionHandler: { (done: Bool) in
+                self.play()
+            })
+        } else {
+            self.play()
         }
     }
     
@@ -257,7 +279,11 @@ public class SHVideoPlayerScrubber: NSObject {
     
     override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == SHVideoPlayerConstants.ObserverKey.duration {
-            if CMTIME_IS_VALID((self.player.currentItem?.duration)!) && !CMTIME_IS_INDEFINITE((self.player.currentItem?.duration)!) {
+            guard let currentItem = self.player.currentItem else {
+                print("players current item is nil")
+                return
+            }
+            if CMTIME_IS_VALID(currentItem.duration) && !CMTIME_IS_INDEFINITE(currentItem.duration) {
                 removeCurrentItemObserver()
                 playerTimeChanged()
             }
