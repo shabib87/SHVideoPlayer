@@ -145,7 +145,7 @@ public class SHVideoPlayer: UIView {
         } else {
             playerControl.showPlayerUIComponents()
         }
-        self.playerControlsAreVisible = !self.playerControlsAreVisible;
+        self.playerControlsAreVisible = !self.playerControlsAreVisible
     }
     
     @objc fileprivate func hideControlViewAnimated() {
