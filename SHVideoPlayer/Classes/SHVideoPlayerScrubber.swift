@@ -101,7 +101,10 @@ public class SHVideoPlayerScrubber: NSObject {
                 track = tracks[0]
             }
         }
-        return track.nominalFrameRate ?? 0.0
+        if let nominalFrameRate = track?.nominalFrameRate {
+            return nominalFrameRate
+        }
+        return 0.0
     }
     
     fileprivate func updateCurrentTimeLabelWithTime(time: TimeInterval) {
@@ -160,10 +163,10 @@ public class SHVideoPlayerScrubber: NSObject {
             print("players current item is nil")
             return
         }
-        self.updatePlayerWith(currentItem: currentItem)
+        self.updatePlayerWith(currentItem: currentItem,  playIfNeeded: playIfNeeded)
     }
     
-    private func updatePlayerWith(currentItem: AVPlayerItem) {
+    private func updatePlayerWith(currentItem: AVPlayerItem, playIfNeeded: Bool) {
         let duratoinInSeconds = CMTimeGetSeconds(currentItem.duration)
         let seconds = Float64(duratoinInSeconds) * Float64((self.slider.value))
         let time = CMTimeMakeWithSeconds(seconds, Int32(NSEC_PER_SEC))
@@ -185,6 +188,12 @@ public class SHVideoPlayerScrubber: NSObject {
         let thumbRect = self.slider.thumbRect(forBounds: self.slider.bounds, trackRect: trackRect, value: 0)
         let thumbWidth = thumbRect.size.width
         let point = gesture.location(in: self.slider)
+        let value = self.seekValueFromSliderTap(point: point, thumbWidth: thumbWidth)
+        self.slider.setValue(value, animated: true)
+        updatePlayer(playIfNeeded: isPlaying)
+    }
+    
+    private func seekValueFromSliderTap(point: CGPoint, thumbWidth: CGFloat) -> Float {
         var ratio: Float = 0.0
         if point.x < thumbWidth / 2 {
             ratio = 0.0
@@ -194,9 +203,7 @@ public class SHVideoPlayerScrubber: NSObject {
             ratio = Float((point.x - thumbWidth / 2) / (self.slider.bounds.size.width - thumbWidth))
         }
         let del = ratio * (self.slider.maximumValue - self.slider.minimumValue)
-        let value = self.slider.minimumValue + del;
-        self.slider.setValue(value, animated: true)
-        updatePlayer(playIfNeeded: isPlaying)
+        return self.slider.minimumValue + del
     }
     
     @objc fileprivate func sliderValueChangeAction(slider: UISlider, event: UIEvent) {
