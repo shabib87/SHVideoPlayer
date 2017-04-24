@@ -43,19 +43,19 @@ public class SHVideoPlayerDefaultControl: UIView {
         addConstraintsToComponents()
     }
     
-    fileprivate func configureBGContainerView() {
+    private func configureBGContainerView() {
         bgContainerView.addSubview(topContainerView)
         bgContainerView.addSubview(bottomContainerView)
         bgContainerView.addSubview(_playButton)
     }
     
-    fileprivate func configureTopContainerView() {
+    private func configureTopContainerView() {
         topContainerView.addSubview(_backButton)
         topContainerView.addSubview(_titleLabel)
         topContainerView.addSubview(_fullScreenButton)
     }
     
-    fileprivate func configureBottomContainerView() {
+    private func configureBottomContainerView() {
         bottomContainerView.addSubview(_currentTimeLabel)
         bottomContainerView.addSubview(_remainingTimeLabel)
         bottomContainerView.addSubview(_durationLabel)
@@ -63,20 +63,20 @@ public class SHVideoPlayerDefaultControl: UIView {
         bottomContainerView.addSubview(_timeSlider)
     }
     
-    fileprivate func configureBGColors() {
+    private func configureBGColors() {
         bgContainerView.backgroundColor = UIColor (red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
         topContainerView.backgroundColor = UIColor (red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
         bottomContainerView.backgroundColor = UIColor (red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
     }
     
-    fileprivate func configureDelegation() {
+    private func configureDelegation() {
         configureBackButtonImage()
         configurePlayButtonNormalStateImage()
         configurePlayButtonSelectedStateImage()
         configureFullScreenButtonNormalStateImage()
     }
     
-    fileprivate func configurePlayButtonNormalStateImage() {
+    private func configurePlayButtonNormalStateImage() {
         if delegate != nil {
             _playButton.setImage(delegate?.playButtonNormalStateImage(), for: UIControlState())
         } else {
@@ -84,7 +84,7 @@ public class SHVideoPlayerDefaultControl: UIView {
         }
     }
     
-    fileprivate func configureBackButtonImage() {
+    private func configureBackButtonImage() {
         if delegate != nil {
             _backButton.setImage(delegate?.backButtonImage(), for: .normal)
         } else {
@@ -92,7 +92,7 @@ public class SHVideoPlayerDefaultControl: UIView {
         }
     }
     
-    fileprivate func configurePlayButtonSelectedStateImage() {
+    private func configurePlayButtonSelectedStateImage() {
         if delegate != nil {
             _playButton.setImage(delegate?.playButtonSelectedStateImage(), for: .selected)
         } else {
@@ -100,7 +100,7 @@ public class SHVideoPlayerDefaultControl: UIView {
         }
     }
     
-    fileprivate func configureFullScreenButtonNormalStateImage() {
+    private func configureFullScreenButtonNormalStateImage() {
         if delegate != nil {
             _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: .normal)
         } else {
@@ -108,41 +108,41 @@ public class SHVideoPlayerDefaultControl: UIView {
         }
     }
     
-    fileprivate func configureLabels() {
+    private func configureLabels() {
         configureTitleLabel()
         configureCurrentTimeLabel()
         configureRemainingTimeLabel()
         configureDurationLabel()
     }
     
-    fileprivate func configureTitleLabel() {
+    private func configureTitleLabel() {
         _titleLabel.textColor = .white
         _titleLabel.text = "Loading..."
         _titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
     }
     
-    fileprivate func configureCurrentTimeLabel() {
+    private func configureCurrentTimeLabel() {
         _currentTimeLabel.textColor = .white
         _currentTimeLabel.font = UIFont.systemFont(ofSize: 12)
         _currentTimeLabel.text = "00:00"
         _currentTimeLabel.textAlignment = .center
     }
     
-    fileprivate func configureRemainingTimeLabel() {
+    private func configureRemainingTimeLabel() {
         _remainingTimeLabel.textColor = .white
         _remainingTimeLabel.font = UIFont.systemFont(ofSize: 12)
         _remainingTimeLabel.text = "00:00"
         _remainingTimeLabel.textAlignment = .right
     }
     
-    fileprivate func configureDurationLabel() {
+    private func configureDurationLabel() {
         _durationLabel.textColor = .white
         _durationLabel.font = UIFont.systemFont(ofSize: 12)
         _durationLabel.text = "/00:00"
         _durationLabel.textAlignment = .left
     }
     
-    fileprivate func configureTimeSliders() {
+    private func configureTimeSliders() {
         _timeSlider.maximumValue = 1.0
         _timeSlider.minimumValue = 0.0
         _timeSlider.value = 0.0
@@ -150,12 +150,12 @@ public class SHVideoPlayerDefaultControl: UIView {
         _timeSlider.minimumTrackTintColor = .white
     }
     
-    fileprivate func configureProgressView() {
+    private func configureProgressView() {
         _progressView.tintColor = SHVideoPlayerUtils.progressBarTintColor()
         _progressView.trackTintColor = SHVideoPlayerUtils.progressTrackTintColor()
     }
     
-    fileprivate func initUIComponents() {
+    private func initUIComponents() {
         self.addSubview(bgContainerView)
         configureBGContainerView()
         configureTopContainerView()
@@ -166,7 +166,7 @@ public class SHVideoPlayerDefaultControl: UIView {
         configureDelegation()
     }
     
-    fileprivate func addConstraintsToComponents() {
+    private func addConstraintsToComponents() {
         setBGContainerViewConstraints()
         setTopContainerViewConstraints()
         setBottomContainerViewConstraints()
@@ -181,41 +181,41 @@ public class SHVideoPlayerDefaultControl: UIView {
         setDurationLabelContraints()
     }
     
-    fileprivate func setBGContainerViewConstraints() {
+    private func setBGContainerViewConstraints() {
         bgContainerView.snp.makeConstraints { (make) in
             make.edges.equalTo(self)
         }
     }
     
-    fileprivate func setTopContainerViewConstraints() {
+    private func setTopContainerViewConstraints() {
         topContainerView.snp.makeConstraints { (make) in
             make.top.left.right.equalTo(bgContainerView)
             make.height.equalTo(65)
         }
     }
     
-    fileprivate func setBottomContainerViewConstraints() {
+    private func setBottomContainerViewConstraints() {
         bottomContainerView.snp.makeConstraints { (make) in
             make.bottom.left.right.equalTo(bgContainerView)
             make.height.equalTo(50)
         }
     }
     
-    fileprivate func setBackButtonConstraints() {
+    private func setBackButtonConstraints() {
         _backButton.snp.makeConstraints { (make) in
             make.width.height.equalTo(50)
             make.left.bottom.equalTo(topContainerView)
         }
     }
     
-    fileprivate func setTitleLabelConstraints() {
+    private func setTitleLabelConstraints() {
         _titleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(_backButton.snp.right)
             make.centerY.equalTo(_backButton)
         }
     }
     
-    fileprivate func setFullScreenButtonConstraints() {
+    private func setFullScreenButtonConstraints() {
         _fullScreenButton.snp.makeConstraints { (make) in
             make.width.equalTo(37)
             make.height.equalTo(42)
@@ -225,7 +225,7 @@ public class SHVideoPlayerDefaultControl: UIView {
         }
     }
     
-    fileprivate func setPlayButtonConstraints() {
+    private func setPlayButtonConstraints() {
         _playButton.snp.makeConstraints { (make) in
             make.width.equalTo(42)
             make.height.equalTo(42)
@@ -233,7 +233,7 @@ public class SHVideoPlayerDefaultControl: UIView {
         }
     }
     
-    fileprivate func setCurrentLabelConstraints() {
+    private func setCurrentLabelConstraints() {
         _currentTimeLabel.snp.makeConstraints { (make) in
             make.left.equalTo(bottomContainerView.snp.left).offset(10)
             make.centerY.equalTo(bottomContainerView)
@@ -241,7 +241,7 @@ public class SHVideoPlayerDefaultControl: UIView {
         }
     }
     
-    fileprivate func setTimeSliderConstraints() {
+    private func setTimeSliderConstraints() {
         _timeSlider.snp.makeConstraints { (make) in
             make.centerY.equalTo(_currentTimeLabel)
             make.left.equalTo(_currentTimeLabel.snp.right).offset(10).priority(750)
@@ -249,14 +249,14 @@ public class SHVideoPlayerDefaultControl: UIView {
         }
     }
     
-    fileprivate func setProgressViewConstraints() {
+    private func setProgressViewConstraints() {
         _progressView.snp.makeConstraints { (make) in
             make.centerY.left.right.equalTo(_timeSlider)
             make.height.equalTo(2)
         }
     }
     
-    fileprivate func setRemainingLabelConstraints() {
+    private func setRemainingLabelConstraints() {
         _remainingTimeLabel.snp.makeConstraints { (make) in
             make.centerY.equalTo(_currentTimeLabel)
             make.left.equalTo(_timeSlider.snp.right).offset(10)
@@ -264,7 +264,7 @@ public class SHVideoPlayerDefaultControl: UIView {
         }
     }
     
-    fileprivate func setDurationLabelContraints() {
+    private func setDurationLabelContraints() {
         _durationLabel.snp.makeConstraints { (make) in
             make.centerY.equalTo(_currentTimeLabel)
             make.left.equalTo(_remainingTimeLabel.snp.right).offset(0)
@@ -299,7 +299,7 @@ extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
         }
     }
     
-    fileprivate func updateFullScreenImage() {
+    private func updateFullScreenImage() {
         if delegate != nil {
             _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
         } else {
@@ -307,7 +307,7 @@ extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
         }
     }
     
-    fileprivate func updateSmallScreenImage() {
+    private func updateSmallScreenImage() {
         if delegate != nil {
             _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
         } else {
