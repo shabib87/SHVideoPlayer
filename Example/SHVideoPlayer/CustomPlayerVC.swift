@@ -24,22 +24,20 @@ class CustomPlayerVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard let video = videos[1] else {
-            return
+        if let video = videos[1] {
+            videoPlayerPlayVideo(video: video)
         }
-        videoPlayerPlayVideo(video: video)
     }
     
     fileprivate func videoPlayerPlayVideo(video: SHVideo) {
-        guard let sourceURL = video.sourceURL else {
-            return
+        if let sourceURL = video.sourceURL {
+            guard let url =  URL(string: sourceURL) else {
+                    print("Video URL is nil")
+                    return
+            }
+            let title = video.title ?? ""
+            videoPlayer.playWithURL(url, title: title)
         }
-        
-        guard let url =  URL(string: sourceURL),
-            let title = video.title else {
-                return
-        }
-        videoPlayer.playWithURL(url, title: title)
     }
 }
 
@@ -64,9 +62,8 @@ extension CustomPlayerVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView .deselectRow(at: indexPath, animated: true)
-        guard let video = videos[indexPath.row] else {
-            return
+        if let video = videos[indexPath.row] {
+            videoPlayerPlayVideo(video: video)
         }
-        videoPlayerPlayVideo(video: video)
     }
 }
