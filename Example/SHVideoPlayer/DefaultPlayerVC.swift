@@ -22,8 +22,9 @@ class DefaultPlayerVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let path = Bundle.main.path(forResource: "RougeOneTrailer", ofType:"mp4")
-        let url = NSURL(fileURLWithPath: path!)
-        videoPlayer.playWithURL(url as URL, title: "Rogue One: A Star Wars Story")
+        if let path = Bundle.main.path(forResource: "RougeOneTrailer", ofType:"mp4") {
+            let url = NSURL(fileURLWithPath: path)
+            videoPlayer.playWithURL(url as URL, title: "Rogue One: A Star Wars Story")
+        }
     }
 }
