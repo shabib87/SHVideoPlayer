@@ -212,10 +212,9 @@ public class SHVideoPlayerDefaultControl: UIView {
     }
     
     private func setTitleLabelConstraints() {
-        _titleLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(_backButton.snp.right)
-            make.centerY.equalTo(_backButton)
-        }
+        _titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        _titleLabel.leadingAnchor.constraint(equalTo: _backButton.trailingAnchor).isActive = true
+        _titleLabel.centerYAnchor.constraint(equalTo: _backButton.centerYAnchor).isActive = true
     }
     
     private func setFullScreenButtonConstraints() {
