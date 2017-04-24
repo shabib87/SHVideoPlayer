@@ -14,19 +14,20 @@ public class SHVideoPlayer: UIView {
     
     public var backActionCompletionHandler:(() -> Void)?
     
-    fileprivate var tapGesture: UITapGestureRecognizer!
+    private var tapGesture: UITapGestureRecognizer!
+    private var playerLayer: SHVideoPlayerLayer!
+    private var playerScrubber: SHVideoPlayerScrubber!
+    private var orientationHandler: SHVideoPlayerOrientationHandler!
+    
+    private var customPlayerControl: SHVideoPlayerControl?
+    private var videoItemURL: URL!
+    private var playerControlsAreVisible = true
+    private var hasURLSet = false
+    
+    private let FadeOutAnimationTimeInterval: Double = 0.5
+    private let AutoFadeOutTimeInterval: Double = 5.0
+    
     fileprivate var playerControl: SHVideoPlayerControl!
-    fileprivate var playerLayer: SHVideoPlayerLayer!
-    fileprivate var playerScrubber: SHVideoPlayerScrubber!
-    fileprivate var orientationHandler: SHVideoPlayerOrientationHandler!
-    
-    fileprivate var customPlayerControl: SHVideoPlayerControl?
-    fileprivate var videoItemURL: URL!
-    fileprivate var playerControlsAreVisible = true
-    fileprivate var hasURLSet = false
-    
-    fileprivate let FadeOutAnimationTimeInterval: Double = 0.5
-    fileprivate let AutoFadeOutTimeInterval: Double = 5.0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,7 +58,7 @@ public class SHVideoPlayer: UIView {
         self.play()
     }
     
-    fileprivate func play() {
+    private func play() {
         if !hasURLSet {
             playerLayer?.videoURL = videoItemURL
             hasURLSet = true
@@ -65,12 +66,12 @@ public class SHVideoPlayer: UIView {
         self.playerScrubber?.play()
     }
     
-    fileprivate func initUI() {
+    private func initUI() {
         self.preparePlayerControl()
         self.preparePlayer()
     }
     
-    fileprivate func preparePlayerControl() {
+    private func preparePlayerControl() {
         if let customView = customPlayerControl {
             playerControl = customView
         } else {
@@ -86,7 +87,7 @@ public class SHVideoPlayer: UIView {
         self.addGestureRecognizer(tapGesture)
     }
     
-    fileprivate func preparePlayer() {
+    private func preparePlayer() {
         playerLayer = SHVideoPlayerLayer()
         playerLayer.backgroundColor = .black
         guard let _playerLayer = playerLayer else {
@@ -100,7 +101,7 @@ public class SHVideoPlayer: UIView {
         self.layoutIfNeeded()
     }
     
-    fileprivate func addPlayerObservers() {
+    private func addPlayerObservers() {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidEnterBackground, object: nil, queue: nil) { notification in
             self.playerScrubber?.pause()
         }
@@ -109,7 +110,7 @@ public class SHVideoPlayer: UIView {
         }
     }
     
-    fileprivate func preparePlayerScrubber() {
+    private func preparePlayerScrubber() {
         self.playerScrubber = nil
         self.createPlayerScrubber()
         self.playerScrubber.delegate = self
@@ -133,13 +134,13 @@ public class SHVideoPlayer: UIView {
         self.perform(#selector(hideControlViewAnimated), with: nil, afterDelay: AutoFadeOutTimeInterval)
     }
     
-    @objc fileprivate func backButtonAction(_ button: UIButton) {
+    @objc private func backButtonAction(_ button: UIButton) {
         playerScrubber.startPreparingForDeinit()
         playerLayer?.startPreparingForDeinit()
         backActionCompletionHandler?()
     }
     
-    @objc fileprivate func tapGestureTapped(_ sender: UIGestureRecognizer) {
+    @objc private func tapGestureTapped(_ sender: UIGestureRecognizer) {
         if self.playerControlsAreVisible {
             playerControl.hidePlayerUIComponents()
         } else {
@@ -148,7 +149,7 @@ public class SHVideoPlayer: UIView {
         self.playerControlsAreVisible = !self.playerControlsAreVisible
     }
     
-    @objc fileprivate func hideControlViewAnimated() {
+    @objc private func hideControlViewAnimated() {
         UIView.animate(withDuration: FadeOutAnimationTimeInterval, animations: {
             self.playerControl.hidePlayerUIComponents()
             if self.orientationHandler.isLandscape {
@@ -157,7 +158,7 @@ public class SHVideoPlayer: UIView {
         }, completion: nil)
     }
     
-    @objc fileprivate func showControlViewAnimated() {
+    @objc private func showControlViewAnimated() {
         UIView.animate(withDuration: FadeOutAnimationTimeInterval, animations: {
             self.playerControl.showPlayerUIComponents()
             UIApplication.shared.isStatusBarHidden = false
