@@ -11,18 +11,18 @@ import AVFoundation
 
 public class SHVideoPlayerScrubber: NSObject {
     
-    fileprivate let player: AVPlayer
-    fileprivate var slider: UISlider
+    private let player: AVPlayer
+    private var slider: UISlider
     
-    fileprivate var currentTimeLabel: UILabel
-    fileprivate var durationLabel: UILabel
-    fileprivate var remainingTimeLabel: UILabel
-    fileprivate var playButton: UIButton
+    private var currentTimeLabel: UILabel
+    private var durationLabel: UILabel
+    private var remainingTimeLabel: UILabel
+    private var playButton: UIButton
     
-    fileprivate var timeObserver: Any?
+    private var timeObserver: Any?
     
-    fileprivate var playAfterDrag: Bool = true
-    fileprivate var framesPerSecond: Float = 0.0
+    private var playAfterDrag: Bool = true
+    private var framesPerSecond: Float = 0.0
     
     public weak var delegate: SHVideoPlayerScrubberDelegate?
     
@@ -42,7 +42,7 @@ public class SHVideoPlayerScrubber: NSObject {
         self.setPlayPauseButtonAction()
     }
     
-    fileprivate func setUpPlayer() {
+    private func setUpPlayer() {
         self.pause()
         removeTimeObserver()
         self.framesPerSecond = nominalFrameRateForPlayer()
@@ -52,7 +52,7 @@ public class SHVideoPlayerScrubber: NSObject {
         self.addPlayerDidEndPlayingVideoObserver()
     }
     
-    fileprivate func addPlayerItemPlayDurationObserver() {
+    private func addPlayerItemPlayDurationObserver() {
         guard let duration = self.player.currentItem?.duration else {
             print("duration is nil")
             return
@@ -62,20 +62,20 @@ public class SHVideoPlayerScrubber: NSObject {
         }
     }
     
-    fileprivate func setSliderTapAction() {
+    private func setSliderTapAction() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(sliderTapAction))
         slider.addGestureRecognizer(gesture)
     }
     
-    fileprivate func setSliderValueChangeAction() {
+    private func setSliderValueChangeAction() {
         slider.addTarget(self, action: #selector(sliderValueChangeAction), for: .valueChanged)
     }
     
-    fileprivate func setPlayPauseButtonAction() {
+    private func setPlayPauseButtonAction() {
         playButton.addTarget(self, action: #selector(playPauseButtonAction), for: .touchUpInside)
     }
     
-    fileprivate func setupTimeObserver() {
+    private func setupTimeObserver() {
         if framesPerSecond > 0 {
             weak var weakSelf = self
             let seconds = Float64(1 / framesPerSecond)
@@ -87,14 +87,14 @@ public class SHVideoPlayerScrubber: NSObject {
         }
     }
     
-    fileprivate func removeTimeObserver() {
+    private func removeTimeObserver() {
         if timeObserver != nil {
             self.player.removeTimeObserver(timeObserver ?? self)
         }
         timeObserver = nil
     }
     
-    fileprivate func nominalFrameRateForPlayer() -> Float {
+    private func nominalFrameRateForPlayer() -> Float {
         var track: AVAssetTrack? = nil
         if let tracks = self.player.currentItem?.asset.tracks(withMediaType: AVMediaTypeVideo) {
             if tracks.count != 0 {
@@ -107,19 +107,19 @@ public class SHVideoPlayerScrubber: NSObject {
         return 0.0
     }
     
-    fileprivate func updateCurrentTimeLabelWithTime(time: TimeInterval) {
+    private func updateCurrentTimeLabelWithTime(time: TimeInterval) {
         self.currentTimeLabel.text = timecodeForTimeInterval(time: time)
     }
     
-    fileprivate func updateDurationLabelWithTime(time: TimeInterval) {
+    private func updateDurationLabelWithTime(time: TimeInterval) {
         self.durationLabel.text = "/\(timecodeForTimeInterval(time: time))"
     }
     
-    fileprivate func updateRemainingTimeLabelWithTime(time: TimeInterval) {
+    private func updateRemainingTimeLabelWithTime(time: TimeInterval) {
         self.remainingTimeLabel.text = timecodeForTimeInterval(time: time)
     }
     
-    fileprivate func timecodeForTimeInterval(time: TimeInterval) -> String {
+    private func timecodeForTimeInterval(time: TimeInterval) -> String {
         let sign = time < 0 ? "-" : ""
         var timeCode = ""
         let absTime = Int(abs(time))
@@ -134,7 +134,7 @@ public class SHVideoPlayerScrubber: NSObject {
         return timeCode
     }
     
-    fileprivate func playerTimeChanged() {
+    private func playerTimeChanged() {
         guard let currentItem = self.player.currentItem else {
             print("players current item is nil")
             return
@@ -158,7 +158,7 @@ public class SHVideoPlayerScrubber: NSObject {
         updateRemainingTimeLabelWithTime(time: duratoinInSeconds - secondsElapsed)
     }
     
-    fileprivate func updatePlayer(playIfNeeded: Bool) {
+    private func updatePlayer(playIfNeeded: Bool) {
         guard let currentItem = self.player.currentItem else {
             print("players current item is nil")
             return
@@ -181,7 +181,7 @@ public class SHVideoPlayerScrubber: NSObject {
     
     //MARK: actions 
     
-    @objc fileprivate func sliderTapAction(gesture: UITapGestureRecognizer) {
+    @objc private func sliderTapAction(gesture: UITapGestureRecognizer) {
         if self.slider.isHighlighted { return }
         let isPlaying = self.player.rate > 0
         let trackRect = self.slider.trackRect(forBounds: self.slider.bounds)
@@ -206,7 +206,7 @@ public class SHVideoPlayerScrubber: NSObject {
         return self.slider.minimumValue + del
     }
     
-    @objc fileprivate func sliderValueChangeAction(slider: UISlider, event: UIEvent) {
+    @objc private func sliderValueChangeAction(slider: UISlider, event: UIEvent) {
         let touch =  event.allTouches?.first
         if touch?.phase == .began {
             playAfterDrag = self.player.rate > 0
@@ -215,7 +215,7 @@ public class SHVideoPlayerScrubber: NSObject {
         updatePlayer(playIfNeeded: touch?.phase == .ended)
     }
     
-    @objc fileprivate func playPauseButtonAction(button: UIButton) {
+    @objc private func playPauseButtonAction(button: UIButton) {
         if self.player.rate == 0 {
             self.resumeOrPlayAction()
         } else {
@@ -248,20 +248,20 @@ public class SHVideoPlayerScrubber: NSObject {
         }
     }
     
-    fileprivate func addDidEndVideoObserver() {
+    private func addDidEndVideoObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying),name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.player.currentItem)
     }
     
-    fileprivate func removeDidEndVideoObserver() {
+    private func removeDidEndVideoObserver() {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.player.currentItem)
     }
     
-    fileprivate func addPlayerDidEndPlayingVideoObserver() {
+    private func addPlayerDidEndPlayingVideoObserver() {
         self.removeDidEndVideoObserver()
         self.addDidEndVideoObserver()
     }
     
-    @objc fileprivate func playerDidFinishPlaying(notification: NSNotification) {
+    @objc private func playerDidFinishPlaying(notification: NSNotification) {
         self.removeDidEndVideoObserver()
         if delegate != nil {
             delegate?.playerStateDidChange(isPlaying: false)
