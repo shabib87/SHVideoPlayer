@@ -17,7 +17,7 @@ public class SHVideoPlayerOrientationHandler {
         }
     }
     
-    fileprivate var playerControl: SHVideoPlayerControl!
+    private var playerControl: SHVideoPlayerControl!
     
     init(playerControlView playerControl: SHVideoPlayerControl) {
         self.playerControl = playerControl
@@ -29,20 +29,20 @@ public class SHVideoPlayerOrientationHandler {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
     }
     
-    fileprivate func addPlayerControlFullScreenButtonAction() {
+    private func addPlayerControlFullScreenButtonAction() {
         playerControl.fullScreenButton?.addTarget(self, action: #selector(self.fullScreenAction(_:)), for: .touchUpInside)
         playerControl.updateUI(!isLandscape)
     }
     
-    fileprivate func addOrientationChangedNotification() {
+    private func addOrientationChangedNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.onOrientationChanged), name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
     }
     
-    @objc fileprivate func onOrientationChanged() {
+    @objc private func onOrientationChanged() {
         playerControl.updateUI(!isLandscape)
     }
     
-    @objc fileprivate func fullScreenAction(_ button: Any?) {
+    @objc private func fullScreenAction(_ button: Any?) {
         playerControl.updateUI(!isLandscape)
         if isLandscape {
             UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
