@@ -11,8 +11,8 @@ import AVFoundation
 
 public class SHVideoPlayerLayer: UIView {
     
-    fileprivate var playerLayer: AVPlayerLayer?
-    fileprivate var lastPlayerItem: AVPlayerItem?
+    private var playerLayer: AVPlayerLayer?
+    private var lastPlayerItem: AVPlayerItem?
     
     public var videoURL: URL! {
         didSet { onSetVideoURL() }
@@ -58,11 +58,11 @@ public class SHVideoPlayerLayer: UIView {
         self.resetPlayer()
     }
     
-    fileprivate func onSetVideoURL() {
+    private func onSetVideoURL() {
         self.configPlayer()
     }
     
-    fileprivate func configPlayer(){
+    private func configPlayer(){
         self.playerItem = AVPlayerItem(url: videoURL)
         guard let _playerItem = playerItem else {
             print("player item is nil")
@@ -80,7 +80,7 @@ public class SHVideoPlayerLayer: UIView {
         self.layoutIfNeeded()
     }
     
-    fileprivate func onPlayerItemChange() {
+    private func onPlayerItemChange() {
         lastPlayerItem = playerItem
     }
 }
