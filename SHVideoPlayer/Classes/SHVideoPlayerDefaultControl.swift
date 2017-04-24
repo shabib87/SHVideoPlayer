@@ -205,10 +205,11 @@ public class SHVideoPlayerDefaultControl: UIView {
     }
     
     private func setBackButtonConstraints() {
-        _backButton.snp.makeConstraints { (make) in
-            make.width.height.equalTo(50)
-            make.left.bottom.equalTo(topContainerView)
-        }
+        _backButton.translatesAutoresizingMaskIntoConstraints = false
+        _backButton.leadingAnchor.constraint(equalTo: topContainerView.leadingAnchor).isActive = true
+        _backButton.bottomAnchor.constraint(equalTo: topContainerView.bottomAnchor).isActive = true
+        _backButton.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
+        _backButton.widthAnchor.constraint(equalToConstant: 50.0).isActive = true
     }
     
     private func setTitleLabelConstraints() {
