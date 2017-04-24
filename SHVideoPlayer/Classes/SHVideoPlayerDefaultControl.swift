@@ -182,9 +182,14 @@ public class SHVideoPlayerDefaultControl: UIView {
     }
     
     private func setBGContainerViewConstraints() {
-        bgContainerView.snp.makeConstraints { (make) in
-            make.edges.equalTo(self)
-        }
+        bgContainerView.translatesAutoresizingMaskIntoConstraints = false
+        bgContainerView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        bgContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        bgContainerView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        bgContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+//        bgContainerView.snp.makeConstraints { (make) in
+//            make.edges.equalTo(self)
+//        }
     }
     
     private func setTopContainerViewConstraints() {
