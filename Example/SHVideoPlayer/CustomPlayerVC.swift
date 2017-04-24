@@ -13,7 +13,7 @@ class CustomPlayerVC: UIViewController {
 
     @IBOutlet var tableView: UITableView!
     @IBOutlet var videoPlayer: SHVideoPlayer!
-    fileprivate var videos: [SHVideo] = VideoDataSource.getModel()
+    fileprivate var videos: [SHVideo?] = VideoDataSource.getModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +24,22 @@ class CustomPlayerVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let video = videos[1]
-        videoPlayer.playWithURL(URL(string: video.sourceURL!)!, title: video.title!)
+        guard let video = videos[1] else {
+            return
+        }
+        videoPlayerPlayVideo(video: video)
+    }
+    
+    fileprivate func videoPlayerPlayVideo(video: SHVideo) {
+        guard let sourceURL = video.sourceURL else {
+            return
+        }
+        
+        guard let url =  URL(string: sourceURL),
+            let title = video.title else {
+                return
+        }
+        videoPlayer.playWithURL(url, title: title)
     }
 }
 
@@ -37,10 +51,11 @@ extension CustomPlayerVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "VideoTableViewCellID", for: indexPath) as! VideoTableViewCell
-        let video = videos[indexPath.row]
-        cell.titleLabel.text = video.title
-        cell.sourceURLLabel.text = video.sourceURL
-        cell.thumbImageView.image = video.thumbImage
+        if let video = videos[indexPath.row] {
+            cell.titleLabel.text = video.title
+            cell.sourceURLLabel.text = video.sourceURL
+            cell.thumbImageView.image = video.thumbImage
+        }
         return cell
     }
 }
@@ -49,7 +64,9 @@ extension CustomPlayerVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView .deselectRow(at: indexPath, animated: true)
-        let video = videos[indexPath.row]
-        videoPlayer.playWithURL(URL(string: video.sourceURL!)!, title: video.title!)
+        guard let video = videos[indexPath.row] else {
+            return
+        }
+        videoPlayerPlayVideo(video: video)
     }
 }
