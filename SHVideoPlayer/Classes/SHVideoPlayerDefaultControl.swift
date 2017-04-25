@@ -220,13 +220,12 @@ public class SHVideoPlayerDefaultControl: UIView {
     }
     
     private func setFullScreenButtonConstraints() {
-        _fullScreenButton.snp.makeConstraints { (make) in
-            make.width.equalTo(37)
-            make.height.equalTo(42)
-            make.centerY.equalTo(_titleLabel)
-            make.left.equalTo(_titleLabel.snp.right).offset(10)
-            make.right.equalTo(topContainerView.snp.right).offset(-10)
-        }
+        _fullScreenButton.translatesAutoresizingMaskIntoConstraints = false
+        _fullScreenButton.leadingAnchor.constraint(equalTo: _titleLabel.trailingAnchor, constant: 10.0).isActive = true
+        _fullScreenButton.trailingAnchor.constraint(equalTo: topContainerView.trailingAnchor, constant: -10.0).isActive = true
+        _fullScreenButton.centerYAnchor.constraint(equalTo: _titleLabel.centerYAnchor).isActive = true
+        _fullScreenButton.heightAnchor.constraint(equalToConstant: 37.0).isActive = true
+        _fullScreenButton.widthAnchor.constraint(equalToConstant: 42.0).isActive = true
     }
     
     private func setPlayButtonConstraints() {
