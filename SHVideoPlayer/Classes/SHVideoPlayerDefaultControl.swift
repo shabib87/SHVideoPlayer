@@ -237,11 +237,10 @@ public class SHVideoPlayerDefaultControl: UIView {
     }
     
     private func setCurrentLabelConstraints() {
-        _currentTimeLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(bottomContainerView.snp.left).offset(10)
-            make.centerY.equalTo(bottomContainerView)
-            make.width.equalTo(40)
-        }
+        _currentTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        _currentTimeLabel.leadingAnchor.constraint(equalTo: bottomContainerView.leadingAnchor, constant: 10.0).isActive = true
+        _currentTimeLabel.centerYAnchor.constraint(equalTo: bottomContainerView.centerYAnchor).isActive = true
+        _currentTimeLabel.widthAnchor.constraint(equalToConstant: 40.0).isActive = true
     }
     
     private func setTimeSliderConstraints() {
