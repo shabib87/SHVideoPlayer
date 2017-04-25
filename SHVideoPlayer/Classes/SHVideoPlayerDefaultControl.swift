@@ -229,11 +229,11 @@ public class SHVideoPlayerDefaultControl: UIView {
     }
     
     private func setPlayButtonConstraints() {
-        _playButton.snp.makeConstraints { (make) in
-            make.width.equalTo(42)
-            make.height.equalTo(42)
-            make.centerX.centerY.equalTo(self)
-        }
+        _playButton.translatesAutoresizingMaskIntoConstraints = false
+        _playButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        _playButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        _playButton.heightAnchor.constraint(equalToConstant: 42.0).isActive = true
+        _playButton.widthAnchor.constraint(equalToConstant: 42.0).isActive = true
     }
     
     private func setCurrentLabelConstraints() {
