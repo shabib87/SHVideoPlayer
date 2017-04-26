@@ -268,12 +268,11 @@ public class SHVideoPlayerDefaultControl: UIView {
     }
     
     private func setDurationLabelContraints() {
-        _durationLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(_currentTimeLabel)
-            make.left.equalTo(_remainingTimeLabel.snp.right).offset(0)
-            make.width.equalTo(40)
-            make.right.equalTo(bottomContainerView.snp.right).offset(-10)
-        }
+        _durationLabel.translatesAutoresizingMaskIntoConstraints = false
+        _durationLabel.widthAnchor.constraint(equalToConstant: 40.0).isActive = true
+        _durationLabel.centerYAnchor.constraint(equalTo: _currentTimeLabel.centerYAnchor).isActive = true
+        _durationLabel.leadingAnchor.constraint(equalTo: _remainingTimeLabel.trailingAnchor).isActive = true
+        _durationLabel.trailingAnchor.constraint(equalTo: bottomContainerView.trailingAnchor, constant: -10.0).isActive = true
     }
 }
 
