@@ -253,10 +253,11 @@ public class SHVideoPlayerDefaultControl: UIView {
     }
     
     private func setProgressViewConstraints() {
-        _progressView.snp.makeConstraints { (make) in
-            make.centerY.left.right.equalTo(_timeSlider)
-            make.height.equalTo(2)
-        }
+        _progressView.translatesAutoresizingMaskIntoConstraints = false
+        _progressView.centerYAnchor.constraint(equalTo: _timeSlider.centerYAnchor).isActive = true
+        _progressView.leadingAnchor.constraint(equalTo: _timeSlider.leadingAnchor).isActive = true
+        _progressView.trailingAnchor.constraint(equalTo: _timeSlider.trailingAnchor).isActive = true
+        _progressView.heightAnchor.constraint(equalToConstant: 2.0).isActive = true
     }
     
     private func setRemainingLabelConstraints() {
