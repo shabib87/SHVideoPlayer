@@ -22,5 +22,4 @@ A wrapper library around AVPlayer to customize AVPlayerLayer with custom control
   }
 
   s.frameworks = 'UIKit', 'Foundation'
-  s.dependency 'SnapKit', '~> 3.0'
 end

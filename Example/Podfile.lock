@@ -1,7 +1,5 @@
 PODS:
-  - SHVideoPlayer (0.1.0):
-    - SnapKit (~> 3.0)
-  - SnapKit (3.0.2)
+  - SHVideoPlayer (0.1.0)
 
 DEPENDENCIES:
   - SHVideoPlayer (from `../`)
@@ -11,9 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  SHVideoPlayer: 9987d8bf03f34403952cac8fd661734e0e22733c
-  SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
+  SHVideoPlayer: 9f09f7c364ea7e0f16a66b8d4d0921a50b783007
 
 PODFILE CHECKSUM: a2f71ff0b77f31955595bf9eada4e4ab7bebf5b5
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.1

@@ -1,8 +1,8 @@
 {
   "name": "SHVideoPlayer",
   "version": "0.1.0",
-  "summary": "A wrapper library around AVPlayer to customize AVPlayerLayer with custom controls.",
-  "description": "A wrapper library around AVPlayer to customize AVPlayerLayer with custom controls using protocol to create your own customized layer.",
+  "summary": "A wrapper around AVPlayer to customize AVPlayerLayer. Compatible with iOS 9.0 or later.",
+  "description": "A wrapper library around AVPlayer to customize AVPlayerLayer with custom controls using protocol to create your own customized layer. Supports scrubbing by default.  Compatible with iOS 9.0 or later.",
   "homepage": "https://github.com/shabib87/SHVideoPlayer.git",
   "license": {
     "type": "MIT",
@@ -17,7 +17,7 @@
   },
   "social_media_url": "https://twitter.com/shabib_hossain",
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.0"
   },
   "source_files": "SHVideoPlayer/Classes/**/*",
   "resource_bundles": {
@@ -28,10 +28,5 @@
   "frameworks": [
     "UIKit",
     "Foundation"
-  ],
-  "dependencies": {
-    "SnapKit": [
-      "~> 3.0"
-    ]
-  }
+  ]
 }
