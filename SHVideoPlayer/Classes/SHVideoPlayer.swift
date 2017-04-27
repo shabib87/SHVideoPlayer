@@ -101,10 +101,7 @@ public class SHVideoPlayer: UIView {
     }
     
     private func setupPlayerLayer() {
-        guard let _playerLayer = playerLayer else {
-            print("player layer is nil")
-            return
-        }
+        guard let _playerLayer = playerLayer else { print("player layer is nil"); return }
         insertSubview(_playerLayer, at: 0)
         _playerLayer.translatesAutoresizingMaskIntoConstraints = false
         _playerLayer.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true

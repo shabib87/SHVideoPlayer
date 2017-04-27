@@ -31,10 +31,7 @@ class CustomPlayerVC: UIViewController {
     
     fileprivate func videoPlayerPlayVideo(video: SHVideo) {
         if let sourceURL = video.sourceURL {
-            guard let url =  URL(string: sourceURL) else {
-                    print("Video URL is nil")
-                    return
-            }
+            guard let url =  URL(string: sourceURL) else { print("Video URL is nil"); return }
             let title = video.title ?? ""
             videoPlayer.playWithURL(url, title: title)
         }

@@ -53,10 +53,7 @@ public class SHVideoPlayerScrubber: NSObject {
     }
     
     private func addPlayerItemPlayDurationObserver() {
-        guard let duration = self.player.currentItem?.duration else {
-            print("duration is nil")
-            return
-        }
+        guard let duration = self.player.currentItem?.duration else { print("duration is nil"); return }
         if !CMTIME_IS_VALID(duration) || CMTIME_IS_INDEFINITE(duration) {
             self.player.currentItem?.addObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration, options: .new, context: nil)
         }
@@ -284,10 +281,7 @@ public class SHVideoPlayerScrubber: NSObject {
     
     override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == SHVideoPlayerConstants.ObserverKey.duration {
-            guard let currentItem = self.player.currentItem else {
-                print("players current item is nil")
-                return
-            }
+            guard let currentItem = self.player.currentItem else { print("players current item is nil"); return }
             if CMTIME_IS_VALID(currentItem.duration) && !CMTIME_IS_INDEFINITE(currentItem.duration) {
                 removeCurrentItemObserver()
                 playerTimeChanged()
