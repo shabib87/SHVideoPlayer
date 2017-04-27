@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SnapKit
 import AVFoundation
 
 public class SHVideoPlayer: UIView {
@@ -79,26 +78,39 @@ public class SHVideoPlayer: UIView {
         }
         self.addSubview(playerControl.controlView)
         self.orientationHandler = SHVideoPlayerOrientationHandler(playerControlView: playerControl)
-        playerControl.controlView.snp.makeConstraints { (make) in
-            make.edges.equalTo(self)
-        }
+        setupPlayerControlView()
         playerControl.backButton?.addTarget(self, action: #selector(self.backButtonAction(_:)), for: .touchUpInside)
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGestureTapped(_:)))
         self.addGestureRecognizer(tapGesture)
     }
     
+    private func setupPlayerControlView() {
+        playerControl.controlView.translatesAutoresizingMaskIntoConstraints = false
+        playerControl.controlView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        playerControl.controlView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        playerControl.controlView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        playerControl.controlView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+    }
+    
     private func preparePlayer() {
         playerLayer = SHVideoPlayerLayer()
         playerLayer.backgroundColor = .black
+        setupPlayerLayer()
+        self.addPlayerObservers()
+        self.layoutIfNeeded()
+    }
+    
+    private func setupPlayerLayer() {
         guard let _playerLayer = playerLayer else {
+            print("player layer is nil")
             return
         }
         insertSubview(_playerLayer, at: 0)
-        _playerLayer.snp.makeConstraints { (make) in
-            make.edges.equalTo(self)
-        }
-        self.addPlayerObservers()
-        self.layoutIfNeeded()
+        _playerLayer.translatesAutoresizingMaskIntoConstraints = false
+        _playerLayer.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        _playerLayer.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        _playerLayer.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        _playerLayer.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     }
     
     private func addPlayerObservers() {
