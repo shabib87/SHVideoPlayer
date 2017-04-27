@@ -63,9 +63,9 @@ public class SHVideoPlayerDefaultControl: UIView {
     }
     
     private func configureBGColors() {
-        bgContainerView.backgroundColor = UIColor (red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
-        topContainerView.backgroundColor = UIColor (red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
-        bottomContainerView.backgroundColor = UIColor (red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
+        bgContainerView.backgroundColor = UIColor.blackShadeColor()
+        topContainerView.backgroundColor = UIColor.grayShadeColor()
+        bottomContainerView.backgroundColor = UIColor.grayShadeColor()
     }
     
     private func configureDelegation() {
@@ -150,29 +150,50 @@ public class SHVideoPlayerDefaultControl: UIView {
     }
     
     private func configureProgressView() {
-        _progressView.tintColor = SHVideoPlayerUtils.progressBarTintColor()
-        _progressView.trackTintColor = SHVideoPlayerUtils.progressTrackTintColor()
+        _progressView.tintColor = UIColor.progressBarTintColor()
+        _progressView.trackTintColor = UIColor.progressTrackTintColor()
     }
     
     private func initUIComponents() {
         self.addSubview(bgContainerView)
+        configureBGUIContents()
+        configureTopUIContents()
+        configureDelegation()
+    }
+    
+    private func configureBGUIContents() {
         configureBGContainerView()
         configureTopContainerView()
         configureBottomContainerView()
         configureBGColors()
+    }
+    
+    private func configureTopUIContents() {
         configureLabels()
         configureTimeSliders()
-        configureDelegation()
+        configureProgressView()
     }
     
     private func addConstraintsToComponents() {
+        setBGContainers()
+        setTopLayerContents()
+        setPlayButtonConstraints()
+        setBottomLayerContents()
+    }
+    
+    private func setBGContainers() {
         setBGContainerViewConstraints()
         setTopContainerViewConstraints()
         setBottomContainerViewConstraints()
+    }
+    
+    private func setTopLayerContents() {
         setBackButtonConstraints()
         setTitleLabelConstraints()
         setFullScreenButtonConstraints()
-        setPlayButtonConstraints()
+    }
+    
+    private func setBottomLayerContents() {
         setCurrentLabelConstraints()
         setTimeSliderConstraints()
         setProgressViewConstraints()
@@ -320,7 +341,7 @@ extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
         _playButton.isHidden = false
         topContainerView.alpha    = 1.0
         bottomContainerView.alpha = 1.0
-        bgContainerView.backgroundColor = SHVideoPlayerUtils.blackShadeColor()
+        bgContainerView.backgroundColor = UIColor.blackShadeColor()
     }
     
     public func hidePlayerUIComponents() {

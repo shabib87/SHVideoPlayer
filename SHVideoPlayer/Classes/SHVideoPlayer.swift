@@ -114,12 +114,8 @@ public class SHVideoPlayer: UIView {
     }
     
     private func addPlayerObservers() {
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidEnterBackground, object: nil, queue: nil) { notification in
-            self.playerScrubber?.pause()
-        }
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: nil) { notification in
-            self.playerScrubber?.play()
-        }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidEnterBackground, object: nil, queue: nil) { notification in self.playerScrubber?.pause() }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: nil) { notification in self.playerScrubber?.play() }
     }
     
     private func preparePlayerScrubber() {
@@ -135,7 +131,7 @@ public class SHVideoPlayer: UIView {
             let remainingTimeLabel = playerControl.remainingTimeLabel,
             let currentTimeLabel = playerControl.currentTimeLabel,
             let playButton = playerControl.playButton else {
-                print("One or some of the scrubber item is nil")
+                print("One or some of the scrubber items are nil")
                 return
         }
         self.playerScrubber = SHVideoPlayerScrubber(with: player, slider: timeSlider, currentTimeLabel: currentTimeLabel, durationLabel: durationLabel, remainingTimeLabel: remainingTimeLabel, playButton: playButton)

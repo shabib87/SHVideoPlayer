@@ -31,16 +31,23 @@ class SHVideoPlayerUtils: NSObject {
         }
         return nil
     }
+}
+
+extension UIColor {
     
     class func progressBarTintColor() -> UIColor {
-        return UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.6)
+        return UIColor(red: 1.0, green: 0.8, blue: 0.8, alpha: 1.0)
     }
     
     class func progressTrackTintColor() -> UIColor {
-        return UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.3)
+        return UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 0.3)
     }
     
     class func blackShadeColor() -> UIColor {
-        return UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
+        return UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3)
+    }
+    
+    class func grayShadeColor() -> UIColor {
+        return UIColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 0.3)
     }
 }

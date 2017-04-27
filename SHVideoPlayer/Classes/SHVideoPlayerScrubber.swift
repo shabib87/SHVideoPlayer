@@ -135,11 +135,11 @@ public class SHVideoPlayerScrubber: NSObject {
     }
     
     private func playerTimeChanged() {
-        guard let currentItem = self.player.currentItem else {
+        if  let currentItem = self.player.currentItem {
+            self.updateTimeLabels(currentItem: currentItem)
+        } else {
             print("players current item is nil")
-            return
         }
-        self.updateTimeLabels(currentItem: currentItem)
     }
     
     private func updateTimeLabels(currentItem: AVPlayerItem) {
@@ -159,11 +159,11 @@ public class SHVideoPlayerScrubber: NSObject {
     }
     
     private func updatePlayer(playIfNeeded: Bool) {
-        guard let currentItem = self.player.currentItem else {
+        if let currentItem = self.player.currentItem {
+            self.updatePlayerWith(currentItem: currentItem,  playIfNeeded: playIfNeeded)
+        } else {
             print("players current item is nil")
-            return
         }
-        self.updatePlayerWith(currentItem: currentItem,  playIfNeeded: playIfNeeded)
     }
     
     private func updatePlayerWith(currentItem: AVPlayerItem, playIfNeeded: Bool) {
@@ -171,10 +171,8 @@ public class SHVideoPlayerScrubber: NSObject {
         let seconds = Float64(duratoinInSeconds) * Float64((self.slider.value))
         let time = CMTimeMakeWithSeconds(seconds, Int32(NSEC_PER_SEC))
         self.player.seek(to: time, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (done: Bool) -> Void in
-            if playIfNeeded && Float(self.slider.value) < Float(self.slider.maximumValue) {
-                if self.playAfterDrag {
-                    self.play()
-                }
+            if playIfNeeded && (Float(self.slider.value) < Float(self.slider.maximumValue)) && self.playAfterDrag {
+                self.play()
             }
         })
     }

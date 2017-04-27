@@ -45,13 +45,21 @@ public class SHVideoPlayerOrientationHandler {
     @objc private func fullScreenAction(_ button: Any?) {
         playerControl.updateUI(!isLandscape)
         if isLandscape {
-            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-            UIApplication.shared.isStatusBarHidden = false
-            UIApplication.shared.statusBarOrientation = .portrait
+            rotatePortraitAction()
         } else {
-            UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-            UIApplication.shared.isStatusBarHidden = false
-            UIApplication.shared.statusBarOrientation = .landscapeRight
+            rotateLandscapeAction()
         }
+    }
+    
+    private func rotatePortraitAction() {
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        UIApplication.shared.isStatusBarHidden = false
+        UIApplication.shared.statusBarOrientation = .portrait
+    }
+    
+    private func rotateLandscapeAction() {
+        UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+        UIApplication.shared.isStatusBarHidden = false
+        UIApplication.shared.statusBarOrientation = .landscapeRight
     }
 }
