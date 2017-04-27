@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SnapKit
 
 public class SHVideoPlayerDefaultControl: UIView {
     
