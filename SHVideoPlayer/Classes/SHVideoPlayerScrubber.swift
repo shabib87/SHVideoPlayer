@@ -20,6 +20,7 @@ public class SHVideoPlayerScrubber: NSObject {
     private var playButton: UIButton
     
     private var timeObserver: Any?
+    private var playbackLikelyToKeepUpContext = 0
     
     private var playAfterDrag: Bool = true
     private var framesPerSecond: Float = 0.0
@@ -48,15 +49,24 @@ public class SHVideoPlayerScrubber: NSObject {
         self.framesPerSecond = nominalFrameRateForPlayer()
         setupTimeObserver()
         updateCurrentTimeLabelWithTime(time: 0)
+        self.addPlayerPlaybackObserver()
         self.addPlayerItemPlayDurationObserver()
         self.addPlayerDidEndPlayingVideoObserver()
     }
     
+    private func addPlayerPlaybackObserver() {
+        if self.player.currentItem != nil {
+            self.player.addObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.playbackLikelyToKeepUp,
+                                    options: .new, context: &playbackLikelyToKeepUpContext)
+        } else { print("SHVideoPlayerScrubber: addPlayerPlaybackObserver() :- duration is nil"); return }
+    }
+    
     private func addPlayerItemPlayDurationObserver() {
-        guard let duration = self.player.currentItem?.duration else { print("duration is nil"); return }
-        if !CMTIME_IS_VALID(duration) || CMTIME_IS_INDEFINITE(duration) {
-            self.player.currentItem?.addObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration, options: .new, context: nil)
-        }
+        if let duration = self.player.currentItem?.duration {
+            if !CMTIME_IS_VALID(duration) || CMTIME_IS_INDEFINITE(duration) {
+                self.player.currentItem?.addObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration, options: .new, context: nil)
+            }
+        } else { print("SHVideoPlayerScrubber: addPlayerItemPlayDurationObserver() :- duration is nil"); return }
     }
     
     private func setSliderTapAction() {
@@ -135,7 +145,7 @@ public class SHVideoPlayerScrubber: NSObject {
         if  let currentItem = self.player.currentItem {
             self.updateTimeLabels(currentItem: currentItem)
         } else {
-            print("players current item is nil")
+            print("SHVideoPlayerScrubber: playerTimeChanged() :- player current item is nil")
         }
     }
     
@@ -159,7 +169,7 @@ public class SHVideoPlayerScrubber: NSObject {
         if let currentItem = self.player.currentItem {
             self.updatePlayerWith(currentItem: currentItem,  playIfNeeded: playIfNeeded)
         } else {
-            print("players current item is nil")
+            print("SHVideoPlayerScrubber: updatePlayer(playIfNeededplayer) :- current item is nil")
         }
     }
     
@@ -236,6 +246,14 @@ public class SHVideoPlayerScrubber: NSObject {
         }
     }
     
+    private func abul() {
+        self.player.preroll(atRate: 0.0) { (preRolled) in
+            if preRolled {
+                
+            }
+        }
+    }
+    
     public func pause() {
         self.player.pause()
         if delegate != nil {
@@ -269,23 +287,44 @@ public class SHVideoPlayerScrubber: NSObject {
     }
     
     deinit {
-        removeCurrentItemObserver()
+        removePlayerPlaybackObserver()
         removeDidEndVideoObserver()
+    }
+    
+    private func removePlayerPlaybackObserver() {
+        self.player.removeObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.playbackLikelyToKeepUp)
     }
     
     private func removeCurrentItemObserver() {
         self.player.currentItem?.removeObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration)
     }
     
-    //MARK: observer kvo
-    
-    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == SHVideoPlayerConstants.ObserverKey.duration {
-            guard let currentItem = self.player.currentItem else { print("players current item is nil"); return }
+    private func performDurationObserverChanges() {
+        if let currentItem = self.player.currentItem {
             if CMTIME_IS_VALID(currentItem.duration) && !CMTIME_IS_INDEFINITE(currentItem.duration) {
                 removeCurrentItemObserver()
                 playerTimeChanged()
             }
+        } else { print("SHVideoPlayerScrubber: performDurationObserverChanges() :- player current item is nil"); return }
+    }
+    
+    private func performPlaybackObserverChanges() {
+        if let currentItem = player.currentItem {
+            if currentItem.isPlaybackLikelyToKeepUp {
+                print("******Loading screen")
+            } else {
+                print("Hiding loading screen********")
+            }
+        }
+    }
+    
+    //MARK: observer kvo
+    
+    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == SHVideoPlayerConstants.ObserverKey.duration {
+            performDurationObserverChanges()
+        } else if keyPath == SHVideoPlayerConstants.ObserverKey.playbackLikelyToKeepUp {
+            performPlaybackObserverChanges()
         }
     }
 }
