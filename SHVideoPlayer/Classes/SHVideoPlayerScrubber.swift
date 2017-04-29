@@ -20,7 +20,7 @@ public class SHVideoPlayerScrubber: NSObject {
     private var playButton: UIButton
     
     private var timeObserver: Any?
-    private var playbackLikelyToKeepUpContext = 0
+    private var playbackStalledObserver: NSObjectProtocol?
     
     private var playAfterDrag: Bool = true
     private var framesPerSecond: Float = 0.0
@@ -49,16 +49,9 @@ public class SHVideoPlayerScrubber: NSObject {
         self.framesPerSecond = nominalFrameRateForPlayer()
         setupTimeObserver()
         updateCurrentTimeLabelWithTime(time: 0)
-        self.addPlayerPlaybackObserver()
         self.addPlayerItemPlayDurationObserver()
+        self.addPlaybackStallObserver()
         self.addPlayerDidEndPlayingVideoObserver()
-    }
-    
-    private func addPlayerPlaybackObserver() {
-        if self.player.currentItem != nil {
-            self.player.addObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.playbackLikelyToKeepUp,
-                                    options: .new, context: &playbackLikelyToKeepUpContext)
-        } else { print("SHVideoPlayerScrubber: addPlayerPlaybackObserver() :- duration is nil"); return }
     }
     
     private func addPlayerItemPlayDurationObserver() {
@@ -143,6 +136,7 @@ public class SHVideoPlayerScrubber: NSObject {
     
     private func playerTimeChanged() {
         if  let currentItem = self.player.currentItem {
+            updateBufferingStatus()
             self.updateTimeLabels(currentItem: currentItem)
         } else {
             print("SHVideoPlayerScrubber: playerTimeChanged() :- player current item is nil")
@@ -246,19 +240,36 @@ public class SHVideoPlayerScrubber: NSObject {
         }
     }
     
-    private func abul() {
-        self.player.preroll(atRate: 0.0) { (preRolled) in
-            if preRolled {
-                
-            }
-        }
-    }
+    // Preroll does some fancy stuff can be useful
+    // It shows a thumbnail like thing
+//    public func play() {
+//        if player.status == .readyToPlay {
+//            self.player.preroll(atRate: 0.0) { (preRolled) in
+//                if preRolled {
+//                    DispatchQueue.main.async {
+//                        self.player.play()
+//                        if self.delegate != nil {
+//                            self.delegate?.playerStateDidChange(isPlaying: true)
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
     
     public func pause() {
         self.player.pause()
         if delegate != nil {
             delegate?.playerStateDidChange(isPlaying: false)
         }
+    }
+    
+    private func addPlaybackStallObserver() {
+        playbackStalledObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemPlaybackStalled, object: player.currentItem, queue: nil, using: { (_) in
+            DispatchQueue.main.async {
+                self.playerIsBuffering()
+            }
+        })
     }
     
     private func addDidEndVideoObserver() {
@@ -287,17 +298,20 @@ public class SHVideoPlayerScrubber: NSObject {
     }
     
     deinit {
-        removePlayerPlaybackObserver()
         removeDidEndVideoObserver()
         removeTimeObserver()
     }
     
-    private func removePlayerPlaybackObserver() {
-        self.player.removeObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.playbackLikelyToKeepUp)
-    }
-    
     private func removeCurrentItemObserver() {
         self.player.currentItem?.removeObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration)
+    }
+    
+    func teardownVideoCapture() {
+        // TODO: play did end stop
+        if playbackStalledObserver != nil {
+            NotificationCenter.default.removeObserver(playbackStalledObserver!)
+            playbackStalledObserver = nil
+        }
     }
     
     private func performDurationObserverChanges() {
@@ -309,13 +323,14 @@ public class SHVideoPlayerScrubber: NSObject {
         } else { print("SHVideoPlayerScrubber: performDurationObserverChanges() :- player current item is nil"); return }
     }
     
-    private func performPlaybackObserverChanges() {
-        if let currentItem = player.currentItem {
-            if currentItem.isPlaybackLikelyToKeepUp {
-                print("******Loading screen")
-            } else {
-                print("Hiding loading screen********")
-            }
+    //TODO: fix
+    private func playerIsBuffering() {
+        print("playerIsBuffering: ******Show loading screen")
+    }
+    //TODO: fix
+    private func updateBufferingStatus() {
+        if (player.rate > 0) {
+            print("Hide loading screen********")
         }
     }
     
@@ -324,8 +339,6 @@ public class SHVideoPlayerScrubber: NSObject {
     override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == SHVideoPlayerConstants.ObserverKey.duration {
             performDurationObserverChanges()
-        } else if keyPath == SHVideoPlayerConstants.ObserverKey.playbackLikelyToKeepUp {
-            performPlaybackObserverChanges()
         }
     }
 }

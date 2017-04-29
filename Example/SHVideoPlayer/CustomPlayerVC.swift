@@ -24,7 +24,7 @@ class CustomPlayerVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let video = videos[1] {
+        if let video = videos[0] {
             videoPlayerPlayVideo(video: video)
         }
     }
