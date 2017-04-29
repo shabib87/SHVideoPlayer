@@ -64,10 +64,10 @@ public class SHVideoPlayerLayer: UIView {
     
     private func configPlayer(){
         self.playerItem = AVPlayerItem(url: videoURL)
-        guard let _playerItem = playerItem else { print("player item is nil"); return }
+        guard let _playerItem = playerItem else { print("SHVideoPlayerLayer: configPlayer():- player item is nil"); return }
         self.player = AVPlayer(playerItem: _playerItem)
         self.playerLayer = AVPlayerLayer(player: player)
-        guard let _playerLayer = playerLayer else { print("player layer is nil"); return }
+        guard let _playerLayer = playerLayer else { print("SHVideoPlayerLayer: configPlayer():- player layer is nil"); return }
         _playerLayer.videoGravity = videoGravity
         self.layer.insertSublayer(_playerLayer, at: 0)
         self.setNeedsLayout()
