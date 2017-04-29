@@ -101,7 +101,7 @@ public class SHVideoPlayer: UIView {
     }
     
     private func setupPlayerLayer() {
-        guard let _playerLayer = playerLayer else { print("player layer is nil"); return }
+        guard let _playerLayer = playerLayer else { print("SHVideoPlayer: setupPlayerLayer():- player layer is nil"); return }
         insertSubview(_playerLayer, at: 0)
         _playerLayer.translatesAutoresizingMaskIntoConstraints = false
         _playerLayer.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
@@ -128,7 +128,7 @@ public class SHVideoPlayer: UIView {
             let remainingTimeLabel = playerControl.remainingTimeLabel,
             let currentTimeLabel = playerControl.currentTimeLabel,
             let playButton = playerControl.playButton else {
-                print("One or some of the scrubber items are nil")
+                print("SHVideoPlayer: createPlayerScrubber():- One or some of the scrubber items are nil")
                 return
         }
         self.playerScrubber = SHVideoPlayerScrubber(with: player, slider: timeSlider, currentTimeLabel: currentTimeLabel, durationLabel: durationLabel, remainingTimeLabel: remainingTimeLabel, playButton: playButton)

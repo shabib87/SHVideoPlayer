@@ -289,6 +289,7 @@ public class SHVideoPlayerScrubber: NSObject {
     deinit {
         removePlayerPlaybackObserver()
         removeDidEndVideoObserver()
+        removeTimeObserver()
     }
     
     private func removePlayerPlaybackObserver() {
