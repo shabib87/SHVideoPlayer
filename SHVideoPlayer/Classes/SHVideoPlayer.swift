@@ -54,6 +54,8 @@ public class SHVideoPlayer: UIView {
         hasURLSet = true
         self.preparePlayerScrubber()
         self.playerScrubber.initComponents()
+        //TODO: call play body only when player has loaded item aynchronously
+        //TODO: changing video causes crash now, fix it
         self.play()
     }
     
