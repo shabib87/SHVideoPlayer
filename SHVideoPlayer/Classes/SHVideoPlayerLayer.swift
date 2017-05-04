@@ -12,30 +12,14 @@ import AVFoundation
 public class SHVideoPlayerLayer: UIView {
     
     private var playerLayer: AVPlayerLayer?
-    private var lastPlayerItem: AVPlayerItem?
-    
-    public var videoURL: URL! {
-        didSet { onSetVideoURL() }
-    }
-    
+
     public var videoGravity = AVLayerVideoGravityResizeAspect {
         didSet {
             self.playerLayer?.videoGravity = videoGravity
         }
     }
     
-    public var playerItem: AVPlayerItem? {
-        didSet {
-            onPlayerItemChange()
-        }
-    }
-    
-    lazy var player: AVPlayer? = {
-        if let item = self.playerItem {
-            return  AVPlayer(playerItem: item)
-        }
-        return nil
-    }()
+    public var player: AVPlayer?
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -48,33 +32,23 @@ public class SHVideoPlayerLayer: UIView {
     }
     
     public func resetPlayer() {
-        self.playerLayer?.removeFromSuperlayer()
         self.player?.replaceCurrentItem(with: nil)
         self.player = nil
+        self.playerLayer?.removeFromSuperlayer()
     }
     
     public func startPreparingForDeinit() {
-        self.playerItem = nil
         self.resetPlayer()
     }
     
-    private func onSetVideoURL() {
-        self.configPlayer()
-    }
-    
-    private func configPlayer(){
-        self.playerItem = AVPlayerItem(url: videoURL)
-        guard let _playerItem = playerItem else { print("SHVideoPlayerLayer: configPlayer():- player item is nil"); return }
-        self.player = AVPlayer(playerItem: _playerItem)
+    public func configPlayer(){
+        self.resetPlayer()
+        self.player = AVPlayer()
         self.playerLayer = AVPlayerLayer(player: player)
         guard let _playerLayer = playerLayer else { print("SHVideoPlayerLayer: configPlayer():- player layer is nil"); return }
         _playerLayer.videoGravity = videoGravity
         self.layer.insertSublayer(_playerLayer, at: 0)
         self.setNeedsLayout()
         self.layoutIfNeeded()
-    }
-    
-    private func onPlayerItemChange() {
-        lastPlayerItem = playerItem
     }
 }

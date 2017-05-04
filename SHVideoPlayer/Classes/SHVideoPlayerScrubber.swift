@@ -18,6 +18,11 @@ public class SHVideoPlayerScrubber: NSObject {
     private var durationLabel: UILabel
     private var remainingTimeLabel: UILabel
     private var playButton: UIButton
+    private var videoItemURL: URL {
+        didSet {
+            updateVideoPlayerItem()
+        }
+    }
     
     private var timeObserver: Any?
     private var playbackStalledObserver: NSObjectProtocol?
@@ -27,20 +32,49 @@ public class SHVideoPlayerScrubber: NSObject {
     
     public weak var delegate: SHVideoPlayerScrubberDelegate?
     
-    public init(with player:AVPlayer, slider: UISlider, currentTimeLabel: UILabel, durationLabel: UILabel, remainingTimeLabel: UILabel, playButton: UIButton) {
+    public init(with player:AVPlayer, videoItemURL: URL, slider: UISlider, currentTimeLabel: UILabel, durationLabel: UILabel, remainingTimeLabel: UILabel, playButton: UIButton) {
         self.player = player
         self.slider = slider
         self.currentTimeLabel = currentTimeLabel
         self.durationLabel = durationLabel
         self.remainingTimeLabel = remainingTimeLabel
         self.playButton = playButton
+        self.videoItemURL = videoItemURL
     }
     
     public func initComponents() {
-        self.setUpPlayer()
         self.setSliderTapAction()
         self.setSliderValueChangeAction()
         self.setPlayPauseButtonAction()
+    }
+    
+    //TODO: fix this
+    private func updateVideoPlayerItem() {
+        let asset = AVAsset(url: videoItemURL)
+        asset.loadValuesAsynchronously(forKeys: [SHVideoPlayerConstants.ObserverKey.playable], completionHandler: {
+            DispatchQueue.main.async {
+                self.removeCurrentItemObserver()
+                let playerItem = AVPlayerItem(asset: asset)
+                //should showActivityIndicator()
+                self.player.replaceCurrentItem(with: playerItem)
+                self.preloadVideoFrame()
+                self.setUpPlayer()
+            }
+        })
+    }
+    
+    //TODO: fix this
+    private func preloadVideoFrame() {
+        if player.status == .readyToPlay {
+            self.player.preroll(atRate: 0.0) { (preRolled) in
+                if preRolled {
+                    DispatchQueue.main.async {
+                        //TODO: do shomething
+                        //self.showPlayerControlViews()
+                    }
+                }
+            }
+        }
     }
     
     private func setUpPlayer() {
@@ -239,23 +273,6 @@ public class SHVideoPlayerScrubber: NSObject {
             delegate?.playerStateDidChange(isPlaying: true)
         }
     }
-    
-    // Preroll does some fancy stuff can be useful
-    // It shows a thumbnail like thing
-//    public func play() {
-//        if player.status == .readyToPlay {
-//            self.player.preroll(atRate: 0.0) { (preRolled) in
-//                if preRolled {
-//                    DispatchQueue.main.async {
-//                        self.player.play()
-//                        if self.delegate != nil {
-//                            self.delegate?.playerStateDidChange(isPlaying: true)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
     
     public func pause() {
         self.player.pause()

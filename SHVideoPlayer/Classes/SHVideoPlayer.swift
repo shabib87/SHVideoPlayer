@@ -50,7 +50,7 @@ public class SHVideoPlayer: UIView {
     public func playWithURL(_ url: URL, title: String = "") {
         playerControl.titleLabel?.text = title
         videoItemURL = url
-        playerLayer.videoURL = videoItemURL
+        playerLayer.configPlayer()
         hasURLSet = true
         self.preparePlayerScrubber()
         self.playerScrubber.initComponents()
@@ -59,7 +59,7 @@ public class SHVideoPlayer: UIView {
     
     private func play() {
         if !hasURLSet {
-            playerLayer?.videoURL = videoItemURL
+            playerLayer.configPlayer()
             hasURLSet = true
         }
         self.playerScrubber?.play()
@@ -127,11 +127,12 @@ public class SHVideoPlayer: UIView {
             let durationLabel = playerControl.durationLabel,
             let remainingTimeLabel = playerControl.remainingTimeLabel,
             let currentTimeLabel = playerControl.currentTimeLabel,
-            let playButton = playerControl.playButton else {
+            let playButton = playerControl.playButton,
+            let itemURL = videoItemURL else {
                 print("SHVideoPlayer: createPlayerScrubber():- One or some of the scrubber items are nil")
                 return
         }
-        self.playerScrubber = SHVideoPlayerScrubber(with: player, slider: timeSlider, currentTimeLabel: currentTimeLabel, durationLabel: durationLabel, remainingTimeLabel: remainingTimeLabel, playButton: playButton)
+        self.playerScrubber = SHVideoPlayerScrubber(with: player, videoItemURL: itemURL, slider: timeSlider, currentTimeLabel: currentTimeLabel, durationLabel: durationLabel, remainingTimeLabel: remainingTimeLabel, playButton: playButton)
     }
     
     fileprivate func autoFadeOutControlBar() {
