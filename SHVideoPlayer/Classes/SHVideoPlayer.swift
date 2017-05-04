@@ -132,7 +132,8 @@ public class SHVideoPlayer: UIView {
                 print("SHVideoPlayer: createPlayerScrubber():- One or some of the scrubber items are nil")
                 return
         }
-        self.playerScrubber = SHVideoPlayerScrubber(with: player, videoItemURL: itemURL, slider: timeSlider, currentTimeLabel: currentTimeLabel, durationLabel: durationLabel, remainingTimeLabel: remainingTimeLabel, playButton: playButton)
+        self.playerScrubber = SHVideoPlayerScrubber(with: player, slider: timeSlider, currentTimeLabel: currentTimeLabel, durationLabel: durationLabel, remainingTimeLabel: remainingTimeLabel, playButton: playButton)
+        self.playerScrubber.videoItemURL = itemURL
     }
     
     fileprivate func autoFadeOutControlBar() {

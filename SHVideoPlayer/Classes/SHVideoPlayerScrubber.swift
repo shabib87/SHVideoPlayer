@@ -18,11 +18,6 @@ public class SHVideoPlayerScrubber: NSObject {
     private var durationLabel: UILabel
     private var remainingTimeLabel: UILabel
     private var playButton: UIButton
-    private var videoItemURL: URL {
-        didSet {
-            updateVideoPlayerItem()
-        }
-    }
     
     private var timeObserver: Any?
     private var playbackStalledObserver: NSObjectProtocol?
@@ -32,14 +27,19 @@ public class SHVideoPlayerScrubber: NSObject {
     
     public weak var delegate: SHVideoPlayerScrubberDelegate?
     
-    public init(with player:AVPlayer, videoItemURL: URL, slider: UISlider, currentTimeLabel: UILabel, durationLabel: UILabel, remainingTimeLabel: UILabel, playButton: UIButton) {
+    public var videoItemURL: URL! {
+        didSet {
+            updateVideoPlayerItem()
+        }
+    }
+    
+    public init(with player:AVPlayer, slider: UISlider, currentTimeLabel: UILabel, durationLabel: UILabel, remainingTimeLabel: UILabel, playButton: UIButton) {
         self.player = player
         self.slider = slider
         self.currentTimeLabel = currentTimeLabel
         self.durationLabel = durationLabel
         self.remainingTimeLabel = remainingTimeLabel
         self.playButton = playButton
-        self.videoItemURL = videoItemURL
     }
     
     public func initComponents() {
