@@ -65,17 +65,21 @@ public class SHVideoPlayer: UIView {
     }
     
     private func preparePlayerControl() {
-        if let customView = customPlayerControl {
-            playerControl = customView
-        } else {
-            playerControl =  SHVideoPlayerDefaultControl()
-        }
+        playerControl = self.playerControlView()
         self.addSubview(playerControl.controlView)
         self.orientationHandler = SHVideoPlayerOrientationHandler(playerControlView: playerControl)
         setupPlayerControlView()
         playerControl.backButton?.addTarget(self, action: #selector(self.backButtonAction(_:)), for: .touchUpInside)
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGestureTapped(_:)))
         self.addGestureRecognizer(tapGesture)
+    }
+    
+    private func playerControlView() -> SHVideoPlayerControl {
+        if let customView = customPlayerControl {
+            return customView
+        } else {
+            return  SHVideoPlayerDefaultControl()
+        }
     }
     
     private func setupPlayerControlView() {
