@@ -1,5 +1,5 @@
 //
-//  SHVideoPlayerScrubber.swift
+//  SHVideoPlayerManager.swift
 //  Pods
 //
 //  Created by Shabib Hossain on 11/16/16.
@@ -9,12 +9,12 @@
 import UIKit
 import AVFoundation
 
-protocol SHVideoPlayerScrubberDelegate: class {
+protocol SHVideoPlayerManagerDelegate: class {
     func playerIsReadyToPlay()
     func playerStateDidChange(isPlaying: Bool)
 }
 
-final class SHVideoPlayerScrubber: NSObject {
+final class SHVideoPlayerManager: NSObject {
     
     private let player: AVPlayer
     private var slider: UISlider
@@ -30,7 +30,7 @@ final class SHVideoPlayerScrubber: NSObject {
     private var playAfterDrag: Bool = true
     private var framesPerSecond: Float = 0.0
     
-    weak var delegate: SHVideoPlayerScrubberDelegate?
+    weak var delegate: SHVideoPlayerManagerDelegate?
     
     var videoItemURL: URL! {
         didSet {

@@ -19,7 +19,7 @@
 		53AF735C5BD8B2D27D4F7A955F31F985 /* SHVideoPlayerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7038CAAE9B72FED665DD2202AA8A8FE8 /* SHVideoPlayerUtils.swift */; };
 		5DDBF819A03E36AA78F4B71C64D57188 /* SHVideoPlayer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E9253937C34274F9C41336DC0BFE07 /* SHVideoPlayer-dummy.m */; };
 		648CCDE73DCE620B22356BA5ECF72221 /* SHVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0911A1470B230E7BEE3C7222D8185 /* SHVideoPlayer.swift */; };
-		65FDCFC9F1BB0206C628A5FA2C8AFDA7 /* SHVideoPlayerScrubber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37413B4C48524AC3BF3BBBF0BFB0D0AC /* SHVideoPlayerScrubber.swift */; };
+		65FDCFC9F1BB0206C628A5FA2C8AFDA7 /* SHVideoPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37413B4C48524AC3BF3BBBF0BFB0D0AC /* SHVideoPlayerManager.swift */; };
 		66158ACBFF8868C45CC5BAA80958A4ED /* SHVideoPlayerDefaultControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A42AB2B744F71D2C9FBBE65BAD142A2 /* SHVideoPlayerDefaultControl.swift */; };
 		669BCDCA4C285196082AA0FD81A6AE73 /* smallscreen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC76CB9F155B49E0EEDB92AF3908667E /* smallscreen@3x.png */; };
 		6A11E22ED46C9D92FC119EB7C09FB040 /* smallscreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AFCC51B4CB2DA165A8FD42C5AB030CE9 /* smallscreen@2x.png */; };
@@ -72,7 +72,7 @@
 		313B931BBFAFB41628001E901ACA4B38 /* Pods-SHVideoPlayer_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SHVideoPlayer_Example.release.xcconfig"; sourceTree = "<group>"; };
 		354B1CE4C8C7DD3AA0A71428A3523264 /* back@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		35898A8A5CD55B2F14FE2FC0F3FB44B1 /* Pods_SHVideoPlayer_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SHVideoPlayer_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		37413B4C48524AC3BF3BBBF0BFB0D0AC /* SHVideoPlayerScrubber.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SHVideoPlayerScrubber.swift; sourceTree = "<group>"; };
+		37413B4C48524AC3BF3BBBF0BFB0D0AC /* SHVideoPlayerManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SHVideoPlayerManager.swift; sourceTree = "<group>"; };
 		393C224CB0E0B6A68B62E25E29F611C0 /* Pods-SHVideoPlayer_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SHVideoPlayer_Example-umbrella.h"; sourceTree = "<group>"; };
 		3FB9EA452B91D71407692377A7A398FF /* ResourceBundle-SHVideoPlayer-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-SHVideoPlayer-Info.plist"; sourceTree = "<group>"; };
 		4FA2A8823718E3652B08CE6E3D56163D /* play@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
@@ -239,7 +239,7 @@
 				F41E104FA35D489D6E177EDD8667F767 /* SHVideoPlayerLayer.swift */,
 				E25D80CFF4D02ADA13485C2FFE277D8D /* SHVideoPlayerOrientationHandler.swift */,
 				DBDA0116A33B49332C8D47EBB4E6533E /* SHVideoPlayerControl.swift */,
-				37413B4C48524AC3BF3BBBF0BFB0D0AC /* SHVideoPlayerScrubber.swift */,
+				37413B4C48524AC3BF3BBBF0BFB0D0AC /* SHVideoPlayerManager.swift */,
 				7038CAAE9B72FED665DD2202AA8A8FE8 /* SHVideoPlayerUtils.swift */,
 			);
 			path = Classes;
@@ -522,7 +522,7 @@
 				31B31776E1739FCBF1292F669F026DEE /* SHVideoPlayerLayer.swift in Sources */,
 				D6E548F697A7521F8899668AB0A883E1 /* SHVideoPlayerOrientationHandler.swift in Sources */,
 				D540062D004DE366CB7B2A7AA240253C /* SHVideoPlayerControl.swift in Sources */,
-				65FDCFC9F1BB0206C628A5FA2C8AFDA7 /* SHVideoPlayerScrubber.swift in Sources */,
+				65FDCFC9F1BB0206C628A5FA2C8AFDA7 /* SHVideoPlayerManager.swift in Sources */,
 				53AF735C5BD8B2D27D4F7A955F31F985 /* SHVideoPlayerUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

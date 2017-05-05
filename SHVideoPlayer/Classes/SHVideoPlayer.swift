@@ -15,7 +15,7 @@ public class SHVideoPlayer: UIView {
     
     private var tapGesture: UITapGestureRecognizer!
     private var playerLayer: SHVideoPlayerLayer!
-    private var playerScrubber: SHVideoPlayerScrubber!
+    private var playerManager: SHVideoPlayerManager!
     private var orientationHandler: SHVideoPlayerOrientationHandler!
     
     private var customPlayerControl: SHVideoPlayerControl?
@@ -51,12 +51,12 @@ public class SHVideoPlayer: UIView {
         videoItemURL = url
         playerLayer.configPlayer()
         self.preparePlayerScrubber()
-        self.playerScrubber.initComponents()
+        self.playerManager.initComponents()
         //TODO: changing video causes crash now, fix it
     }
     
     fileprivate func play() {
-        self.playerScrubber?.play()
+        self.playerManager?.play()
     }
     
     private func initUI() {
@@ -109,14 +109,14 @@ public class SHVideoPlayer: UIView {
     }
     
     private func addPlayerObservers() {
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidEnterBackground, object: nil, queue: nil) { notification in self.playerScrubber?.pause() }
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: nil) { notification in self.playerScrubber?.play() }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidEnterBackground, object: nil, queue: nil) { notification in self.playerManager?.pause() }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: nil) { notification in self.playerManager?.play() }
     }
     
     private func preparePlayerScrubber() {
-        self.playerScrubber = nil
+        self.playerManager = nil
         self.createPlayerScrubber()
-        self.playerScrubber.delegate = self
+        self.playerManager.delegate = self
     }
     
     private func createPlayerScrubber() {
@@ -130,8 +130,8 @@ public class SHVideoPlayer: UIView {
                 print("SHVideoPlayer: createPlayerScrubber():- One or some of the scrubber items are nil")
                 return
         }
-        self.playerScrubber = SHVideoPlayerScrubber(with: player, slider: timeSlider, currentTimeLabel: currentTimeLabel, durationLabel: durationLabel, remainingTimeLabel: remainingTimeLabel, playButton: playButton)
-        self.playerScrubber.videoItemURL = itemURL
+        self.playerManager = SHVideoPlayerManager(with: player, slider: timeSlider, currentTimeLabel: currentTimeLabel, durationLabel: durationLabel, remainingTimeLabel: remainingTimeLabel, playButton: playButton)
+        self.playerManager.videoItemURL = itemURL
     }
     
     fileprivate func autoFadeOutControlBar() {
@@ -140,7 +140,7 @@ public class SHVideoPlayer: UIView {
     }
     
     @objc private func backButtonAction(_ button: UIButton) {
-        playerScrubber.startPreparingForDeinit()
+        playerManager.startPreparingForDeinit()
         playerLayer?.startPreparingForDeinit()
         backActionCompletionHandler?()
     }
@@ -173,13 +173,13 @@ public class SHVideoPlayer: UIView {
     }
 }
 
-extension SHVideoPlayer: SHVideoPlayerScrubberDelegate {
+extension SHVideoPlayer: SHVideoPlayerManagerDelegate {
     
-    public func playerIsReadyToPlay() {
+    func playerIsReadyToPlay() {
         self.play()
     }
     
-    public func playerStateDidChange(isPlaying: Bool) {
+    func playerStateDidChange(isPlaying: Bool) {
         if isPlaying {
             autoFadeOutControlBar()
             playerControl.playButton?.isSelected = true
