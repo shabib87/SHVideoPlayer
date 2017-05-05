@@ -10,8 +10,6 @@ import UIKit
 
 public class SHVideoPlayerDefaultControl: UIView {
     
-    weak public var delegate: SHVideoPlayerDefaultControlCustomizationDelegate?
-    
     var _titleLabel = UILabel()
     var _currentTimeLabel = UILabel()
     var _durationLabel = UILabel()
@@ -76,35 +74,19 @@ public class SHVideoPlayerDefaultControl: UIView {
     }
     
     private func configurePlayButtonNormalStateImage() {
-        if delegate != nil {
-            _playButton.setImage(delegate?.playButtonNormalStateImage(), for: UIControlState())
-        } else {
-            _playButton.setImage(SHVideoPlayerUtils.resourceImagePath("play"), for: UIControlState())
-        }
+        _playButton.setImage(SHVideoPlayerUtils.resourceImagePath("play"), for: UIControlState())
     }
     
     private func configureBackButtonImage() {
-        if delegate != nil {
-            _backButton.setImage(delegate?.backButtonImage(), for: .normal)
-        } else {
-            _backButton.setImage(SHVideoPlayerUtils.resourceImagePath("back"), for: .normal)
-        }
+        _backButton.setImage(SHVideoPlayerUtils.resourceImagePath("back"), for: .normal)
     }
     
     private func configurePlayButtonSelectedStateImage() {
-        if delegate != nil {
-            _playButton.setImage(delegate?.playButtonSelectedStateImage(), for: .selected)
-        } else {
-            _playButton.setImage(SHVideoPlayerUtils.resourceImagePath("pause"), for: .selected)
-        }
+        _playButton.setImage(SHVideoPlayerUtils.resourceImagePath("pause"), for: .selected)
     }
     
     private func configureFullScreenButtonNormalStateImage() {
-        if delegate != nil {
-            _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: .normal)
-        } else {
-            _fullScreenButton.setImage(SHVideoPlayerUtils.resourceImagePath("fullscreen"), for: .normal)
-        }
+        _fullScreenButton.setImage(SHVideoPlayerUtils.resourceImagePath("fullscreen"), for: .normal)
     }
     
     private func configureLabels() {
@@ -322,19 +304,11 @@ extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
     }
     
     private func updateFullScreenImage() {
-        if delegate != nil {
-            _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
-        } else {
-            _fullScreenButton.setImage(SHVideoPlayerUtils.resourceImagePath("fullscreen"), for: UIControlState())
-        }
+        _fullScreenButton.setImage(SHVideoPlayerUtils.resourceImagePath("fullscreen"), for: UIControlState())
     }
     
     private func updateSmallScreenImage() {
-        if delegate != nil {
-            _fullScreenButton.setImage(delegate?.fullScreenButtonImage(), for: UIControlState())
-        } else {
-            _fullScreenButton.setImage(SHVideoPlayerUtils.resourceImagePath("smallscreen"), for: UIControlState())
-        }
+        _fullScreenButton.setImage(SHVideoPlayerUtils.resourceImagePath("smallscreen"), for: UIControlState())
     }
     
     public func showPlayerUIComponents() {

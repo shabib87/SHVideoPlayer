@@ -13,17 +13,6 @@ public protocol SHVideoPlayerScrubberDelegate: class {
     func playerStateDidChange(isPlaying: Bool)
 }
 
-public protocol SHVideoPlayerDefaultControlCustomizationDelegate: class {
-    
-    func playButtonNormalStateImage()-> UIImage
-    func playButtonSelectedStateImage()-> UIImage
-    func pauseButtonNormalStateImage()-> UIImage
-    func pauseButtonSelectedStateImage()-> UIImage
-    func backButtonImage()-> UIImage
-    func fullScreenButtonImage()-> UIImage
-    func smallScreenButtonImage()-> UIImage
-}
-
 public protocol SHVideoPlayerControl  {
     
     var titleLabel: UILabel?  { get }
