@@ -1,5 +1,5 @@
 //
-//  SHVideoPlayerProtocols.swift
+//  SHVideoPlayerControl.swift
 //  SHVideoPlayer
 //
 //  Created by shabib hossain on 11/13/16.
@@ -7,11 +7,6 @@
 //
 
 import UIKit
-
-public protocol SHVideoPlayerScrubberDelegate: class {
-    func playerIsReadyToPlay()
-    func playerStateDidChange(isPlaying: Bool)
-}
 
 public protocol SHVideoPlayerControl  {
     

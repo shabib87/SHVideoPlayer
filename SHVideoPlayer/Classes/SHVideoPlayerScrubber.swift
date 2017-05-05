@@ -9,6 +9,11 @@
 import UIKit
 import AVFoundation
 
+protocol SHVideoPlayerScrubberDelegate: class {
+    func playerIsReadyToPlay()
+    func playerStateDidChange(isPlaying: Bool)
+}
+
 final class SHVideoPlayerScrubber: NSObject {
     
     private let player: AVPlayer
