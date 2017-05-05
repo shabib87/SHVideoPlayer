@@ -30,15 +30,15 @@ final class SHVideoPlayerScrubber: NSObject {
     private var playAfterDrag: Bool = true
     private var framesPerSecond: Float = 0.0
     
-    public weak var delegate: SHVideoPlayerScrubberDelegate?
+    weak var delegate: SHVideoPlayerScrubberDelegate?
     
-    public var videoItemURL: URL! {
+    var videoItemURL: URL! {
         didSet {
             updateVideoPlayerItem()
         }
     }
     
-    public init(with player:AVPlayer, slider: UISlider, currentTimeLabel: UILabel, durationLabel: UILabel, remainingTimeLabel: UILabel, playButton: UIButton) {
+     init(with player:AVPlayer, slider: UISlider, currentTimeLabel: UILabel, durationLabel: UILabel, remainingTimeLabel: UILabel, playButton: UIButton) {
         self.player = player
         self.slider = slider
         self.currentTimeLabel = currentTimeLabel
@@ -47,7 +47,7 @@ final class SHVideoPlayerScrubber: NSObject {
         self.playButton = playButton
     }
     
-    public func initComponents() {
+    func initComponents() {
         self.setSliderTapAction()
         self.setSliderValueChangeAction()
         self.setPlayPauseButtonAction()
@@ -268,14 +268,14 @@ final class SHVideoPlayerScrubber: NSObject {
         }
     }
     
-    public func play() {
+    func play() {
         self.player.play()
         if delegate != nil {
             delegate?.playerStateDidChange(isPlaying: true)
         }
     }
     
-    public func pause() {
+    func pause() {
         self.player.pause()
         if delegate != nil {
             delegate?.playerStateDidChange(isPlaying: false)
@@ -310,7 +310,7 @@ final class SHVideoPlayerScrubber: NSObject {
         }
     }
     
-    public func startPreparingForDeinit() {
+    func startPreparingForDeinit() {
         self.player.pause()
         removeCurrentItemObserver()
     }
@@ -354,7 +354,7 @@ final class SHVideoPlayerScrubber: NSObject {
     
     //MARK: observer kvo
     
-    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == SHVideoPlayerConstants.ObserverKey.duration {
             performDurationObserverChanges()
         }
