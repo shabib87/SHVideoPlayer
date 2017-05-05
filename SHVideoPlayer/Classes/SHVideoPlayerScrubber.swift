@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-public class SHVideoPlayerScrubber: NSObject {
+final class SHVideoPlayerScrubber: NSObject {
     
     private let player: AVPlayer
     private var slider: UISlider

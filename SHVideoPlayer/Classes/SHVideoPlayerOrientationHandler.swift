@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public class SHVideoPlayerOrientationHandler {
+final class SHVideoPlayerOrientationHandler {
     
     public var isLandscape: Bool {
         get {

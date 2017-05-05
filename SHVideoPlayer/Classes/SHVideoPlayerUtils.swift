@@ -16,7 +16,7 @@ struct SHVideoPlayerConstants {
     }
 }
 
-class SHVideoPlayerUtils: NSObject {
+final class SHVideoPlayerUtils: NSObject {
     
     class func resourceImagePath(_ fileName: String) -> UIImage? {
         let podBundle = Bundle(for: self.classForCoder())

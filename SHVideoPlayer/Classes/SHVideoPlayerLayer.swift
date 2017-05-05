@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-public class SHVideoPlayerLayer: UIView {
+final class SHVideoPlayerLayer: UIView {
     
     private var playerLayer: AVPlayerLayer?
 
