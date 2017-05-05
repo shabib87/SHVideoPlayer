@@ -9,6 +9,7 @@
 import UIKit
 
 public protocol SHVideoPlayerScrubberDelegate: class {
+    func playerIsReadyToPlay()
     func playerStateDidChange(isPlaying: Bool)
 }
 

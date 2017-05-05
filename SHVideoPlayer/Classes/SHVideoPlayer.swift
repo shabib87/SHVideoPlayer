@@ -21,7 +21,6 @@ public class SHVideoPlayer: UIView {
     private var customPlayerControl: SHVideoPlayerControl?
     private var videoItemURL: URL!
     private var playerControlsAreVisible = true
-    private var hasURLSet = false
     
     private let FadeOutAnimationTimeInterval: Double = 0.5
     private let AutoFadeOutTimeInterval: Double = 5.0
@@ -51,19 +50,12 @@ public class SHVideoPlayer: UIView {
         playerControl.titleLabel?.text = title
         videoItemURL = url
         playerLayer.configPlayer()
-        hasURLSet = true
         self.preparePlayerScrubber()
         self.playerScrubber.initComponents()
-        //TODO: call play body only when player has loaded item aynchronously
         //TODO: changing video causes crash now, fix it
-        self.play()
     }
     
-    private func play() {
-        if !hasURLSet {
-            playerLayer.configPlayer()
-            hasURLSet = true
-        }
+    fileprivate func play() {
         self.playerScrubber?.play()
     }
     
@@ -178,6 +170,10 @@ public class SHVideoPlayer: UIView {
 }
 
 extension SHVideoPlayer: SHVideoPlayerScrubberDelegate {
+    
+    public func playerIsReadyToPlay() {
+        self.play()
+    }
     
     public func playerStateDidChange(isPlaying: Bool) {
         if isPlaying {

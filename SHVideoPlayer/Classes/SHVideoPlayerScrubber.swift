@@ -57,22 +57,18 @@ public class SHVideoPlayerScrubber: NSObject {
                 let playerItem = AVPlayerItem(asset: asset)
                 //should showActivityIndicator()
                 self.player.replaceCurrentItem(with: playerItem)
-                self.preloadVideoFrame()
-                self.setUpPlayer()
+                self.tryToPlayVideo()
             }
         })
     }
     
     //TODO: fix this
-    private func preloadVideoFrame() {
+    private func tryToPlayVideo() {
         if player.status == .readyToPlay {
-            self.player.preroll(atRate: 0.0) { (preRolled) in
-                if preRolled {
-                    DispatchQueue.main.async {
-                        //TODO: do shomething
-                        //self.showPlayerControlViews()
-                    }
-                }
+            //TODO: do shomething
+            self.setUpPlayer()
+            if self.delegate != nil {
+                self.delegate?.playerIsReadyToPlay()
             }
         }
     }
