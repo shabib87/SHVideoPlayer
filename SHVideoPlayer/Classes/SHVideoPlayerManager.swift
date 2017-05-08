@@ -23,6 +23,7 @@ final class SHVideoPlayerManager: NSObject {
     private var durationLabel: UILabel
     private var remainingTimeLabel: UILabel
     private var playButton: UIButton
+    private var activityIndicatorView: UIActivityIndicatorView
     
     private var timeObserver: Any?
     private var playbackStalledObserver: NSObjectProtocol?
@@ -38,13 +39,14 @@ final class SHVideoPlayerManager: NSObject {
         }
     }
     
-     init(with player:AVPlayer, slider: UISlider, currentTimeLabel: UILabel, durationLabel: UILabel, remainingTimeLabel: UILabel, playButton: UIButton) {
+    init(with player:AVPlayer, slider: UISlider, currentTimeLabel: UILabel, durationLabel: UILabel, remainingTimeLabel: UILabel, playButton: UIButton, activityIndicatorView: UIActivityIndicatorView) {
         self.player = player
         self.slider = slider
         self.currentTimeLabel = currentTimeLabel
         self.durationLabel = durationLabel
         self.remainingTimeLabel = remainingTimeLabel
         self.playButton = playButton
+        self.activityIndicatorView = activityIndicatorView
     }
     
     func initComponents() {
@@ -55,12 +57,12 @@ final class SHVideoPlayerManager: NSObject {
     
     //TODO: fix this
     private func updateVideoPlayerItem() {
+        self.activityIndicatorView.startAnimating()
         let asset = AVAsset(url: videoItemURL)
         asset.loadValuesAsynchronously(forKeys: [SHVideoPlayerConstants.playable], completionHandler: {
             DispatchQueue.main.async {
                 self.removeCurrentItemObserver()
                 let playerItem = AVPlayerItem(asset: asset)
-                //should showActivityIndicator()
                 self.player.replaceCurrentItem(with: playerItem)
                 self.tryToPlayVideo()
             }
@@ -324,10 +326,9 @@ final class SHVideoPlayerManager: NSObject {
         self.player.currentItem?.removeObserver(self, forKeyPath: SHVideoPlayerConstants.duration)
     }
     
-    func teardownVideoCapture() {
-        // TODO: play did end stop
+    private func removePlaybackStalledObserver() {
         if playbackStalledObserver != nil {
-            NotificationCenter.default.removeObserver(playbackStalledObserver!)
+            NotificationCenter.default.removeObserver(playbackStalledObserver as Any)
             playbackStalledObserver = nil
         }
     }
@@ -341,19 +342,17 @@ final class SHVideoPlayerManager: NSObject {
         } else { print("SHVideoPlayerManager: performDurationObserverChanges() :- player current item is nil"); return }
     }
     
-    //TODO: fix
     private func playerIsBuffering() {
-        print("playerIsBuffering: ******Show loading screen")
+        self.activityIndicatorView.startAnimating()
     }
-    //TODO: fix
+    
     private func updateBufferingStatus() {
-        if (player.rate > 0) {
-            print("Hide loading screen********")
+        if (player.rate > 0 && self.activityIndicatorView.isAnimating) {
+            self.activityIndicatorView.stopAnimating()
         }
     }
     
     //MARK: observer kvo
-    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == SHVideoPlayerConstants.duration {
             performDurationObserverChanges()

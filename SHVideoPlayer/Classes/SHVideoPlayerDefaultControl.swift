@@ -10,23 +10,24 @@ import UIKit
 
 public class SHVideoPlayerDefaultControl: UIView {
     
-    var _titleLabel = UILabel()
-    var _currentTimeLabel = UILabel()
-    var _durationLabel = UILabel()
-    var _remainingTimeLabel = UILabel()
+    fileprivate var _titleLabel = UILabel()
+    fileprivate var _currentTimeLabel = UILabel()
+    fileprivate var _durationLabel = UILabel()
+    fileprivate var _remainingTimeLabel = UILabel()
     
-    var _playButton = UIButton(type: .custom)
-    var _backButton = UIButton(type: .custom)
-    var _fullScreenButton = UIButton(type: .custom)
+    fileprivate var _playButton = UIButton(type: .custom)
+    fileprivate var _backButton = UIButton(type: .custom)
+    fileprivate var _fullScreenButton = UIButton(type: .custom)
     
-    var _timeSlider = UISlider()
-    var _progressView = UIProgressView()
+    fileprivate var _timeSlider = UISlider()
+    fileprivate var _progressView = UIProgressView()
+    fileprivate var _activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
     
-    var bgContainerView = UIView()
-    var topContainerView = UIView()
-    var bottomContainerView = UIView()
+    fileprivate var bgContainerView = UIView()
+    fileprivate var topContainerView = UIView()
+    fileprivate var bottomContainerView = UIView()
     
-    var isFullScreen = false
+    fileprivate var isFullScreen = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,6 +45,7 @@ public class SHVideoPlayerDefaultControl: UIView {
         bgContainerView.addSubview(topContainerView)
         bgContainerView.addSubview(bottomContainerView)
         bgContainerView.addSubview(_playButton)
+        bgContainerView.addSubview(_activityIndicatorView)
     }
     
     private func configureTopContainerView() {
@@ -159,6 +161,7 @@ public class SHVideoPlayerDefaultControl: UIView {
     private func addConstraintsToComponents() {
         setBGContainers()
         setTopLayerContents()
+        setActivityIndicatorViewConstraints()
         setPlayButtonConstraints()
         setBottomLayerContents()
     }
@@ -230,6 +233,14 @@ public class SHVideoPlayerDefaultControl: UIView {
         _fullScreenButton.widthAnchor.constraint(equalToConstant: 42.0).isActive = true
     }
     
+    private func setActivityIndicatorViewConstraints() {
+        _activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        _activityIndicatorView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        _activityIndicatorView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        _activityIndicatorView.heightAnchor.constraint(equalToConstant: 42.0).isActive = true
+        _activityIndicatorView.widthAnchor.constraint(equalToConstant: 42.0).isActive = true
+    }
+    
     private func setPlayButtonConstraints() {
         _playButton.translatesAutoresizingMaskIntoConstraints = false
         _playButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
@@ -291,6 +302,7 @@ extension SHVideoPlayerDefaultControl: SHVideoPlayerControl {
     
     public var timeSlider: UISlider? { get { return  _timeSlider } }
     public var progressView: UIProgressView? { get { return  _progressView } }
+    public var activityIndicatorView: UIActivityIndicatorView? { get { return _activityIndicatorView } }
     
     public var controlView: UIView { return self }
     

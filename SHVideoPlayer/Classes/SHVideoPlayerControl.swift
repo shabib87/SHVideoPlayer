@@ -21,6 +21,7 @@ public protocol SHVideoPlayerControl  {
     
     var timeSlider: UISlider? { get }
     var progressView: UIProgressView? { get }
+    var activityIndicatorView: UIActivityIndicatorView? { get }
     
     var controlView: UIView { get }
     

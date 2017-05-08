@@ -126,11 +126,12 @@ public class SHVideoPlayer: UIView {
             let remainingTimeLabel = playerControl.remainingTimeLabel,
             let currentTimeLabel = playerControl.currentTimeLabel,
             let playButton = playerControl.playButton,
+            let activityIndicatorView = playerControl.activityIndicatorView,
             let itemURL = videoItemURL else {
                 print("SHVideoPlayer: createPlayerManager():- One or some of the manager items are nil")
                 return
         }
-        self.playerManager = SHVideoPlayerManager(with: player, slider: timeSlider, currentTimeLabel: currentTimeLabel, durationLabel: durationLabel, remainingTimeLabel: remainingTimeLabel, playButton: playButton)
+        self.playerManager = SHVideoPlayerManager(with: player, slider: timeSlider, currentTimeLabel: currentTimeLabel, durationLabel: durationLabel, remainingTimeLabel: remainingTimeLabel, playButton: playButton, activityIndicatorView: activityIndicatorView)
         self.playerManager.videoItemURL = itemURL
     }
     
