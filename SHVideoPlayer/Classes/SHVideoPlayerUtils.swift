@@ -32,7 +32,7 @@ final class SHVideoPlayerUtils: NSObject {
     }
 }
 
-extension UIColor {
+public extension UIColor {
     
     class func progressBarTintColor() -> UIColor {
         return UIColor(red: 1.0, green: 0.8, blue: 0.8, alpha: 1.0)

@@ -37,13 +37,14 @@ public class SHVideoPlayer: UIView {
         self.initUI()
     }
     
-    public convenience init (customPlayerControl: SHVideoPlayerControl?) {
+    public convenience init (playerControl: SHVideoPlayerControl?) {
         self.init(frame:CGRect.zero)
+        self.customPlayerControl = playerControl
         self.initUI()
     }
     
     public convenience init() {
-        self.init(customPlayerControl:nil)
+        self.init(playerControl:nil)
     }
     
     public func playWithURL(_ url: URL, title: String = "") {
