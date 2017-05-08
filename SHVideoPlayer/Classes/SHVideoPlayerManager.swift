@@ -56,7 +56,7 @@ final class SHVideoPlayerManager: NSObject {
     //TODO: fix this
     private func updateVideoPlayerItem() {
         let asset = AVAsset(url: videoItemURL)
-        asset.loadValuesAsynchronously(forKeys: [SHVideoPlayerConstants.ObserverKey.playable], completionHandler: {
+        asset.loadValuesAsynchronously(forKeys: [SHVideoPlayerConstants.playable], completionHandler: {
             DispatchQueue.main.async {
                 self.removeCurrentItemObserver()
                 let playerItem = AVPlayerItem(asset: asset)
@@ -92,9 +92,9 @@ final class SHVideoPlayerManager: NSObject {
     private func addPlayerItemPlayDurationObserver() {
         if let duration = self.player.currentItem?.duration {
             if !CMTIME_IS_VALID(duration) || CMTIME_IS_INDEFINITE(duration) {
-                self.player.currentItem?.addObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration, options: .new, context: nil)
+                self.player.currentItem?.addObserver(self, forKeyPath: SHVideoPlayerConstants.duration, options: .new, context: nil)
             }
-        } else { print("SHVideoPlayerScrubber: addPlayerItemPlayDurationObserver() :- duration is nil"); return }
+        } else { print("SHVideoPlayerManager: addPlayerItemPlayDurationObserver() :- duration is nil"); return }
     }
     
     private func setSliderTapAction() {
@@ -174,7 +174,7 @@ final class SHVideoPlayerManager: NSObject {
             updateBufferingStatus()
             self.updateTimeLabels(currentItem: currentItem)
         } else {
-            print("SHVideoPlayerScrubber: playerTimeChanged() :- player current item is nil")
+            print("SHVideoPlayerManager: playerTimeChanged() :- player current item is nil")
         }
     }
     
@@ -198,7 +198,7 @@ final class SHVideoPlayerManager: NSObject {
         if let currentItem = self.player.currentItem {
             self.updatePlayerWith(currentItem: currentItem,  playIfNeeded: playIfNeeded)
         } else {
-            print("SHVideoPlayerScrubber: updatePlayer(playIfNeededplayer) :- current item is nil")
+            print("SHVideoPlayerManager: updatePlayer(playIfNeededplayer) :- current item is nil")
         }
     }
     
@@ -321,7 +321,7 @@ final class SHVideoPlayerManager: NSObject {
     }
     
     private func removeCurrentItemObserver() {
-        self.player.currentItem?.removeObserver(self, forKeyPath: SHVideoPlayerConstants.ObserverKey.duration)
+        self.player.currentItem?.removeObserver(self, forKeyPath: SHVideoPlayerConstants.duration)
     }
     
     func teardownVideoCapture() {
@@ -338,7 +338,7 @@ final class SHVideoPlayerManager: NSObject {
                 removeCurrentItemObserver()
                 playerTimeChanged()
             }
-        } else { print("SHVideoPlayerScrubber: performDurationObserverChanges() :- player current item is nil"); return }
+        } else { print("SHVideoPlayerManager: performDurationObserverChanges() :- player current item is nil"); return }
     }
     
     //TODO: fix
@@ -355,7 +355,7 @@ final class SHVideoPlayerManager: NSObject {
     //MARK: observer kvo
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == SHVideoPlayerConstants.ObserverKey.duration {
+        if keyPath == SHVideoPlayerConstants.duration {
             performDurationObserverChanges()
         }
     }

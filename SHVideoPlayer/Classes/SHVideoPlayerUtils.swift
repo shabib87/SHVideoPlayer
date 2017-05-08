@@ -10,10 +10,8 @@ import Foundation
 
 struct SHVideoPlayerConstants {
     
-    struct ObserverKey {
-        static let duration = "kDurationKey"
-        static let playable = "kPlayableKey"
-    }
+    static let duration = "durationKey"
+    static let playable = "playable"
 }
 
 final class SHVideoPlayerUtils: NSObject {

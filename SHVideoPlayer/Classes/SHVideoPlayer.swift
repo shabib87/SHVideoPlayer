@@ -50,7 +50,7 @@ public class SHVideoPlayer: UIView {
         playerControl.titleLabel?.text = title
         videoItemURL = url
         playerLayer.configPlayer()
-        self.preparePlayerScrubber()
+        self.preparePlayerManager()
         self.playerManager.initComponents()
         //TODO: changing video causes crash now, fix it
     }
@@ -113,13 +113,13 @@ public class SHVideoPlayer: UIView {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: nil) { notification in self.playerManager?.play() }
     }
     
-    private func preparePlayerScrubber() {
+    private func preparePlayerManager() {
         self.playerManager = nil
-        self.createPlayerScrubber()
+        self.createPlayerManager()
         self.playerManager.delegate = self
     }
     
-    private func createPlayerScrubber() {
+    private func createPlayerManager() {
         guard let player = playerLayer.player,
             let timeSlider = playerControl.timeSlider,
             let durationLabel = playerControl.durationLabel,
@@ -127,7 +127,7 @@ public class SHVideoPlayer: UIView {
             let currentTimeLabel = playerControl.currentTimeLabel,
             let playButton = playerControl.playButton,
             let itemURL = videoItemURL else {
-                print("SHVideoPlayer: createPlayerScrubber():- One or some of the scrubber items are nil")
+                print("SHVideoPlayer: createPlayerManager():- One or some of the manager items are nil")
                 return
         }
         self.playerManager = SHVideoPlayerManager(with: player, slider: timeSlider, currentTimeLabel: currentTimeLabel, durationLabel: durationLabel, remainingTimeLabel: remainingTimeLabel, playButton: playButton)
