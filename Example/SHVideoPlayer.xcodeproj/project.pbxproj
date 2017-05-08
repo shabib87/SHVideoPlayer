@@ -16,12 +16,8 @@
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		7F92F511D4EE1604BEA5F8D4 /* Pods_SHVideoPlayer_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D3ACE9B5759FCC64099BAD0 /* Pods_SHVideoPlayer_Tests.framework */; };
 		F0071A761E4EE5AE0026046F /* RougeOneTrailer.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F0071A751E4EE5AE0026046F /* RougeOneTrailer.mp4 */; };
-		F0187E6A1E37E58600DDD9C4 /* VideoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0187E691E37E58600DDD9C4 /* VideoDataSource.swift */; };
-		F0187E6C1E37E80700DDD9C4 /* VideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0187E6B1E37E80700DDD9C4 /* VideoTableViewCell.swift */; };
 		F03A7F441E59E284004861CB /* SHNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03A7F431E59E284004861CB /* SHNavigationController.swift */; };
-		F077215A1E34D47400AA9258 /* SHVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07721591E34D47400AA9258 /* SHVideo.swift */; };
 		F07BCA6F1E4F8BA800673D69 /* MainMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07BCA6E1E4F8BA800673D69 /* MainMenuVC.swift */; };
-		F07BCA711E4F8BBC00673D69 /* VideoListPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07BCA701E4F8BBC00673D69 /* VideoListPlayerVC.swift */; };
 		F0D940AF1EC0DB4100F6152F /* CustomPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D940AE1EC0DB4100F6152F /* CustomPlayerVC.swift */; };
 		F0D940B11EC0DC2900F6152F /* SHVideoPlayerCustomControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D940B01EC0DC2900F6152F /* SHVideoPlayerCustomControl.swift */; };
 /* End PBXBuildFile section */
@@ -57,12 +53,8 @@
 		B8F153600D4176CF53F4993E /* Pods-SHVideoPlayer_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SHVideoPlayer_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SHVideoPlayer_Example/Pods-SHVideoPlayer_Example.release.xcconfig"; sourceTree = "<group>"; };
 		C89D71DF7E05AD1B58A3F0D9 /* Pods-SHVideoPlayer_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SHVideoPlayer_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SHVideoPlayer_Example/Pods-SHVideoPlayer_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		F0071A751E4EE5AE0026046F /* RougeOneTrailer.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = RougeOneTrailer.mp4; sourceTree = "<group>"; };
-		F0187E691E37E58600DDD9C4 /* VideoDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDataSource.swift; sourceTree = "<group>"; };
-		F0187E6B1E37E80700DDD9C4 /* VideoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoTableViewCell.swift; sourceTree = "<group>"; };
 		F03A7F431E59E284004861CB /* SHNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHNavigationController.swift; sourceTree = "<group>"; };
-		F07721591E34D47400AA9258 /* SHVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHVideo.swift; sourceTree = "<group>"; };
 		F07BCA6E1E4F8BA800673D69 /* MainMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuVC.swift; sourceTree = "<group>"; };
-		F07BCA701E4F8BBC00673D69 /* VideoListPlayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoListPlayerVC.swift; sourceTree = "<group>"; };
 		F0D940AE1EC0DB4100F6152F /* CustomPlayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPlayerVC.swift; sourceTree = "<group>"; };
 		F0D940B01EC0DC2900F6152F /* SHVideoPlayerCustomControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHVideoPlayerCustomControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,7 +105,6 @@
 			children = (
 				F0D940AA1EC0DAE400F6152F /* Resources */,
 				F0D940AB1EC0DAFC00F6152F /* View Controllers */,
-				F0D940AC1EC0DB1700F6152F /* Model */,
 				F0D940AD1EC0DB2500F6152F /* Custom Views */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				F03A7F431E59E284004861CB /* SHNavigationController.swift */,
@@ -193,26 +184,15 @@
 			isa = PBXGroup;
 			children = (
 				607FACD71AFB9204008FA782 /* DefaultPlayerVC.swift */,
-				F07BCA701E4F8BBC00673D69 /* VideoListPlayerVC.swift */,
 				F07BCA6E1E4F8BA800673D69 /* MainMenuVC.swift */,
 				F0D940AE1EC0DB4100F6152F /* CustomPlayerVC.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
-		F0D940AC1EC0DB1700F6152F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				F07721591E34D47400AA9258 /* SHVideo.swift */,
-				F0187E691E37E58600DDD9C4 /* VideoDataSource.swift */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
 		F0D940AD1EC0DB2500F6152F /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				F0187E6B1E37E80700DDD9C4 /* VideoTableViewCell.swift */,
 				F0D940B01EC0DC2900F6152F /* SHVideoPlayerCustomControl.swift */,
 			);
 			name = "Custom Views";
@@ -427,12 +407,8 @@
 				607FACD81AFB9204008FA782 /* DefaultPlayerVC.swift in Sources */,
 				F07BCA6F1E4F8BA800673D69 /* MainMenuVC.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-				F0187E6A1E37E58600DDD9C4 /* VideoDataSource.swift in Sources */,
-				F07BCA711E4F8BBC00673D69 /* VideoListPlayerVC.swift in Sources */,
 				F0D940B11EC0DC2900F6152F /* SHVideoPlayerCustomControl.swift in Sources */,
-				F077215A1E34D47400AA9258 /* SHVideo.swift in Sources */,
 				F03A7F441E59E284004861CB /* SHNavigationController.swift in Sources */,
-				F0187E6C1E37E80700DDD9C4 /* VideoTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
