@@ -35,7 +35,7 @@ final class SHVideoPlayerManager: NSObject {
     
     var videoItemURL: URL! {
         didSet {
-            updateVideoPlayerItem()
+            self.updateVideoPlayerItem()
         }
     }
     
@@ -82,10 +82,10 @@ final class SHVideoPlayerManager: NSObject {
     
     private func setUpPlayer() {
         self.pause()
-        removeTimeObserver()
+        self.removeTimeObserver()
         self.framesPerSecond = nominalFrameRateForPlayer()
-        setupTimeObserver()
-        updateCurrentTimeLabelWithTime(time: 0)
+        self.setupTimeObserver()
+        self.updateCurrentTimeLabelWithTime(time: 0)
         self.addPlayerItemPlayDurationObserver()
         self.addPlaybackStallObserver()
         self.addPlayerDidEndPlayingVideoObserver()
@@ -173,7 +173,7 @@ final class SHVideoPlayerManager: NSObject {
     
     private func playerTimeChanged() {
         if  let currentItem = self.player.currentItem {
-            updateBufferingStatus()
+            self.updateBufferingStatus()
             self.updateTimeLabels(currentItem: currentItem)
         } else {
             print("SHVideoPlayerManager: playerTimeChanged() :- player current item is nil")
@@ -192,8 +192,8 @@ final class SHVideoPlayerManager: NSObject {
             updateDurationLabelWithTime(time: duratoinInSeconds)
         }
         self.slider.value = Float(ratio)
-        updateCurrentTimeLabelWithTime(time: secondsElapsed)
-        updateRemainingTimeLabelWithTime(time: duratoinInSeconds - secondsElapsed)
+        self.updateCurrentTimeLabelWithTime(time: secondsElapsed)
+        self.updateRemainingTimeLabelWithTime(time: duratoinInSeconds - secondsElapsed)
     }
     
     private func updatePlayer(playIfNeeded: Bool) {
@@ -215,8 +215,7 @@ final class SHVideoPlayerManager: NSObject {
         })
     }
     
-    //MARK: actions 
-    
+    //MARK: actions
     @objc private func sliderTapAction(gesture: UITapGestureRecognizer) {
         if self.slider.isHighlighted { return }
         let isPlaying = self.player.rate > 0
@@ -226,7 +225,7 @@ final class SHVideoPlayerManager: NSObject {
         let point = gesture.location(in: self.slider)
         let value = self.seekValueFromSliderTap(point: point, thumbWidth: thumbWidth)
         self.slider.setValue(value, animated: true)
-        updatePlayer(playIfNeeded: isPlaying)
+        self.updatePlayer(playIfNeeded: isPlaying)
     }
     
     private func seekValueFromSliderTap(point: CGPoint, thumbWidth: CGFloat) -> Float {
@@ -248,7 +247,7 @@ final class SHVideoPlayerManager: NSObject {
             playAfterDrag = self.player.rate > 0
             self.pause()
         }
-        updatePlayer(playIfNeeded: touch?.phase == .ended)
+        self.updatePlayer(playIfNeeded: touch?.phase == .ended)
     }
     
     @objc private func playPauseButtonAction(button: UIButton) {

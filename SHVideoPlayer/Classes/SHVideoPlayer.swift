@@ -50,9 +50,9 @@ public class SHVideoPlayer: UIView {
         playerControl.titleLabel?.text = title
         videoItemURL = url
         playerLayer.configPlayer()
+        //TODO: changing video causes crash now, fix it
         self.preparePlayerManager()
         self.playerManager.initComponents()
-        //TODO: changing video causes crash now, fix it
     }
     
     fileprivate func play() {
@@ -68,9 +68,9 @@ public class SHVideoPlayer: UIView {
         playerControl = self.playerControlView()
         self.addSubview(playerControl.controlView)
         self.orientationHandler = SHVideoPlayerOrientationHandler(playerControlView: playerControl)
-        setupPlayerControlView()
-        playerControl.backButton?.addTarget(self, action: #selector(self.backButtonAction(_:)), for: .touchUpInside)
-        tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGestureTapped(_:)))
+        self.setupPlayerControlView()
+        self.playerControl.backButton?.addTarget(self, action: #selector(self.backButtonAction(_:)), for: .touchUpInside)
+        self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGestureTapped(_:)))
         self.addGestureRecognizer(tapGesture)
     }
     
@@ -93,7 +93,7 @@ public class SHVideoPlayer: UIView {
     private func preparePlayer() {
         playerLayer = SHVideoPlayerLayer()
         playerLayer.backgroundColor = .black
-        setupPlayerLayer()
+        self.setupPlayerLayer()
         self.addPlayerObservers()
         self.layoutIfNeeded()
     }
