@@ -16,7 +16,8 @@ class CustomPlayerVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        videoPlayer = SHVideoPlayer(playerControl: SHVideoPlayerCustomControl())
+        let customPlayerControl = SHVideoPlayerCustomControl()
+        videoPlayer = SHVideoPlayer(playerControl: customPlayerControl)
         playerContainer.addSubview(videoPlayer)
         videoPlayer.translatesAutoresizingMaskIntoConstraints = false
         videoPlayer.leadingAnchor.constraint(equalTo: playerContainer.leadingAnchor).isActive = true
