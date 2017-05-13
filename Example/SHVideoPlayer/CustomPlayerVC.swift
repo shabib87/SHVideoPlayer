@@ -19,14 +19,18 @@ class CustomPlayerVC: UIViewController {
         let customPlayerControl = SHVideoPlayerCustomControl()
         videoPlayer = SHVideoPlayer(playerControl: customPlayerControl)
         playerContainer.addSubview(videoPlayer)
+        self.layoutVideoPlayer()
+        videoPlayer.backActionCompletionHandler = {() in
+            _ = self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    private func layoutVideoPlayer() {
         videoPlayer.translatesAutoresizingMaskIntoConstraints = false
         videoPlayer.leadingAnchor.constraint(equalTo: playerContainer.leadingAnchor).isActive = true
         videoPlayer.trailingAnchor.constraint(equalTo: playerContainer.trailingAnchor).isActive = true
         videoPlayer.topAnchor.constraint(equalTo: playerContainer.topAnchor).isActive = true
         videoPlayer.bottomAnchor.constraint(equalTo: playerContainer.bottomAnchor).isActive = true
-        videoPlayer.backActionCompletionHandler = {() in
-            _ = self.navigationController?.popViewController(animated: true)
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
